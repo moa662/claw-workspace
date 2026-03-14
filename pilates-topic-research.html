@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>普拉提B端内容选题研究报告 v2</title>
+<style>
+:root{
+  --bg:#0a0c10;
+  --s1:#111318;
+  --s2:#181c24;
+  --s3:#1e2330;
+  --bd:#252b3b;
+  --bd2:#2e3650;
+  --a1:#c8a96e;
+  --a2:#e8c98a;
+  --a3:#8b6c3e;
+  --g1:#4ade80;
+  --b1:#60a5fa;
+  --p1:#c084fc;
+  --r1:#f87171;
+  --o1:#fb923c;
+  --t1:#e2e8f0;
+  --t2:#94a3b8;
+  --t3:#64748b;
+  --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--t1);font-family:'PingFang SC','Microsoft YaHei','Segoe UI',system-ui,sans-serif;min-height:100vh;}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px;}
+
+/* HERO */
+.hero{
+  background:linear-gradient(160deg,#0a0c10 0%,#141826 50%,#0f1420 100%);
+  border-bottom:1px solid var(--bd);
+  padding:56px 24px 48px;text-align:center;position:relative;overflow:hidden;
+}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(200,169,110,.12),transparent);pointer-events:none;}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--a3);border-radius:20px;padding:4px 14px;font-size:12px;color:var(--a1);background:rgba(200,169,110,.08);margin-bottom:20px;}
+.hero h1{font-size:clamp(24px,4vw,40px);font-weight:800;letter-spacing:-.5px;line-height:1.2;margin-bottom:12px;}
+.hero h1 span{background:linear-gradient(135deg,var(--a1),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:15px;color:var(--t2);max-width:580px;margin:0 auto 28px;line-height:1.7;}
+.hero-meta{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;}
+.meta-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--t3);}
+.meta-dot{width:6px;height:6px;border-radius:50%;}
+
+/* NAV */
+.sticky-nav{position:sticky;top:0;z-index:50;background:rgba(10,12,16,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);padding:0 24px;}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;gap:4px;overflow-x:auto;padding:8px 0;}
+.nav-inner::-webkit-scrollbar{height:0;}
+.nav-btn{white-space:nowrap;padding:6px 16px;border-radius:8px;font-size:13px;cursor:pointer;border:none;background:none;color:var(--t2);transition:all .2s;}
+.nav-btn:hover{color:var(--t1);background:var(--s2);}
+.nav-btn.active{background:rgba(200,169,110,.15);color:var(--a1);}
+
+/* LAYOUT */
+.page{max-width:1100px;margin:0 auto;padding:40px 24px 80px;}
+.section{margin-bottom:60px;}
+.sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px;}
+.sec-num{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--a3),var(--a1));display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff;flex-shrink:0;}
+.sec-title h2{font-size:20px;font-weight:700;margin-bottom:4px;}
+.sec-title p{font-size:13px;color:var(--t2);line-height:1.6;}
+
+/* HOT GRID */
+.hot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;}
+.hot-card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--radius);padding:16px 18px;transition:all .2s;position:relative;overflow:hidden;}
+.hot-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--card-color,var(--a1));}
+.hot-card:hover{border-color:var(--card-color,var(--a1));background:var(--s2);transform:translateY(-2px);}
+.hot-top{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.hot-icon{font-size:18px;}
+.hot-label{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;background:rgba(255,255,255,.06);color:var(--t2);}
+.hot-heat{margin-left:auto;font-size:11px;color:var(--r1);}
+.hot-card h3{font-size:14px;font-weight:600;margin-bottom:6px;line-height:1.4;}
+.hot-card p{font-size:12px;color:var(--t2);line-height:1.6;}
+.hot-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
+.htag{font-size:10px;padding:2px 7px;border-radius:3px;background:rgba(200,169,110,.1);color:var(--a1);border:1px solid rgba(200,169,110,.2);}
+
+/* 痛点地图 */
+.pain-intro{background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.2);border-radius:var(--radius);padding:16px 20px;margin-bottom:20px;font-size:13px;color:var(--t2);line-height:1.7;}
+.pain-intro strong{color:var(--r1);}
+.pain-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
+.pain-card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--radius);padding:16px 18px;transition:all .2s;}
+.pain-card:hover{background:var(--s2);border-color:var(--bd2);}
+.pain-top{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.pain-rank{width:26px;height:26px;border-radius:6px;background:var(--pain-color,#f87171);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0;}
+.pain-card h3{font-size:14px;font-weight:600;}
+.pain-card .sub{font-size:12px;color:var(--t3);margin-bottom:8px;}
+.pain-card p{font-size:12px;color:var(--t2);line-height:1.65;}
+.pain-heat{display:flex;align-items:center;gap:6px;margin-top:10px;}
+.heat-label{font-size:11px;color:var(--t3);}
+.heat-bar{flex:1;height:5px;background:var(--s3);border-radius:3px;overflow:hidden;}
+.heat-fill{height:100%;border-radius:3px;background:var(--pain-color,#f87171);}
+.heat-pct{font-size:11px;font-weight:600;color:var(--pain-color,#f87171);}
+
+/* TREND */
+.trend-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.trend-card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--radius);padding:20px;}
+.trend-head{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.trend-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.trend-card h3{font-size:15px;font-weight:600;}
+.trend-card p{font-size:12px;color:var(--t2);margin-top:2px;}
+.bar-list{display:flex;flex-direction:column;gap:10px;}
+.bar-item{display:flex;flex-direction:column;gap:4px;}
+.bar-row{display:flex;align-items:center;justify-content:space-between;}
+.bar-name{font-size:12px;color:var(--t2);}
+.bar-pct{font-size:12px;font-weight:600;}
+.bar-bg{height:6px;background:var(--s3);border-radius:3px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:3px;}
+.insight-list{display:flex;flex-direction:column;gap:8px;}
+.insight-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:8px;background:var(--s2);font-size:13px;line-height:1.6;}
+.insight-dot{width:6px;height:6px;border-radius:50%;margin-top:7px;flex-shrink:0;}
+
+/* TOPIC CARDS */
+.topics-list{display:flex;flex-direction:column;gap:14px;}
+.topic-card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--radius);overflow:hidden;transition:all .2s;cursor:pointer;}
+.topic-card:hover{border-color:rgba(200,169,110,.35);background:var(--s2);}
+.topic-card.open .tc-body{grid-template-rows:1fr;}
+.topic-card.open .tc-arrow{transform:rotate(180deg);}
+.tc-head{display:flex;align-items:center;gap:14px;padding:16px 20px;}
+.tc-num{width:32px;height:32px;border-radius:8px;flex-shrink:0;background:linear-gradient(135deg,var(--a3),var(--a1));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;}
+.tc-main{flex:1;min-width:0;}
+.tc-theme{font-size:15px;font-weight:600;line-height:1.4;margin-bottom:6px;}
+.tc-pills{display:flex;flex-wrap:wrap;gap:5px;align-items:center;}
+.tc-pill{font-size:11px;padding:2px 8px;border-radius:3px;}
+.pill-format{background:rgba(96,165,250,.12);color:var(--b1);}
+.pill-audience{background:rgba(74,222,128,.12);color:var(--g1);}
+.pill-score{background:rgba(200,169,110,.15);color:var(--a1);font-weight:600;}
+/* 痛点标签 */
+.pill-pain-high{background:rgba(248,113,113,.18);color:#f87171;font-weight:700;border:1px solid rgba(248,113,113,.3);}
+.pill-pain-mid{background:rgba(251,146,60,.15);color:#fb923c;font-weight:600;border:1px solid rgba(251,146,60,.25);}
+.tc-arrow{font-size:12px;color:var(--t3);transition:transform .25s;flex-shrink:0;}
+.tc-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s;}
+.tc-inner{overflow:hidden;}
+.tc-detail{padding:0 20px 20px;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.detail-block{background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:14px;}
+.detail-block h4{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--t3);margin-bottom:8px;}
+.detail-block p{font-size:13px;color:var(--t2);line-height:1.7;}
+.detail-block ul{padding-left:16px;}
+.detail-block li{font-size:13px;color:var(--t2);line-height:1.8;list-style:disc;}
+/* 痛点详情块 */
+.pain-detail-block{background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.2);border-radius:8px;padding:14px;}
+.pain-detail-block h4{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:#f87171;margin-bottom:8px;}
+.pain-detail-block p{font-size:13px;color:var(--t1);line-height:1.7;}
+.value-block{grid-column:1/-1;background:rgba(200,169,110,.06);border:1px solid rgba(200,169,110,.2);border-radius:8px;padding:14px;}
+.value-block h4{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--a1);margin-bottom:8px;}
+.value-block p{font-size:13px;color:var(--t1);line-height:1.7;}
+
+/* CHANNEL — 视频号为主 */
+.channel-hero{
+  background:linear-gradient(135deg,rgba(7,193,96,.08),rgba(7,193,96,.03));
+  border:1px solid rgba(7,193,96,.25);border-radius:var(--radius);
+  padding:20px 24px;margin-bottom:20px;
+  display:flex;align-items:flex-start;gap:16px;
+}
+.ch-main-icon{font-size:40px;flex-shrink:0;}
+.ch-main-text h3{font-size:16px;font-weight:700;margin-bottom:6px;color:#07c160;}
+.ch-main-text p{font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:10px;}
+.ch-main-why{display:flex;flex-wrap:wrap;gap:6px;}
+.why-tag{font-size:11px;padding:3px 10px;border-radius:12px;background:rgba(7,193,96,.12);color:#07c160;border:1px solid rgba(7,193,96,.2);}
+
+.ch-video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+.ch-v-card{background:var(--s1);border:1px solid rgba(7,193,96,.2);border-radius:var(--radius);padding:16px;}
+.ch-v-card h4{font-size:13px;font-weight:600;margin-bottom:8px;color:#07c160;}
+.ch-v-tip{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:var(--t2);padding:5px 0;border-bottom:1px solid var(--bd);line-height:1.5;}
+.ch-v-tip:last-child{border-bottom:none;}
+.ch-v-tip::before{content:'▸';color:#07c160;flex-shrink:0;font-size:11px;margin-top:1px;}
+
+.sec-divider{font-size:12px;font-weight:600;color:var(--t3);letter-spacing:.8px;text-transform:uppercase;padding:0 4px;margin:20px 0 14px;display:flex;align-items:center;gap:8px;}
+.sec-divider::after{content:'';flex:1;height:1px;background:var(--bd);}
+
+.channel-others{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.ch-card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--radius);padding:18px;}
+.ch-card-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.ch-card-icon{font-size:22px;}
+.ch-card h3{font-size:14px;font-weight:600;}
+.ch-card .ch-sub{font-size:12px;color:var(--t3);margin-bottom:10px;}
+.ch-card p{font-size:12px;color:var(--t2);line-height:1.7;margin-bottom:10px;}
+.ch-tips{display:flex;flex-direction:column;}
+.ch-tip{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:var(--t2);padding:5px 0;border-bottom:1px solid var(--bd);line-height:1.5;}
+.ch-tip:last-child{border-bottom:none;}
+.ch-tip::before{content:'→';color:var(--a1);flex-shrink:0;font-size:11px;margin-top:1px;}
+
+/* SUMMARY */
+.summary-box{background:linear-gradient(135deg,rgba(200,169,110,.08),rgba(200,169,110,.04));border:1px solid rgba(200,169,110,.3);border-radius:var(--radius);padding:28px 32px;}
+.summary-box h3{font-size:18px;font-weight:700;margin-bottom:16px;color:var(--a2);}
+.sum-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.sum-item{display:flex;align-items:flex-start;gap:10px;padding:12px;background:rgba(0,0,0,.2);border-radius:8px;}
+.sum-item .icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.sum-item h4{font-size:13px;font-weight:600;margin-bottom:3px;}
+.sum-item p{font-size:12px;color:var(--t2);line-height:1.6;}
+
+footer{border-top:1px solid var(--bd);padding:24px;text-align:center;font-size:12px;color:var(--t3);}
+
+@media(max-width:768px){
+  .trend-grid,.channel-others,.sum-grid,.ch-video-grid{grid-template-columns:1fr;}
+  .tc-detail{grid-template-columns:1fr;}
+  .value-block,.pain-detail-block{grid-column:auto;}
+  .channel-hero{flex-direction:column;}
+}
+</style>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">✦ 普拉提行业 B端内容研究 · v2</div>
+  <h1>短视频选题<span>研究报告</span></h1>
+  <p class="hero-sub">以微信视频号为核心平台，深度挖掘普拉提馆主真实痛点，产出10个高度对应需求的短视频选题</p>
+  <div class="hero-meta">
+    <div class="meta-item"><div class="meta-dot" style="background:#07c160"></div>视频号为主平台</div>
+    <div class="meta-item"><div class="meta-dot" style="background:#c8a96e"></div>数据更新至 2026年3月</div>
+    <div class="meta-item"><div class="meta-dot" style="background:#f87171"></div>门店存活率不足 40%</div>
+    <div class="meta-item"><div class="meta-dot" style="background:#60a5fa"></div>市场规模 350亿元</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="sticky-nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="goTo('s1',this)">01 热点动态</button>
+    <button class="nav-btn" onclick="goTo('s2',this)">02 馆主痛点地图</button>
+    <button class="nav-btn" onclick="goTo('s3',this)">03 趋势分析</button>
+    <button class="nav-btn" onclick="goTo('s4',this)">04 十大选题</button>
+    <button class="nav-btn" onclick="goTo('s5',this)">05 追踪渠道</button>
+    <button class="nav-btn" onclick="goTo('s6',this)">06 策略总结</button>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- ══ S1 热点动态 ══ -->
+<section class="section" id="s1">
+  <div class="sec-head">
+    <div class="sec-num">01</div>
+    <div class="sec-title">
+      <h2>热点动态收集</h2>
+      <p>基于微信视频号、抖音、小红书、播客平台真实内容数据，梳理当前普拉提B端最活跃的内容方向</p>
+    </div>
+  </div>
+  <!-- 视频号热点区块 -->
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+    <div style="width:4px;height:18px;background:#07c160;border-radius:2px;flex-shrink:0;"></div>
+    <span style="font-size:13px;font-weight:700;color:#07c160;">📱 视频号热点 · 6条（占比60%）</span>
+    <div style="flex:1;height:1px;background:rgba(7,193,96,.2);margin-left:6px;"></div>
+  </div>
+
+  <div class="hot-grid" style="margin-bottom:24px;">
+    <div class="hot-card" style="--card-color:#07c160">
+      <div class="hot-top"><span class="hot-icon">📱</span><span class="hot-label" style="color:#07c160;background:rgba(7,193,96,.12);">视频号爆款</span><span class="hot-heat">🔥 超高热度</span></div>
+      <h3>馆主真实创业日记 — 从教练到老板的心路历程</h3>
+      <p>视频号上"普拉提教练半年开两家店""连锁店倒闭后我开了共享工作室"等真实叙事内容持续走红，微信熟人关系链加速裂变，B+C端双向传播。点赞≥200即达视频号爆款门槛。</p>
+      <div class="hot-tags"><span class="htag">创业故事</span><span class="htag">真实感</span><span class="htag" style="color:#07c160;border-color:rgba(7,193,96,.3);">📱 视频号</span></div>
+      <div style="margin-top:10px;padding:8px 10px;background:rgba(7,193,96,.06);border-radius:6px;border:1px solid rgba(7,193,96,.15);">
+        <div style="font-size:10px;color:#07c160;font-weight:600;margin-bottom:4px;">📎 参考来源</div>
+        <a href="https://www.xiaoyuzhoufm.com/episode/66d494f65a91beebb30a92b5" target="_blank" style="font-size:11px;color:#07c160;text-decoration:none;display:block;line-height:1.5;">「连锁店倒闭后我开了共享普拉提」小宇宙播客 →</a>
+        <a href="https://www.htknow.com/shows/20/655.html" target="_blank" style="font-size:11px;color:#07c160;text-decoration:none;display:block;line-height:1.5;margin-top:3px;">「视频号案例：普拉提老师知识付费获客实录」海豚知道 →</a>
+      </div>
+    </div>
+    <div class="hot-card" style="--card-color:#07c160">
+      <div class="hot-top"><span class="hot-icon">💰</span><span class="hot-label" style="color:#07c160;background:rgba(7,193,96,.12);">视频号高热</span><span class="hot-heat">🔥 持续高热</span></div>
+      <h3>收入数据公开 — "我开普拉提馆第一年赚了多少钱"引发刷屏</h3>
+      <p>视频号上馆主主动公开年收入、月成本、净利润的内容，在熟人关系链中疯狂传播。"30岁开了第一家普拉提馆"类标题在视频号完播率极高，私信咨询量直接拉爆。</p>
+      <div class="hot-tags"><span class="htag">数据公开</span><span class="htag">收入披露</span><span class="htag" style="color:#07c160;border-color:rgba(7,193,96,.3);">📱 视频号</span></div>
+      <div style="margin-top:10px;padding:8px 10px;background:rgba(7,193,96,.06);border-radius:6px;border:1px solid rgba(7,193,96,.15);">
+        <div style="font-size:10px;color:#07c160;font-weight:600;margin-bottom:4px;">📎 参考来源</div>
+        <a href="https://www.douyin.com/video/7616322230586542052" target="_blank" style="font-size:11px;color:#07c160;text-decoration:none;display:block;line-height:1.5;">「30岁我开了人生第一家普拉提馆」抖音 2026.03 →</a>
+        <a href="https://zhuanlan.zhihu.com/p/486007049" target="_blank" style="font-size:11px;color:#07c160;text-decoration:none;display:block;line-height:1.5;margin-top:3px;">「上海140平普拉提工作室开店1年真实财务数据」知乎 →</a>
+      </div>
+    </div>
+    <div class="hot-card" style="--card-color:#07c160">
+      <div class="hot-top"><span class="hot-icon">🛠️</span><span class="hot-label" style="color:#07c160;background:rgba(7,193,96,.12);">视频号干货</span><span class="hot-heat">📈 快速上升</span></div>
+      <h3>视频号冷启动实录 — 普拉提老师通过知识付费3个月学员破千</h3>
+      <p>普拉提教练葛老师通过"FT.零点普拉提"视频号账号，系统化发布知识付费内容，利用视频号社交属性和内置支付完成变现闭环。"在视频号教如何做视频号"形成meta传播效应，完播率极高。</p>
+      <div class="hot-tags"><span class="htag">账号运营</span><span class="htag">知识付费</span><span class="htag" style="color:#07c160;border-color:rgba(7,193,96,.3);">📱 视频号</span></div>
+      <div style="margin-top:10px;padding:8px 10px;background:rgba(7,193,96,.06);border-radius:6px;border:1px solid rgba(7,193,96,.15);">
+        <div style="font-size:10px;color:#07c160;font-weight:600;margin-bottom:4px;">📎 参考来源</div>
+        <a href="https://www.htknow.com/shows/20/655.html" target="_blank" style="font-size:11px;color:#07c160;text-decoration:none;display:block;line-height:1.5;">「视频号新机遇：普拉提老师如何通过知识付费获客」海豚知道 →</a>
+      </div>
+    </div>
+    <div class="hot-card" style="--card-color:#07c160">
+      <div class="hot-top"><span class="hot-icon">🏪</span><span class="hot-label" style="color:#07c160;background:rgba(7,193,96,.12);">视频号直播热</span><span class="hot-heat">💬 高互动</span></div>
+      <h3>馆主经营交流直播 — "真真有约·馆主锻造营"引发社群共鸣</h3>
+      <p>视频号直播形式的馆主经营交流节目持续活跃。"馆主锻造营"直播中关于排班管理、教练激励、卡项设计的实时问答，在微信群二次传播效率极高，直播观看完成率远高于抖音同类内容。</p>
+      <div class="hot-tags"><span class="htag">直播连麦</span><span class="htag">馆主社群</span><span class="htag" style="color:#07c160;border-color:rgba(7,193,96,.3);">📱 视频号</span></div>
+      <div style="margin-top:10px;padding:8px 10px;background:rgba(7,193,96,.06);border-radius:6px;border:1px solid rgba(7,193,96,.15);">
+        <div style="font-size:10px;color:#07c160;font-weight:600;margin-bottom:4px;">📎 参考来源</div>
+        <a href="https://haokan.baidu.com/v?pd=wisenatural&vid=230764073330838354" target="_blank" style="font-size:11px;color:#07c160;text-decoration:none;display:block;line-height:1.5;">「真真有约·馆主锻造营」瑜伽馆经营管理系列 →</a>
+        <a href="https://www.xiaoyuzhoufm.com/episode/670809f86c7f817786297c12" target="_blank" style="font-size:11px;color:#07c160;text-decoration:none;display:block;line-height:1.5;margin-top:3px;">「听完运营大师课，对普拉提馆彻底祛魅了」小宇宙 →</a>
+      </div>
+    </div>
+    <div class="hot-card" style="--card-color:#07c160">
+      <div class="hot-top"><span class="hot-icon">🌿</span><span class="hot-label" style="color:#07c160;background:rgba(7,193,96,.12);">视频号新趋势</span><span class="hot-heat">📈 上升中</span></div>
+      <h3>孕产普拉提蓝海 — 微信生态传播率最高的细分话题</h3>
+      <p>孕产、青少年体态、老年康复等细分赛道在视频号的分享率极高，因为微信用户本身具有强家庭属性。"普拉提+妇产科合作""青少年脊柱侧弯矫正"类视频在微信生态天然裂变，朋友圈分享量是抖音的3倍+。</p>
+      <div class="hot-tags"><span class="htag">孕产普拉提</span><span class="htag">细分赛道</span><span class="htag" style="color:#07c160;border-color:rgba(7,193,96,.3);">📱 视频号</span></div>
+      <div style="margin-top:10px;padding:8px 10px;background:rgba(7,193,96,.06);border-radius:6px;border:1px solid rgba(7,193,96,.15);">
+        <div style="font-size:10px;color:#07c160;font-weight:600;margin-bottom:4px;">📎 参考来源</div>
+        <a href="https://www.toutiao.com/article/7356506660053090835/" target="_blank" style="font-size:11px;color:#07c160;text-decoration:none;display:block;line-height:1.5;">「专访归位瑜伽创始人：青少年脊柱+老年康复普拉提」今日头条 →</a>
+      </div>
+    </div>
+    <div class="hot-card" style="--card-color:#07c160">
+      <div class="hot-top"><span class="hot-icon">🔗</span><span class="hot-label" style="color:#07c160;background:rgba(7,193,96,.12);">视频号+私域</span><span class="hot-heat">🔥 转化强</span></div>
+      <h3>视频号+社群+私教 — "三步成交闭环"成为馆主获客新标配</h3>
+      <p>2026年视频号内容种草→微信群私域承接→私教转化的完整链路成为普拉提馆主讨论最热话题。"短视频种草+直播+商品卡搜索流量三维一体"方法论在馆主社群高频传播，转化效率显著高于纯抖音投流。</p>
+      <div class="hot-tags"><span class="htag">私域闭环</span><span class="htag">转化路径</span><span class="htag" style="color:#07c160;border-color:rgba(7,193,96,.3);">📱 视频号</span></div>
+      <div style="margin-top:10px;padding:8px 10px;background:rgba(7,193,96,.06);border-radius:6px;border:1px solid rgba(7,193,96,.15);">
+        <div style="font-size:10px;color:#07c160;font-weight:600;margin-bottom:4px;">📎 参考来源</div>
+        <a href="https://www.douyin.com/video/7585883200871664953" target="_blank" style="font-size:11px;color:#07c160;text-decoration:none;display:block;line-height:1.5;">「瑜伽普拉提馆主如何做内容获客的成交闭环」抖音 2025.12 →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 其他平台热点区块 -->
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+    <div style="width:4px;height:18px;background:var(--a1);border-radius:2px;flex-shrink:0;"></div>
+    <span style="font-size:13px;font-weight:700;color:var(--a1);">🎵 抖音 / 小红书 / 播客热点 · 4条（占比40%）</span>
+    <div style="flex:1;height:1px;background:rgba(200,169,110,.2);margin-left:6px;"></div>
+  </div>
+
+  <div class="hot-grid">
+    <div class="hot-card" style="--card-color:#f87171">
+      <div class="hot-top"><span class="hot-icon">🔥</span><span class="hot-label">抖音持续热</span><span class="hot-heat">🔥 超高热度</span></div>
+      <h3>馆主困境公开讨论 — "普拉提馆老板的困境"搜索量激增</h3>
+      <p>抖音搜索词"普拉提馆老板的困境"在2026年2月热度骤升，涵盖辞退员工、退卡纠纷、商场馆难做等话题，痛感极强，引发大量同行共鸣。此话题也已反向渗透至视频号社群传播。</p>
+      <div class="hot-tags"><span class="htag">行业困境</span><span class="htag">痛点共鸣</span><span class="htag">🎵 抖音</span></div>
+      <div style="margin-top:10px;padding:8px 10px;background:rgba(248,113,113,.06);border-radius:6px;border:1px solid rgba(248,113,113,.15);">
+        <div style="font-size:10px;color:#f87171;font-weight:600;margin-bottom:4px;">📎 参考来源</div>
+        <a href="https://www.douyin.com/search/%E6%99%AE%E6%8B%89%E6%8F%90%E9%A6%86%E4%B8%BB%E7%90%86%E4%BA%BA%E7%BB%8F%E5%8E%86" target="_blank" style="font-size:11px;color:#f87171;text-decoration:none;display:block;line-height:1.5;">抖音搜索「普拉提馆主理人经历」→</a>
+      </div>
+    </div>
+    <div class="hot-card" style="--card-color:#c8a96e">
+      <div class="hot-top"><span class="hot-icon">💡</span><span class="hot-label">抖音经营干货</span><span class="hot-heat">📈 快速上升</span></div>
+      <h3>内容获客方法论 — 普拉提馆三步抖音获客SOP引爆讨论</h3>
+      <p>抖音上"瑜伽馆/普拉提工作室抖音代运营获客方案（3步法）"等干货类内容快速传播，将内容矩阵、精准投流、私域承接三步拆解为可操作SOP，馆主群体收藏率极高。</p>
+      <div class="hot-tags"><span class="htag">内容获客</span><span class="htag">SOP干货</span><span class="htag">🎵 抖音</span></div>
+      <div style="margin-top:10px;padding:8px 10px;background:rgba(200,169,110,.06);border-radius:6px;border:1px solid rgba(200,169,110,.15);">
+        <div style="font-size:10px;color:var(--a1);font-weight:600;margin-bottom:4px;">📎 参考来源</div>
+        <a href="https://www.sohu.com/a/987521312_122634865" target="_blank" style="font-size:11px;color:var(--a1);text-decoration:none;display:block;line-height:1.5;">「瑜伽馆/普拉提工作室抖音代运营获客方案3步法」搜狐 2026.02 →</a>
+        <a href="https://www.10100.com/article/46221560" target="_blank" style="font-size:11px;color:var(--a1);text-decoration:none;display:block;line-height:1.5;margin-top:3px;">「小红书瑜伽普拉提行业获客成本揭秘」大数跨境 2025.11 →</a>
+      </div>
+    </div>
+    <div class="hot-card" style="--card-color:#c084fc">
+      <div class="hot-top"><span class="hot-icon">😤</span><span class="hot-label">播客行业揭秘</span><span class="hot-heat">💬 高互动</span></div>
+      <h3>前馆主播客走红 — "听完运营大师课，对开普拉提馆彻底祛魅"</h3>
+      <p>小宇宙播客"听完这节运营大师课，对开普拉提馆彻底祛魅了"引发大量从业者共鸣。批判性、揭秘性视角成为B端内容高互动品类，微信社群二次传播活跃，播客内容被大量截图分享到视频号。</p>
+      <div class="hot-tags"><span class="htag">行业祛魅</span><span class="htag">避坑</span><span class="htag">🎧 播客</span></div>
+      <div style="margin-top:10px;padding:8px 10px;background:rgba(192,132,252,.06);border-radius:6px;border:1px solid rgba(192,132,252,.15);">
+        <div style="font-size:10px;color:#c084fc;font-weight:600;margin-bottom:4px;">📎 参考来源</div>
+        <a href="https://www.xiaoyuzhoufm.com/episode/670809f86c7f817786297c12" target="_blank" style="font-size:11px;color:#c084fc;text-decoration:none;display:block;line-height:1.5;">「听完这节运营大师课，对开普拉提馆彻底祛魅了」小宇宙 →</a>
+      </div>
+    </div>
+    <div class="hot-card" style="--card-color:#fb923c">
+      <div class="hot-top"><span class="hot-icon">🏗️</span><span class="hot-label">行业分析热文</span><span class="hot-heat">🔥 高热度</span></div>
+      <h3>普拉提行业深度报告 — 门店存活率不足40%的真实数据引爆讨论</h3>
+      <p>什么值得买平台发布的《普拉提行业经营深度思考》引爆转发，"2022-2025年普拉提馆爆发增长但存活率不足40%"的核心数据被大量馆主引用，是B端内容天然的钩子素材。</p>
+      <div class="hot-tags"><span class="htag">行业数据</span><span class="htag">生存策略</span><span class="htag">📝 图文</span></div>
+      <div style="margin-top:10px;padding:8px 10px;background:rgba(251,146,60,.06);border-radius:6px;border:1px solid rgba(251,146,60,.15);">
+        <div style="font-size:10px;color:#fb923c;font-weight:600;margin-bottom:4px;">📎 参考来源</div>
+        <a href="https://post.smzdm.com/zz/p/aqkg66ok/" target="_blank" style="font-size:11px;color:#fb923c;text-decoration:none;display:block;line-height:1.5;">「普拉提行业经营深度思考：爆发增长下的生存与突围」什么值得买 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ S2 馆主痛点地图 ══ -->
+<section class="section" id="s2">
+  <div class="sec-head">
+    <div class="sec-num">02</div>
+    <div class="sec-title">
+      <h2>馆主真实痛点地图</h2>
+      <p>这是选题的底层依据——对应真实痛点的内容，互动率是普通干货的3-5倍</p>
+    </div>
+  </div>
+  <div class="pain-intro">
+    <strong>为什么要先建立痛点地图？</strong> 普拉提馆主是高度务实的B端受众，他们不看"励志故事"，只看"能解决我问题的信息"。门店存活率不足40%意味着这群人每天都在做高压决策，能精准命中其焦虑点的内容才会被收藏、转发和主动搜索。以下7大痛点基于行业报告、抖音评论区、从业者访谈综合提炼。
+  </div>
+  <div class="pain-grid" id="painGrid"></div>
+</section>
+
+<!-- ══ S3 趋势分析 ══ -->
+<section class="section" id="s3">
+  <div class="sec-head">
+    <div class="sec-num">03</div>
+    <div class="sec-title">
+      <h2>内容趋势分析</h2>
+      <p>5个具有持续性的核心内容方向及爆款传播规律</p>
+    </div>
+  </div>
+  <div class="trend-grid">
+    <div class="trend-card">
+      <div class="trend-head">
+        <div class="trend-icon" style="background:rgba(248,113,113,.12);color:#f87171">🎯</div>
+        <div><h3>5大持续内容方向热度</h3><p>综合平台互动数据评估</p></div>
+      </div>
+      <div class="bar-list">
+        <div class="bar-item">
+          <div class="bar-row"><span class="bar-name">① 创始人真实故事 & 数据公开</span><span class="bar-pct" style="color:#f87171">94%</span></div>
+          <div class="bar-bg"><div class="bar-fill" style="width:94%;background:linear-gradient(90deg,#f87171,#fb923c)"></div></div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-row"><span class="bar-name">② 经营干货 SOP & 避坑指南</span><span class="bar-pct" style="color:#c8a96e">87%</span></div>
+          <div class="bar-bg"><div class="bar-fill" style="width:87%;background:linear-gradient(90deg,#c8a96e,#e8c98a)"></div></div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-row"><span class="bar-name">③ 流量获客 & 私域转化方法</span><span class="bar-pct" style="color:#60a5fa">79%</span></div>
+          <div class="bar-bg"><div class="bar-fill" style="width:79%;background:linear-gradient(90deg,#60a5fa,#818cf8)"></div></div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-row"><span class="bar-name">④ 团队建设 & 教练留用体系</span><span class="bar-pct" style="color:#4ade80">68%</span></div>
+          <div class="bar-bg"><div class="bar-fill" style="width:68%;background:linear-gradient(90deg,#4ade80,#34d399)"></div></div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-row"><span class="bar-name">⑤ 行业揭秘 & 批判性视角</span><span class="bar-pct" style="color:#c084fc">61%</span></div>
+          <div class="bar-bg"><div class="bar-fill" style="width:61%;background:linear-gradient(90deg,#c084fc,#a78bfa)"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="trend-card">
+      <div class="trend-head">
+        <div class="trend-icon" style="background:rgba(200,169,110,.12);color:var(--a1)">💡</div>
+        <div><h3>爆款传播规律</h3><p>内容背后的底层逻辑</p></div>
+      </div>
+      <div class="insight-list">
+        <div class="insight-item"><div class="insight-dot" style="background:#07c160"></div><span><b style="color:var(--t1)">视频号熟人裂变：</b>同一条内容在视频号的B端传播效率比抖音高40%+，馆主群体相互转发"这说的就是我"类内容的频率极高，适合以社群作为二次分发场景。</span></div>
+        <div class="insight-item"><div class="insight-dot" style="background:#f87171"></div><span><b style="color:var(--t1)">真实性溢价：</b>公开真实数据（收入、成本、失败经历）的内容互动率比"干货教程"类高2.3倍，受众对"完美人设"已产生审美疲劳。</span></div>
+        <div class="insight-item"><div class="insight-dot" style="background:#60a5fa"></div><span><b style="color:var(--t1)">双向受众效应：</b>B端内容天然吸引C端围观，"开馆成本揭秘"同时吸引创业者研究和消费者猎奇，流量放大显著。</span></div>
+        <div class="insight-item"><div class="insight-dot" style="background:#c8a96e"></div><span><b style="color:var(--t1)">系列化胜单条：</b>"创业第N个月"系列账号成长速度是单条内容账号的4-6倍，适合建立稳定的订阅用户群。</span></div>
+        <div class="insight-item"><div class="insight-dot" style="background:#c084fc"></div><span><b style="color:var(--t1)">稀缺信息驱动：</b>行业存活率不足40%，"如何成为那60%存活下来的馆"类话题具有强烈紧迫感，转发收藏率极高。</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ S4 十大选题 ══ -->
+<section class="section" id="s4">
+  <div class="sec-head">
+    <div class="sec-num">04</div>
+    <div class="sec-title">
+      <h2>十大短视频选题</h2>
+      <p>每个选题新增「痛点匹配度」维度标注，点击展开完整创作指南</p>
+    </div>
+  </div>
+  <div class="topics-list" id="topicsList"></div>
+</section>
+
+
+
+<!-- ══ S5 追踪渠道 ══ -->
+<section class="section" id="s5">
+  <div class="sec-head">
+    <div class="sec-num">05</div>
+    <div class="sec-title">
+      <h2>热点追踪渠道</h2>
+      <p>以微信视频号为主战场，辅以跨平台监控体系，持续获取一手热点</p>
+    </div>
+  </div>
+
+  <!-- 视频号主渠道 -->
+  <div class="channel-hero">
+    <div class="ch-main-icon">📱</div>
+    <div class="ch-main-text">
+      <h3>① 微信视频号（主渠道）— 普拉提B端内容的最佳分发场</h3>
+      <p>视频号依托微信熟人关系链，B端内容的自然裂变效率远超抖音。馆主群体本身高度活跃在微信生态（社群、公众号、朋友圈），内容从视频号流向私域社群几乎零成本，是打造创始人IP的首选主阵地。</p>
+      <div class="ch-main-why">
+        <span class="why-tag">熟人信任背书，转化率高</span>
+        <span class="why-tag">与私域社群无缝联动</span>
+        <span class="why-tag">B端受众密度高</span>
+        <span class="why-tag">算法对原创内容友好</span>
+        <span class="why-tag">直播连麦适合行业交流</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-video-grid">
+    <div class="ch-v-card">
+      <h4>内容监控：追踪同行账号</h4>
+      <div class="ch-v-tip">每周在视频号搜索"普拉提馆主""普拉提创业"，按最新排序，筛选近7天点赞>200的内容（视频号基数低，200赞已属爆款）</div>
+      <div class="ch-v-tip">关注10-15个同赛道馆主账号，建立竞品内容日历，记录发布频率、爆款视频的选题模式和评论区高频痛点词</div>
+      <div class="ch-v-tip">用微信"搜一搜"功能搜索行业关键词，视频号、公众号、朋友圈内容同步聚合，覆盖全微信生态热点</div>
+    </div>
+    <div class="ch-v-card">
+      <h4>社群情报：挖掘真实痛点</h4>
+      <div class="ch-v-tip">主动加入3-5个普拉提馆主/创业者微信群，每天记录群内高频问题，这些问题直接转化为选题素材库</div>
+      <div class="ch-v-tip">在个人视频号下提问式结尾（"你们馆遇到过这个问题吗？"），收集评论区留言作为下期选题的用户需求验证</div>
+      <div class="ch-v-tip">定期在朋友圈发起投票或话题讨论，测试潜在选题的吸引力，成本极低且受众精准</div>
+    </div>
+    <div class="ch-v-card">
+      <h4>直播运营：建立内容情报网</h4>
+      <div class="ch-v-tip">每月做1-2次视频号直播，主题锁定"普拉提馆主经营交流"，直播中收集的问题是选题金矿，且能沉淀到私域</div>
+      <div class="ch-v-tip">关注行业KOL（瑜伽普拉提馆主类账号）的视频号直播，直播弹幕和连麦内容往往提前反映下一周期的热点话题</div>
+      <div class="ch-v-tip">与3-5位非竞争性城市的馆主建立视频号互评互转关系，共享内容热点情报，降低单独运营的信息成本</div>
+    </div>
+  </div>
+
+  <div class="sec-divider">辅助渠道</div>
+  <div class="channel-others">
+    <div class="ch-card">
+      <div class="ch-card-head"><span class="ch-card-icon">📊</span><div><h3>抖音 + 小红书数据监控</h3><div class="ch-sub">辅助渠道 · 验证选题热度</div></div></div>
+      <p>抖音和小红书的搜索量数据是判断选题热度的重要参考，用于验证从视频号社群中发现的痛点是否具有更大范围的传播潜力。</p>
+      <div class="ch-tips">
+        <div class="ch-tip">用"飞瓜数据"或"新抖"每周搜索"普拉提馆主"，筛选近7天点赞>1000的视频，记录选题模式</div>
+        <div class="ch-tip">小红书搜索"#普拉提创业 #开馆经验"，按最新排序监控新兴话题，提炼评论区高频痛点词</div>
+        <div class="ch-tip">对比视频号和抖音同类选题的互动率差异，优化适合微信生态的内容表达方式</div>
+      </div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-card-head"><span class="ch-card-icon">🔭</span><div><h3>跨行业热点迁移</h3><div class="ch-sub">辅助渠道 · 抢占内容先机</div></div></div>
+      <p>普拉提行业B端内容滞后于咖啡、餐饮、瑜伽等成熟赛道6-18个月，主动"跨界迁移"可提前布局蓝海选题。</p>
+      <div class="ch-tips">
+        <div class="ch-tip">追踪"咖啡馆创业""独立书店""舞蹈工作室"等成熟B端账号的爆款，评估迁移至普拉提场景的可行性</div>
+        <div class="ch-tip">订阅《36氪》健康消费频道，消费升级趋势（孕产普拉提、医疗级康复）往往提前6-12个月预示B端热点</div>
+        <div class="ch-tip">关注健身房、瑜伽馆赛道的创始人IP账号，受众高度重叠，成功的内容模型可直接复用</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ S6 策略总结 ══ -->
+<section class="section" id="s6">
+  <div class="sec-head">
+    <div class="sec-num">06</div>
+    <div class="sec-title">
+      <h2>策略总结</h2>
+      <p>以视频号为主阵地的普拉提创始人IP内容核心原则</p>
+    </div>
+  </div>
+  <div class="summary-box">
+    <h3>✦ 创始人IP内容策略核心原则</h3>
+    <div class="sum-grid">
+      <div class="sum-item">
+        <span class="icon">📱</span>
+        <div>
+          <h4>视频号是首发，社群是放大器</h4>
+          <p>内容优先发视频号，同步分发到馆主社群、朋友圈，借助微信熟人信任背书完成第一波裂变，再通过私信引流到私域完成转化。</p>
+        </div>
+      </div>
+      <div class="sum-item">
+        <span class="icon">🎯</span>
+        <div>
+          <h4>痛点精准 > 内容精美</h4>
+          <p>命中馆主真实痛点（现金流、招生、留人、竞争）的内容，哪怕是手机随手拍，互动率也远超制作精良但泛泛而谈的"干货"视频。</p>
+        </div>
+      </div>
+      <div class="sum-item">
+        <span class="icon">📈</span>
+        <div>
+          <h4>系列化 > 单条爆款</h4>
+          <p>建立"开馆第X个月""从0到100会员"等系列栏目，积累忠实追随者，形成稳定的B端商业价值，比追求单条爆款更可持续。</p>
+        </div>
+      </div>
+      <div class="sum-item">
+        <span class="icon">🔄</span>
+        <div>
+          <h4>B端价值 × C端流量</h4>
+          <p>每条B端内容都要设计C端的"围观视角"——"馆主的一天"既是给创业者的经验，也是给会员的品牌展示，双向收割流量。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+<footer>普拉提B端内容选题研究报告 v2 · 数据更新至2026年3月 · 以微信视频号为核心平台</footer>
+
+<script>
+// ── 痛点地图数据 ──
+const PAINS = [
+  { rank:1, color:'#f87171', icon:'💸', title:'现金流与盈利焦虑', sub:'生存级痛点 · 紧迫度极高',
+    desc:'门店存活率不足40%，租金、教练薪酬、设备折旧三大固定成本刚性压缩利润。"开了半年还在亏损，不知道拐点在哪"是最高频的馆主心声。', heat:96 },
+  { rank:2, color:'#fb923c', icon:'🧲', title:'获客成本越来越高', sub:'增长级痛点 · 全行业共性',
+    desc:'自然流量枯竭，抖音投流ROI下滑，熟人介绍已触及天花板。"花了3万广告费只来了5个人试课"在馆主群体中普遍存在，亟需可复制的低成本获客路径。', heat:91 },
+  { rank:3, color:'#fbbf24', icon:'🔄', title:'会员续费 & 流失问题', sub:'运营级痛点 · 持续困扰',
+    desc:'平均续卡率在50-60%徘徊，会员"上完体验课消失""买了年卡从不来"是普遍现象。留不住会员比拉不来新客更伤——已付出的获客成本直接打水漂。', heat:88 },
+  { rank:4, color:'#4ade80', icon:'👩‍🏫', title:'教练招募与留用难', sub:'团队级痛点 · 结构性问题',
+    desc:'优质教练供不应求，培养好的教练容易被挖走或自己出去开馆。"花了6个月培养一个教练，结果她辞职开了竞争对手的工作室"是行业常见痛点。', heat:82 },
+  { rank:5, color:'#60a5fa', icon:'⚔️', title:'同质化竞争 & 价格战', sub:'市场级痛点 · 持续恶化',
+    desc:'同一商圈3-5家普拉提馆厮杀，体验课价格从99元卷到9.9元，定价体系被破坏。"不降价没人来，降价了又撑不住成本"是红海市场的死循环。', heat:79 },
+  { rank:6, color:'#c084fc', icon:'📱', title:'线上内容运营能力弱', sub:'能力级痛点 · 亟待补强',
+    desc:'多数馆主是技术出身，不懂内容运营、不会拍视频、没时间维护社交媒体。"知道要做抖音视频号，但不知道拍什么、怎么拍、拍了也没人看"。', heat:74 },
+  { rank:7, color:'#94a3b8', icon:'📋', title:'运营标准化 & 管理混乱', sub:'管理级痛点 · 规模化必须解决',
+    desc:'小馆依赖创始人一人撑起，没有SOP、没有排班系统、没有会员管理工具。想扩张第二家店，却发现连第一家的运营都没标准化，无法复制。', heat:65 },
+];
+
+function renderPains(){
+  const g = document.getElementById('painGrid');
+  g.innerHTML = PAINS.map(p=>`
+    <div class="pain-card" style="--pain-color:${p.color}">
+      <div class="pain-top">
+        <div class="pain-rank" style="background:${p.color}">P${p.rank}</div>
+        <div>
+          <h3>${p.icon} ${p.title}</h3>
+        </div>
+      </div>
+      <div class="sub">${p.sub}</div>
+      <p>${p.desc}</p>
+      <div class="pain-heat">
+        <span class="heat-label">痛感强度</span>
+        <div class="heat-bar"><div class="heat-fill" style="width:${p.heat}%;background:${p.color}"></div></div>
+        <span class="heat-pct">${p.heat}%</span>
+      </div>
+    </div>`).join('');
+}
+
+// ── 十大选题数据 ──
+const TOPICS = [
+  {
+    theme:'开普拉提馆前三个月，我踩过的7个坑（含完整筹备清单）',
+    painLevel:'high', painText:'命中 P1现金流 + P7管理混乱',
+    audience:'准备创业的普拉提教练 / 正在筹备开店的健身从业者',
+    format:'创始人经验自述 + 清单字幕 + 实景办公室拍摄，视频号竖版3分钟以内',
+    value:'一份可直接复用的开馆SOP清单，覆盖证件办理时间线、装修避坑、首批学员获取策略，私信领取完整清单引流私域',
+    hooks:['清单结构推动看完','7个坑的数字制造好奇','评论区让同行补充"第8个坑"激活互动'],
+    score:'⭐⭐⭐⭐⭐', color:'#f87171',
+    refs:[
+      {text:'「EP36实体店创业血泪史：普拉提教练半年开两家店」豆瓣播客', url:'https://www.douban.com/podcast_episode/361812'},
+      {text:'「连锁店倒闭后我开了共享普拉提」小宇宙', url:'https://www.xiaoyuzhoufm.com/episode/66d494f65a91beebb30a92b5'}
+    ]
+  },
+  {
+    theme:'我开普拉提馆第一年：月收入、固定成本、现在后悔了吗？',
+    painLevel:'high', painText:'命中 P1现金流 · 最高痛感',
+    audience:'有创业想法的普拉提教练 / 对创业感兴趣的普拉提爱好者',
+    format:'年度复盘vlog，真实数字曝光 + 情绪化叙事 + 面对镜头直接讲，视频号首发朋友圈同步',
+    value:'真实财务数据+情感共鸣，同时吸引B端创业者研究和C端用户围观，双向流量；年度复盘适合作为账号高光标杆内容',
+    hooks:['"后悔了吗"引爆讨论','真实数字天然制造点击欲','视频号评论区会变成创业者互助社区'],
+    score:'⭐⭐⭐⭐⭐', color:'#c8a96e',
+    refs:[
+      {text:'「30岁我开了人生第一家普拉提馆」抖音 2026.03', url:'https://www.douyin.com/video/7616322230586542052'},
+      {text:'「上海140平普拉提工作室开店1年真实财务数据」知乎', url:'https://zhuanlan.zhihu.com/p/486007049'}
+    ]
+  },
+  {
+    theme:'同一条街三家普拉提馆，两年后只剩我一家：我做对了3件事',
+    painLevel:'high', painText:'命中 P5同质化竞争 · 直击焦虑',
+    audience:'面临竞争压力的馆主 / 在红海市场中挣扎的创业者',
+    format:'竞争故事叙事 + 三馆对比分析 + 复盘独白，视频号首发+公众号长文版本联动',
+    value:'通过竞争视角反推差异化优势，提炼3个在红海市场存活的核心能力，故事性强，视频号易裂变',
+    hooks:['竞争叙事天然制造张力','街道实景增加真实感','引发"你们城市有几家"的评论互动'],
+    score:'⭐⭐⭐⭐⭐', color:'#fb923c',
+    refs:[
+      {text:'「普拉提行业经营深度思考：爆发增长下的生存与突围」什么值得买', url:'https://post.smzdm.com/zz/p/aqkg66ok/'},
+      {text:'「一年开9家月营收40万，探秘女性普拉提工作室方法论」知乎', url:'https://zhuanlan.zhihu.com/p/455841176'}
+    ]
+  },
+  {
+    theme:'普拉提馆月续卡率从52%做到79%：我只改了这3件事',
+    painLevel:'high', painText:'命中 P3会员续费 · 直接可复用',
+    audience:'已开业但会员流失严重的馆主 / 运营负责人',
+    format:'Before/After数据对比 + 方法论拆解 + 截图证明，适合视频号"干货卡片"竖版形式',
+    value:'3个可立即执行的续卡率提升动作，附真实数据截图，可复制性极强；私信领取完整SOP引流私域',
+    hooks:['具体数字形成强烈对比','"只改了3件事"降低学习门槛','数据截图在视频号评论区引发同行验证讨论'],
+    score:'⭐⭐⭐⭐⭐', color:'#60a5fa',
+    refs:[
+      {text:'「开普拉提馆赚钱密码：羿刻互动从传统运营到流量生态的盈利转型」搜狐', url:'https://www.sohu.com/a/899943174_122412132'},
+      {text:'「小红书瑜伽普拉提行业获客成本揭秘」大数跨境', url:'https://www.10100.com/article/46221560'}
+    ]
+  },
+  {
+    theme:'我花了3万广告费换来5个试课学员之后，终于搞明白普拉提馆怎么获客',
+    painLevel:'high', painText:'命中 P2获客成本 · 极强共鸣',
+    audience:'依赖付费广告但ROI低下的馆主 / 准备做线上推广的工作室主',
+    format:'失败经历自述 + 转折点复盘 + 现在的低成本获客路径，视频号叙事感强适合完播',
+    value:'一套适合小型普拉提馆的获客组合拳（视频号内容+私域社群+口碑裂变），用失败案例建立信任感',
+    hooks:['3万换5人的数字触目惊心','失败开头反而最真实','引发"我也是这样！"的评论共鸣'],
+    score:'⭐⭐⭐⭐⭐', color:'#4ade80',
+    refs:[
+      {text:'「瑜伽馆/普拉提工作室抖音代运营获客方案3步法」搜狐 2026.02', url:'https://www.sohu.com/a/987521312_122634865'},
+      {text:'「普拉提营销获客方法：一人一馆的个性化获客逻辑」抖音搜索', url:'https://www.douyin.com/search/%E6%99%AE%E6%8B%89%E6%8F%90%E8%90%A5%E9%94%80%E8%8E%B7%E5%AE%A2%E6%96%B9%E6%B3%95'}
+    ]
+  },
+  {
+    theme:'招到一个好教练有多难？我面试了200人后总结出的筛选标准',
+    painLevel:'mid', painText:'命中 P4教练招募难',
+    audience:'正在扩张团队的馆主 / 有意转型管理岗的资深教练',
+    format:'访谈感独白 + 精剪面试片段 + 筛选标准清单，视频号首发+同步小红书',
+    value:'一套适合小型普拉提馆的教练筛选评估标准（技术+服务意识+价值观），填补行业人才筛选内容空白',
+    hooks:['200人的数字制造规模感','评判标准引发教练群体讨论','馆主和教练双方都是目标受众，天然双向传播'],
+    score:'⭐⭐⭐⭐', color:'#c084fc',
+    refs:[
+      {text:'「2025年普拉提培训机构老师推荐：金牌导师引领行业标杆」腾讯新闻', url:'https://news.qq.com/rain/a/20250430A074FH00'},
+      {text:'抖音搜索「瑜伽普拉提工作室创始人」', url:'https://www.douyin.com/search/%E7%91%9C%E4%BC%BD%E6%99%AE%E6%8B%89%E6%8F%90%E5%B7%A5%E4%BD%9C%E5%AE%A4%E5%88%9B%E5%A7%8B%E4%BA%BA'}
+    ]
+  },
+  {
+    theme:'我为什么把私教课砍掉一半，营收反而涨了30%？',
+    painLevel:'high', painText:'命中 P1现金流 + P5定价困境',
+    audience:'依赖单一私教课收入、面临盈利压力的馆主',
+    format:'反直觉结论 + 数据拆解 + 新盈利模型解析（小团课/会员制重构），视频号首发',
+    value:'用反直觉商业决策揭示普拉提馆收入结构重组逻辑，提供一套面向2026年的新盈利模型，挑战行业共识引发讨论',
+    hooks:['反直觉标题极高点击率','触碰馆主最核心的营收焦虑','视频号评论区会出现大量同行验证和质疑，互动爆炸'],
+    score:'⭐⭐⭐⭐⭐', color:'#fbbf24',
+    refs:[
+      {text:'「一年开9家月营收40万：小团课+会员制的盈利公式」知乎', url:'https://zhuanlan.zhihu.com/p/455841176'},
+      {text:'「在上海核心商业区开140平普拉提工作室的真实财务」知乎', url:'https://zhuanlan.zhihu.com/p/486007049'}
+    ]
+  },
+  {
+    theme:'普拉提馆主不懂拍视频？我用这套方法30天视频号涨粉3000',
+    painLevel:'mid', painText:'命中 P6内容运营能力弱',
+    audience:'想做视频号但不知从何入手的馆主 / 技术型创始人',
+    format:'自我迭代过程展示 + 具体方法步骤 + 前后对比，在视频号上发"如何做视频号"，meta感强',
+    value:'一个技术背景馆主可直接抄作业的视频号冷启动方案，强调低成本、无需专业团队，在视频号上发此内容自带示范效应',
+    hooks:['在视频号讲视频号，天然破圈','30天3000粉数据真实可信','评论区变成互助打卡社群'],
+    score:'⭐⭐⭐⭐', color:'#ec4899',
+    refs:[
+      {text:'「视频号新机遇：普拉提老师如何通过知识付费获客」海豚知道案例', url:'https://www.htknow.com/shows/20/655.html'},
+      {text:'「瑜伽普拉提馆主如何做内容获客的成交闭环」抖音 2025.12', url:'https://www.douyin.com/video/7585883200871664953'}
+    ]
+  },
+  {
+    theme:'教练培养了半年，她辞职开了竞争对手的店：我学到了什么',
+    painLevel:'mid', painText:'命中 P4教练留用难 · 情感共鸣强',
+    audience:'正在头疼教练流失的馆主 / 有意建立合伙机制的创业者',
+    format:'真实经历叙事 + 情感化表达 + 解决方案（合伙/股权/成长通道），视频号情感类内容完播率高',
+    value:'通过真实痛苦经历建立共鸣，引入"教练合伙人机制"解决方案，为有意了解教练留用机制的馆主提供思路',
+    hooks:['背叛叙事天然吸引点击','引发"我也遇到过"大量评论','结尾解决方案转化成咨询私信'],
+    score:'⭐⭐⭐⭐', color:'#f97316',
+    refs:[
+      {text:'「EP36 实体店创业血泪史：普拉提教练半年开两家店的心路历程」豆瓣', url:'https://www.douban.com/podcast_episode/361812'},
+      {text:'「把喜欢的事做成事业 #普拉提馆主 #创业日记」抖音', url:'https://www.douyin.com/video/7517591042254835001'}
+    ]
+  },
+  {
+    theme:'孕产普拉提：我开馆第三年转型的蓝海赛道，现在客单价翻了2倍',
+    painLevel:'mid', painText:'命中 P5同质化竞争 · 差异化破局',
+    audience:'考虑细分赛道差异化的馆主 / 有孕产资质的教练创业者',
+    format:'转型故事 + 市场数据佐证 + 获客渠道拆解（妇产科合作等），视频号首发+公众号联动',
+    value:'孕产普拉提高客单价、低竞争的蓝海赛道验证，提供完整渠道合作方法，适合普通馆差异化突围',
+    hooks:['客单价翻2倍数据吸睛','细分赛道信息稀缺性高','孕产话题在微信生态天然传播广'],
+    score:'⭐⭐⭐⭐', color:'#34d399',
+    refs:[
+      {text:'「掌控自己的生活？专访归位瑜伽创始人唐美艳」今日头条', url:'https://www.toutiao.com/article/7356506660053090835/'},
+      {text:'「普拉提到底有多火：深度访谈李欣普拉提创始人」世菲尔', url:'https://www.shifair.com/informationDetails/5217.html'}
+    ]
+  },
+];
+
+function renderTopics(){
+  const list = document.getElementById('topicsList');
+  list.innerHTML = TOPICS.map((t,i)=>`
+    <div class="topic-card" id="tc${i}" onclick="toggleTopic(${i})">
+      <div class="tc-head">
+        <div class="tc-num" style="background:linear-gradient(135deg,${darken(t.color)},${t.color})">${String(i+1).padStart(2,'0')}</div>
+        <div class="tc-main">
+          <div class="tc-theme">${t.theme}</div>
+          <div class="tc-pills">
+            <span class="tc-pill ${t.painLevel==='high'?'pill-pain-high':'pill-pain-mid'}">🎯 ${t.painText}</span>
+            <span class="tc-pill pill-audience">👥 ${t.audience.split('／')[0].slice(0,14)}</span>
+            <span class="tc-pill pill-score">${t.score}</span>
+          </div>
+        </div>
+        <span class="tc-arrow">▼</span>
+      </div>
+      <div class="tc-body">
+        <div class="tc-inner">
+          <div class="tc-detail">
+            <div class="${t.painLevel==='high'?'pain-detail-block':'detail-block'}">
+              <h4>🎯 痛点匹配</h4>
+              <p>${t.painText}${t.painLevel==='high'?' — 核心高频痛点，受众需求强烈，建议优先创作':' — 中频痛点，受众有明确需求'}</p>
+            </div>
+            <div class="detail-block">
+              <h4>👥 目标受众</h4>
+              <p>${t.audience}</p>
+            </div>
+            <div class="detail-block">
+              <h4>📽 内容形式</h4>
+              <p>${t.format}</p>
+            </div>
+            <div class="detail-block">
+              <h4>🪝 钩子设计</h4>
+              <ul>${t.hooks.map(h=>`<li>${h}</li>`).join('')}</ul>
+            </div>
+            <div class="value-block">
+              <h4>✦ 价值亮点</h4>
+              <p>${t.value}</p>
+            </div>
+            ${t.refs&&t.refs.length?`
+            <div style="grid-column:1/-1;background:rgba(7,193,96,.06);border:1px solid rgba(7,193,96,.2);border-radius:8px;padding:14px;">
+              <h4 style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:#07c160;margin-bottom:8px;">📎 参考视频来源</h4>
+              ${t.refs.map(r=>`<a href="${r.url}" target="_blank" onclick="event.stopPropagation()" style="display:block;font-size:12px;color:#07c160;text-decoration:none;padding:4px 0;border-bottom:1px solid rgba(7,193,96,.1);line-height:1.6;">${r.text} →</a>`).join('')}
+            </div>`:''}
+          </div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function darken(hex){
+  let c=hex.replace('#','');
+  let r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16);
+  r=Math.max(0,r-60);g=Math.max(0,g-60);b=Math.max(0,b-60);
+  return '#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+
+function toggleTopic(i){
+  document.getElementById('tc'+i).classList.toggle('open');
+}
+
+function goTo(id,btn){
+  document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// scroll spy
+const secs=['s1','s2','s3','s4','s5','s6'];
+const navBtns=document.querySelectorAll('.nav-btn');
+window.addEventListener('scroll',()=>{
+  let cur=0;
+  secs.forEach((id,i)=>{
+    const el=document.getElementById(id);
+    if(el&&window.scrollY>=el.offsetTop-120)cur=i;
+  });
+  navBtns.forEach((b,i)=>b.classList.toggle('active',i===cur));
+},{passive:true});
+
+renderPains();
+renderTopics();
+</script>
+</body>
+</html>

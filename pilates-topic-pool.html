@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>普拉提 · 三环方法论选题池</title>
+<style>
+:root{
+  --bg:#0a0c10;--s1:#111318;--s2:#181c24;--s3:#1e2330;
+  --bd:#252b3b;--bd2:#2e3650;
+  --a1:#c8a96e;--a2:#e8c98a;--a3:#8b6c3e;
+  --g1:#4ade80;--b1:#60a5fa;--p1:#c084fc;--r1:#f87171;--o1:#fb923c;
+  --t1:#e2e8f0;--t2:#94a3b8;--t3:#64748b;
+  --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--t1);font-family:'PingFang SC','Microsoft YaHei','Segoe UI',system-ui,sans-serif;min-height:100vh;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px;}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,#0a0c10 0%,#0d1420 50%,#0a0c10 100%);border-bottom:1px solid var(--bd);padding:48px 24px 40px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(96,165,250,.1),transparent);pointer-events:none;}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(96,165,250,.3);border-radius:20px;padding:4px 14px;font-size:12px;color:#60a5fa;background:rgba(96,165,250,.08);margin-bottom:18px;}
+.hero h1{font-size:clamp(22px,4vw,36px);font-weight:800;letter-spacing:-.5px;line-height:1.2;margin-bottom:10px;}
+.hero h1 span{background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:14px;color:var(--t2);max-width:560px;margin:0 auto 24px;line-height:1.7;}
+.hero-stats{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;}
+.stat{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--t3);}
+.stat-dot{width:6px;height:6px;border-radius:50%;}
+
+/* NAV */
+.sticky-nav{position:sticky;top:0;z-index:50;background:rgba(10,12,16,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);padding:0 24px;}
+.nav-inner{max-width:960px;margin:0 auto;display:flex;gap:4px;overflow-x:auto;padding:8px 0;}
+.nav-inner::-webkit-scrollbar{height:0;}
+.nav-btn{white-space:nowrap;padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer;border:none;background:none;color:var(--t2);transition:all .2s;}
+.nav-btn:hover{color:var(--t1);background:var(--s2);}
+.nav-btn.active{background:rgba(96,165,250,.15);color:#60a5fa;}
+
+/* PAGE */
+.page{max-width:960px;margin:0 auto;padding:36px 24px 80px;}
+
+/* METHOD BANNER */
+.method-banner{background:linear-gradient(135deg,rgba(96,165,250,.08),rgba(167,139,250,.05));border:1px solid rgba(96,165,250,.2);border-radius:var(--radius);padding:20px 24px;margin-bottom:32px;display:flex;align-items:flex-start;gap:16px;}
+.mb-icon{font-size:36px;flex-shrink:0;}
+.mb-body h2{font-size:15px;font-weight:700;color:#60a5fa;margin-bottom:8px;}
+.mb-body p{font-size:13px;color:var(--t2);line-height:1.8;margin-bottom:12px;}
+.mb-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.mb-tag{display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:600;}
+
+/* SECTION HEAD */
+.sec-divider{display:flex;align-items:center;gap:10px;margin:32px 0 16px;}
+.sd-bar{width:4px;height:20px;border-radius:2px;flex-shrink:0;}
+.sd-label{font-size:13px;font-weight:700;}
+.sd-line{flex:1;height:1px;margin-left:4px;}
+.sd-count{font-size:11px;padding:2px 8px;border-radius:10px;font-weight:600;}
+
+/* POOL CARDS */
+.pool-list{display:flex;flex-direction:column;gap:10px;margin-bottom:8px;}
+.pool-card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:border-color .2s,background .2s;}
+.pool-card:hover{background:var(--s2);}
+.pool-card.open .pc-body{grid-template-rows:1fr;}
+.pool-card.open .pc-chevron{transform:rotate(180deg);}
+.pc-head{display:flex;align-items:center;gap:12px;padding:14px 18px;}
+.pc-idx{width:30px;height:30px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;}
+.pc-main{flex:1;min-width:0;}
+.pc-theme{font-size:14px;font-weight:600;line-height:1.4;margin-bottom:5px;}
+.pc-pills{display:flex;flex-wrap:wrap;gap:4px;align-items:center;}
+.pc-tag{font-size:10px;padding:2px 7px;border-radius:3px;background:rgba(96,165,250,.1);color:#60a5fa;}
+.pc-rank{font-size:10px;padding:2px 8px;border-radius:3px;font-weight:700;}
+.pc-chevron{font-size:11px;color:var(--t3);transition:transform .25s;flex-shrink:0;}
+
+.pc-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s;}
+.pc-inner{overflow:hidden;}
+.pc-detail{padding:0 18px 16px;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.pc-block{background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:13px;}
+.pc-block h4{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--t3);margin-bottom:7px;}
+.pc-block p{font-size:12px;color:var(--t2);line-height:1.7;}
+.pc-full{grid-column:1/-1;}
+
+/* FOOTER */
+footer{border-top:1px solid var(--bd);padding:24px;text-align:center;font-size:12px;color:var(--t3);}
+footer a{color:var(--a1);text-decoration:none;}
+
+@media(max-width:640px){
+  .method-banner{flex-direction:column;}
+  .pc-detail{grid-template-columns:1fr;}
+  .pc-full{grid-column:auto;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">🔺 三环方法论 · 普拉提toB选题</div>
+  <h1>创始人IP <span>选题初筛池</span></h1>
+  <p class="hero-sub">基于「人群优先 × 母话题 × 三内容池」方法论推演，面向普拉提行业小b大c受众，共 25 个初筛选题</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-dot" style="background:#f87171"></div>现有馆主 · 8个</div>
+    <div class="stat"><div class="stat-dot" style="background:#c8a96e"></div>潜在投资者 · 5个</div>
+    <div class="stat"><div class="stat-dot" style="background:#4ade80"></div>想开馆的教练 · 7个（+5补充）</div>
+    <div class="stat"><div class="stat-dot" style="background:#60a5fa"></div>待三池数据升级评级</div>
+  </div>
+</div>
+
+<nav class="sticky-nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="goTo('g1',this)">🏪 现有馆主</button>
+    <button class="nav-btn" onclick="goTo('g2',this)">💰 潜在投资者</button>
+    <button class="nav-btn" onclick="goTo('g3',this)">🎯 想开馆的教练</button>
+    <button class="nav-btn" onclick="goTo('method',this)">📐 方法论说明</button>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- 方法论说明 -->
+<div class="method-banner" id="method">
+  <div class="mb-icon">🔺</div>
+  <div class="mb-body">
+    <h2>三环选题法 · 核心原则</h2>
+    <p>判断一个选题是否合适，<b style="color:var(--t1)">人群优先级高于数据</b>。本账号目标人群是「小b大c」，B端三类用户分别是现有普拉提馆主、潜在投资者、想开馆的教练——选题必须命中其中一类，否则流量再高也不入池。<br>三个内容池（历史验证内容 / 业务交付内容 / 对标账号）补充后，三池重叠 = S级天选，两池重叠 = A级可拍。当前评级为母话题推演预估值。</p>
+    <div class="mb-tags">
+      <div class="mb-tag" style="background:rgba(248,113,113,.1);color:#f87171;border:1px solid rgba(248,113,113,.2);">⭐⭐⭐ S级天选 · 强烈建议优先拍</div>
+      <div class="mb-tag" style="background:rgba(200,169,110,.1);color:#c8a96e;border:1px solid rgba(200,169,110,.2);">⭐⭐ A级可拍 · 两池命中可大胆拍</div>
+      <div class="mb-tag" style="background:rgba(100,116,139,.1);color:#94a3b8;border:1px solid rgba(100,116,139,.2);">⭐ 待验证 · 补充数据后再定</div>
+    </div>
+  </div>
+</div>
+
+<!-- 组1：现有馆主 -->
+<div class="sec-divider" id="g1">
+  <div class="sd-bar" style="background:#f87171;"></div>
+  <span class="sd-label" style="color:#f87171;">🏪 面向现有馆主 · 经营运营类</span>
+  <div class="sd-line" style="background:rgba(248,113,113,.2);"></div>
+  <span class="sd-count" style="background:rgba(248,113,113,.12);color:#f87171;">8个选题</span>
+</div>
+<div class="pool-list" id="poolG1"></div>
+
+<!-- 组2：潜在投资者 -->
+<div class="sec-divider" id="g2">
+  <div class="sd-bar" style="background:#c8a96e;"></div>
+  <span class="sd-label" style="color:#c8a96e;">💰 面向潜在投资者 · 行业判断类</span>
+  <div class="sd-line" style="background:rgba(200,169,110,.2);"></div>
+  <span class="sd-count" style="background:rgba(200,169,110,.12);color:#c8a96e;">5个选题</span>
+</div>
+<div class="pool-list" id="poolG2"></div>
+
+<!-- 组3：想开馆的教练 -->
+<div class="sec-divider" id="g3">
+  <div class="sd-bar" style="background:#4ade80;"></div>
+  <span class="sd-label" style="color:#4ade80;">🎯 面向想开馆的教练 · 创业决策类</span>
+  <div class="sd-line" style="background:rgba(74,222,128,.2);"></div>
+  <span class="sd-count" style="background:rgba(74,222,128,.12);color:#4ade80;">7个选题</span>
+</div>
+<div class="pool-list" id="poolG3"></div>
+
+<!-- 底部说明 -->
+<div style="background:rgba(96,165,250,.05);border:1px dashed rgba(96,165,250,.25);border-radius:8px;padding:16px 20px;margin-top:24px;">
+  <p style="font-size:12px;color:var(--t3);line-height:1.9;">
+    💡 <b style="color:#60a5fa">下一步行动</b>：补充三个内容池数据后升级评级——
+    ① 历史验证：从账号后台提取播放量 Top10 视频，整理母话题；
+    ② 业务内容：整理服务交付过程中可拍的场景；
+    ③ 对标账号：筛选 5-8 个目标人群一致的账号，提取近期高播放选题。
+    三池数据就绪后，与本初筛池做交集，S级选题自然浮现。
+  </p>
+</div>
+
+</div>
+
+<footer>普拉提创始人IP · 三环方法论选题池 · 初筛版 · <a href="pilates-topic-research.html">← 返回选题研究报告</a></footer>
+
+<script>
+const GROUPS = [
+  {
+    id: 'poolG1',
+    color: '#f87171',
+    bg: 'rgba(248,113,113,.12)',
+    border: 'rgba(248,113,113,.25)',
+    items: [
+      {
+        theme: '普拉提馆现金流管理：我用这张表让馆里永远有3个月备用金',
+        rank: 'S',
+        tags: ['现金流管理', '财务SOP', '母话题：经营存活'],
+        why: '现金流焦虑是馆主P1痛点，具体工具（表格）降低行动门槛，私信领取完整表格可引流私域。',
+        hook: '一个馆主看完会立即转发给另一个馆主——"你们有这个表吗？"',
+        angle: '直接展示那张表的截图，拆解三个关键数字：月固定支出、安全线、警戒线。用真实数据讲清楚"什么时候该扩张、什么时候该收缩"。'
+      },
+      {
+        theme: '为什么你的普拉提馆做活动反而亏钱？促销陷阱的3个底层逻辑',
+        rank: 'S',
+        tags: ['定价策略', '活动设计', '母话题：盈利模型'],
+        why: '馆主做活动普遍亏损却不知原因，反直觉内容天然高点击，同时命中现有馆主和准开馆教练。',
+        hook: '"你以为在拉新，实际上在培养薅羊毛的用户"——这句话在馆主群里一定炸锅。',
+        angle: '用真实案例拆解三种常见的亏损活动模式：体验课价格战、节日大促、团购引流，每种给出正确做法。'
+      },
+      {
+        theme: '我把普拉提馆的课程卡从6种精简到2种，营收涨了25%',
+        rank: 'A',
+        tags: ['产品设计', '卡项优化', '母话题：盈利模型'],
+        why: '卡项设计混乱是行业普遍问题，精简反而增收的反直觉结论制造强点击欲，方案可直接复用。',
+        hook: '"我把菜单缩短了，客单价却高了"——餐饮行业已验证的逻辑迁移到普拉提。',
+        angle: '展示精简前后的课程卡结构，用漏斗图解释选择悖论：选项越多，客户越不买。重点讲"两种卡"的设计逻辑。'
+      },
+      {
+        theme: '普拉提馆教练提成怎么算才不会两头吃亏？我试过4种方案后的选择',
+        rank: 'A',
+        tags: ['薪酬体系', '教练管理', '母话题：团队运营'],
+        why: '薪酬体系是馆主和教练矛盾的核心来源，需求真实且高频，馆主和教练群体都是受众。',
+        hook: '教练转发给馆主看、馆主转发给同行看，双向传播天然成立。',
+        angle: '逐一展示4种提成方案的优劣：纯底薪、纯提成、底薪+提成、合伙人制。给出适合不同阶段馆的组合推荐。'
+      },
+      {
+        theme: '我们馆的私教续课率做到了85%，靠的不是课程质量，而是这套流程',
+        rank: 'S',
+        tags: ['续课率', '服务流程', '母话题：会员留存'],
+        why: '续课率直接影响收入，85%是行业极高水平，具体流程可复用，会触发大量同行的"求分享"。',
+        hook: '"不是课上得好才续，是有没有人在对的时间问你下个月继续吗"。',
+        angle: '拆解整个续课服务流程：课前提醒→课中仪式感设计→课后跟进→续费时机节点，每步给出具体话术。'
+      },
+      {
+        theme: '开了第二家店我才知道：普拉提馆的SOP有多重要（附可下载模板）',
+        rank: 'A',
+        tags: ['标准化运营', 'SOP', '母话题：规模化扩张'],
+        why: '想开第二家店是馆主的高频目标，SOP是必须解决的卡点，可下载模板降低门槛并引流私域。',
+        hook: '"第一家店是我养着的，第二家店才是赚钱的"。',
+        angle: '展示第一家店"全靠人扛"和第二家店"靠SOP跑"的差异，分享5份核心SOP文件：开班流程、新会员接待、教练排班、财务对账、紧急处理。'
+      },
+      {
+        theme: '小红书/视频号涨了5000粉但一个学员都没来？流量不等于客源的3个原因',
+        rank: 'S',
+        tags: ['内容运营', '流量转化', '母话题：获客方法'],
+        why: '内容运营能力弱是P6痛点，且馆主普遍有"做了内容没效果"的挫败感，痛点极精准。',
+        hook: '"做内容不是为了涨粉，是为了让对的人找到你"。',
+        angle: '拆解三个流量不转化的原因：人群错配、无转化路径设计、内容没有钩子。给出每个问题的修复方案。'
+      },
+      {
+        theme: '普拉提馆主如何用微信生态替代付费广告，我们的获客成本降了60%',
+        rank: 'A',
+        tags: ['私域获客', '视频号', '母话题：获客方法'],
+        why: '付费广告ROI持续下降，私域替代是馆主强需求，视频号生态是本账号主战场，自带示范效应。',
+        hook: '"我们现在每新增一个学员的成本是58元，之前是400元"——数字说话。',
+        angle: '用6个月的广告费支出和私域转化数据对比，拆解视频号+朋友圈+社群+私信的完整低成本获客链路。'
+      }
+    ]
+  },
+  {
+    id: 'poolG2',
+    color: '#c8a96e',
+    bg: 'rgba(200,169,110,.12)',
+    border: 'rgba(200,169,110,.25)',
+    items: [
+      {
+        theme: '2026年还值得投资普拉提行业吗？一个从业6年的人给你真实答案',
+        rank: 'S',
+        tags: ['行业判断', '投资决策', '母话题：行业认知'],
+        why: '潜在投资者的核心问题，以创始人视角给出非广告性的真实判断，稀缺性极高，视频号传播天然。',
+        hook: '"我自己还在开馆，所以我的答案有利益冲突，但我会尽量客观说"——反向建立信任。',
+        angle: '不是简单说"值得投"，而是给出判断框架：什么样的人适合投、什么样的城市适合投、什么阶段适合进场。最后给出自己的真实结论。'
+      },
+      {
+        theme: '普拉提馆投资回收周期到底多长？4种商业模式的真实数据对比',
+        rank: 'S',
+        tags: ['投资回报', '商业模式', '母话题：行业数据'],
+        why: '投资者最关心回报周期，4种模式对比内容稀缺，数据公开度极低，天然高分享。',
+        hook: '"行业里没人愿意把这个数字说清楚，因为说清楚了就知道为什么那么多馆倒了"。',
+        angle: '逐一拆解4种模式（精品小馆/商场店/连锁加盟/独立工作室）的启动资金、月成本、盈亏平衡点、回收周期。'
+      },
+      {
+        theme: '普拉提加盟还是自营：我见过100家馆之后的判断',
+        rank: 'A',
+        tags: ['加盟vs自营', '创业路径', '母话题：行业判断'],
+        why: '加盟or自营是投资者第一个决策节点，有明确判断框架的内容极度稀缺，兼顾投资者和准开馆教练。',
+        hook: '"加盟费买的不是品牌，是试错成本——但前提是那个品牌真的踩过坑"。',
+        angle: '从品牌溢价、运营支持、利润分配、退出机制四维对比，给出"哪种人适合加盟、哪种人适合自营"的清单。'
+      },
+      {
+        theme: '普拉提馆的5种死法：我们亲历了其中3种，最终活了下来',
+        rank: 'A',
+        tags: ['失败案例', '风险判断', '母话题：行业存活'],
+        why: '潜在投资者更需要看风险，批判性视角天然高互动，"活下来"的转折更有可信度。',
+        hook: '"存活率不足40%不是数据，是我认识的那6家馆里4家关了门"。',
+        angle: '逐一讲解5种典型死法：选址失误/定价体系崩溃/教练团队流失/资金断裂/竞争打价格战，每种配上真实案例和规避方法。'
+      },
+      {
+        theme: '普拉提行业有没有护城河？我认为有，但只有一种馆主能建起来',
+        rank: 'A',
+        tags: ['竞争壁垒', '差异化', '母话题：行业判断'],
+        why: '投资者关心护城河，这个问题在行业内几乎没有系统性回答，观点型内容引发讨论概率极高。',
+        hook: '"普拉提馆本身没有护城河，但你这个人可以成为护城河"。',
+        angle: '给出两个结论：普通馆没有护城河；但创始人IP + 精准社群 + 细分赛道绑定的馆有护城河。重点讲如何建立第二种。'
+      }
+    ]
+  },
+  {
+    id: 'poolG3',
+    color: '#4ade80',
+    bg: 'rgba(74,222,128,.12)',
+    border: 'rgba(74,222,128,.25)',
+    items: [
+      {
+        theme: '教练开馆vs继续代课：我如何在两个月内做出这个改变我人生的决定',
+        rank: 'S',
+        tags: ['创业决策', '心理建设', '母话题：教练创业'],
+        why: '想开馆的教练的核心焦虑是"敢不敢迈出那一步"，决策框架类内容对这类人群极高命中。',
+        hook: '"我没有等到感觉对了才开始，我是在满足了这三个条件之后才开始的"——可复制的决策框架。',
+        angle: '分享决策过程中用到的三个评估维度：资金安全线、客户基础、心理准备。每项给出可量化的判断标准。'
+      },
+      {
+        theme: '普拉提工作室选址的5个死穴：我花了20万才学到的教训',
+        rank: 'S',
+        tags: ['选址避坑', '开馆准备', '母话题：开馆SOP'],
+        why: '选址是教练开馆最容易踩的坑，20万的代价建立了极强的信任感，可复用性极高。',
+        hook: '"选址选错了，你前两年的利润全交给房东了"。',
+        angle: '展示5个选址死穴：商场一楼高租金陷阱、地铁口人流量≠目标客群、装修面积虚标、周边竞争密度盲区、租约条款暗坑。'
+      },
+      {
+        theme: '从0开始：普拉提教练开馆的第一个月需要做哪些事（含完整时间线）',
+        rank: 'A',
+        tags: ['开馆时间线', '执行清单', '母话题：开馆SOP'],
+        why: '想开馆的教练最缺的是具体指导，时间线+清单的组合实用价值极高，私信领取可引流私域。',
+        hook: '"很多馆主开业前忙了3个月，结果第一天只来了2个人——因为他们把所有时间花在装修上，忘了做预热"。',
+        angle: '以倒计时形式展示：开馆前60天→30天→7天→开业当天→第一个月，每个节点需要完成的具体事项。'
+      },
+      {
+        theme: '单间工作室vs独立门店vs共享空间：普拉提教练第一次开馆选哪种？',
+        rank: 'A',
+        tags: ['场地选择', '启动成本', '母话题：开馆路径'],
+        why: '三种起步模式各有优劣，目标人群明确，决策支持内容稀缺。',
+        hook: '"大部分教练一上来就想开独立门店，但存活率最高的反而是从共享空间起步的那批人"。',
+        angle: '从启动资金、风险敞口、客户体验、扩张难度四个维度对比三种模式，给出"如果你有X万启动资金，建议选Y"的明确判断。'
+      },
+      {
+        theme: '普拉提教练转型馆主：你需要补的10个经营技能（技术之外的事）',
+        rank: 'A',
+        tags: ['能力升级', '创业准备', '母话题：教练创业'],
+        why: '教练的技术能力不等于经营能力，这个认知差是大量教练开馆失败的根本原因。',
+        hook: '"你教了10年普拉提，但你从来没有管过一分钱的财务——这是最危险的盲区"。',
+        angle: '用10个技能卡片展示教练→馆主需要补的核心能力：财务记账、合同谈判、人员激励、定价策略、内容运营等。'
+      },
+      {
+        theme: '启动资金只有10万，我是如何开出月营收3万的普拉提工作室的',
+        rank: 'S',
+        tags: ['低成本开馆', '启动资金', '母话题：教练创业'],
+        why: '大部分想开馆的教练都被"资金不够"卡住，10万启动的真实案例极具示范价值，传播力极强。',
+        hook: '"我没有贷款，没有家里支持，只用自己攒的10万——这个数字很多教练都有，差的是那套方法"。',
+        angle: '详细拆解10万启动资金分配：押金+装修30%、设备40%、启动营销10%、备用金20%。展示第1-3个月真实收入曲线。'
+      },
+      {
+        theme: '教练开馆失败最常见的7个原因（我访谈了20位关馆馆主后总结的）',
+        rank: 'S',
+        tags: ['失败案例', '创业避坑', '母话题：教练创业'],
+        why: '失败案例对准创业教练决策影响力极大，访谈20位的研究背书建立权威感，兼顾投资者人群。',
+        hook: '"关馆的人不是不努力，是用力的方向错了"。',
+        angle: '逐一讲解7个失败原因：高估自己的客源基础、低估房租压力、没有标准化就扩张、定价跟风不独立、过度依赖单一教练、缺乏续费意识、没有做品牌只做技术。'
+      }
+    ]
+  }
+];
+
+let cardIdx = 0;
+
+function rankLabel(r){ return r==='S'?'⭐⭐⭐ S级天选':r==='A'?'⭐⭐ A级可拍':'⭐ 待验证'; }
+function rankBg(r){ return r==='S'?'rgba(248,113,113,.15)':r==='A'?'rgba(200,169,110,.15)':'rgba(100,116,139,.15)'; }
+function rankColor(r){ return r==='S'?'#f87171':r==='A'?'#c8a96e':'#94a3b8'; }
+
+GROUPS.forEach(g=>{
+  const el = document.getElementById(g.id);
+  if(!el) return;
+  el.innerHTML = g.items.map(t=>{
+    const idx = ++cardIdx;
+    return `
+    <div class="pool-card" id="pc${idx}" onclick="toggle(${idx})">
+      <div class="pc-head">
+        <div class="pc-idx" style="background:${g.bg};color:${g.color};border:1px solid ${g.border};">${String(idx).padStart(2,'0')}</div>
+        <div class="pc-main">
+          <div class="pc-theme">${t.theme}</div>
+          <div class="pc-pills">
+            ${t.tags.map(tag=>`<span class="pc-tag">${tag}</span>`).join('')}
+            <span class="pc-rank" style="background:${rankBg(t.rank)};color:${rankColor(t.rank)};">${rankLabel(t.rank)}</span>
+          </div>
+        </div>
+        <span class="pc-chevron">▼</span>
+      </div>
+      <div class="pc-body">
+        <div class="pc-inner">
+          <div class="pc-detail">
+            <div class="pc-block" style="background:${rankBg(t.rank)};border-color:${rankColor(t.rank)}33;">
+              <h4 style="color:${rankColor(t.rank)};">🎯 人群 & 入池理由</h4>
+              <p>${t.why}</p>
+            </div>
+            <div class="pc-block">
+              <h4>🪝 核心钩子</h4>
+              <p>${t.hook}</p>
+            </div>
+            <div class="pc-block pc-full" style="background:rgba(200,169,110,.04);border-color:rgba(200,169,110,.15);">
+              <h4 style="color:var(--a1);">📐 内容角度建议</h4>
+              <p>${t.angle}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+});
+
+function toggle(i){
+  document.getElementById('pc'+i).classList.toggle('open');
+}
+
+function goTo(id, btn){
+  document.getElementById(id).scrollIntoView({behavior:'smooth', block:'start'});
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// scroll spy
+const sections = ['g1','g2','g3','method'];
+const navBtns = document.querySelectorAll('.nav-btn');
+window.addEventListener('scroll',()=>{
+  let cur = 0;
+  sections.forEach((id,i)=>{
+    const el = document.getElementById(id);
+    if(el && window.scrollY >= el.offsetTop - 120) cur = i;
+  });
+  navBtns.forEach((b,i)=>b.classList.toggle('active', i===cur));
+},{passive:true});
+</script>
+</body>
+</html>

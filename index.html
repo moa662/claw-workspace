@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Claw · 普拉提IP工作台</title>
+<style>
+:root{
+  --bg:#0a0c10;--s1:#111318;--s2:#181c24;--s3:#1e2330;
+  --bd:#252b3b;--bd2:#2e3650;
+  --a1:#c8a96e;--a2:#e8c98a;--a3:#8b6c3e;
+  --g1:#4ade80;--b1:#60a5fa;--p1:#c084fc;--r1:#f87171;--o1:#fb923c;
+  --t1:#e2e8f0;--t2:#94a3b8;--t3:#64748b;
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);color:var(--t1);
+  font-family:'PingFang SC','Microsoft YaHei','Segoe UI',system-ui,sans-serif;
+  min-height:100vh;display:flex;flex-direction:column;
+}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px;}
+
+/* HERO */
+.hero{
+  padding:64px 24px 56px;text-align:center;position:relative;overflow:hidden;
+  background:linear-gradient(160deg,#0a0c10 0%,#0d1420 60%,#0a0c10 100%);
+  border-bottom:1px solid var(--bd);
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(200,169,110,.08),transparent);
+  pointer-events:none;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  border:1px solid rgba(200,169,110,.35);border-radius:20px;
+  padding:5px 16px;font-size:12px;color:var(--a2);
+  background:rgba(200,169,110,.07);margin-bottom:22px;
+  letter-spacing:.5px;
+}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--a1);
+  animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.85);}}
+.hero h1{
+  font-size:clamp(28px,5vw,48px);font-weight:800;letter-spacing:-.5px;
+  line-height:1.15;margin-bottom:12px;
+}
+.hero h1 .brand{
+  background:linear-gradient(135deg,var(--a2),var(--p1));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{
+  font-size:15px;color:var(--t2);max-width:480px;margin:0 auto 10px;line-height:1.7;
+}
+.hero-time{
+  font-size:12px;color:var(--t3);margin-top:6px;
+}
+
+/* MAIN */
+main{flex:1;max-width:960px;width:100%;margin:0 auto;padding:48px 24px;}
+
+/* SECTION LABEL */
+.section-label{
+  display:flex;align-items:center;gap:10px;
+  font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--t3);margin-bottom:20px;
+}
+.section-label::after{content:'';flex:1;height:1px;background:var(--bd);}
+
+/* CARDS GRID */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:48px;}
+
+.card{
+  background:var(--s1);border:1px solid var(--bd);border-radius:var(--radius);
+  padding:24px;cursor:pointer;text-decoration:none;color:inherit;
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+  display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;inset:0;opacity:0;
+  transition:opacity .25s ease;pointer-events:none;
+}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,.4);}
+.card:hover::before{opacity:1;}
+
+/* 每张卡片独立配色 */
+.card-ai{--c1:#4f8ef7;--c2:#a855f7;}
+.card-ai:hover{border-color:rgba(79,142,247,.4);}
+.card-ai::before{background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(79,142,247,.06),transparent);}
+
+.card-research{--c1:#c8a96e;--c2:#fb923c;}
+.card-research:hover{border-color:rgba(200,169,110,.4);}
+.card-research::before{background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(200,169,110,.06),transparent);}
+
+.card-pool{--c1:#60a5fa;--c2:#c084fc;}
+.card-pool:hover{border-color:rgba(96,165,250,.4);}
+.card-pool::before{background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(96,165,250,.06),transparent);}
+
+.card-icon{
+  width:44px;height:44px;border-radius:10px;
+  background:linear-gradient(135deg,var(--c1),var(--c2));
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+  flex-shrink:0;
+}
+.card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+.card-meta{flex:1;}
+.card-title{font-size:16px;font-weight:700;margin-bottom:4px;}
+.card-tag{
+  display:inline-block;font-size:10px;font-weight:600;letter-spacing:.8px;
+  padding:2px 8px;border-radius:4px;
+  background:rgba(255,255,255,.06);color:var(--t3);
+  text-transform:uppercase;
+}
+.card-desc{font-size:13px;color:var(--t2);line-height:1.65;}
+.card-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:14px;border-top:1px solid var(--bd);
+}
+.card-update{font-size:11px;color:var(--t3);display:flex;align-items:center;gap:5px;}
+.card-update .status-dot{
+  width:5px;height:5px;border-radius:50%;
+}
+.status-auto{background:var(--g1);box-shadow:0 0 6px rgba(74,222,128,.5);}
+.status-manual{background:var(--a1);}
+.card-arrow{
+  font-size:18px;color:var(--t3);
+  transition:transform .2s ease,color .2s ease;
+}
+.card:hover .card-arrow{transform:translateX(4px);color:var(--c1);}
+
+/* TIPS */
+.tips{
+  background:var(--s1);border:1px solid var(--bd);border-radius:var(--radius);
+  padding:20px 24px;display:flex;align-items:flex-start;gap:14px;
+}
+.tips-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.tips-body h3{font-size:13px;font-weight:600;margin-bottom:6px;color:var(--t1);}
+.tips-body p{font-size:12px;color:var(--t2);line-height:1.7;}
+.tips-body code{
+  background:rgba(255,255,255,.07);border:1px solid var(--bd);
+  border-radius:4px;padding:1px 6px;font-size:11px;color:var(--a2);
+  font-family:'Courier New',monospace;
+}
+
+/* FOOTER */
+footer{text-align:center;padding:24px;font-size:12px;color:var(--t3);border-top:1px solid var(--bd);}
+
+/* NOTION SECTION */
+.notion-block{
+  background:var(--s1);border:1px solid var(--bd);border-radius:var(--radius);
+  padding:24px;margin-bottom:48px;
+}
+.notion-block h3{font-size:14px;font-weight:600;margin-bottom:16px;color:var(--t1);display:flex;align-items:center;gap:8px;}
+.notion-steps{display:flex;flex-direction:column;gap:10px;}
+.notion-step{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:12px 14px;background:var(--s2);border-radius:8px;
+}
+.step-num{
+  width:22px;height:22px;border-radius:50%;
+  background:linear-gradient(135deg,var(--a1),var(--a2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:#000;flex-shrink:0;margin-top:1px;
+}
+.step-text{font-size:12px;color:var(--t2);line-height:1.65;}
+.step-text strong{color:var(--t1);}
+.step-text code{
+  background:rgba(255,255,255,.07);border:1px solid var(--bd);
+  border-radius:3px;padding:1px 5px;font-size:11px;color:var(--b1);
+  font-family:'Courier New',monospace;
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge"><span class="dot"></span>Claw 工作台 · 普拉提IP助理</div>
+  <h1>你的<span class="brand">内容创作</span>主控台</h1>
+  <p class="hero-sub">三个工具网页，统一从这里进入。书签收藏此页即可。</p>
+  <div class="hero-time" id="clock"></div>
+</div>
+
+<main>
+
+  <!-- 工具入口 -->
+  <div class="section-label">工具入口</div>
+  <div class="cards">
+
+    <a class="card card-ai" href="ai-news-dashboard.html" target="_blank">
+      <div class="card-header">
+        <div class="card-icon">🤖</div>
+        <div class="card-meta">
+          <div class="card-title">AI 工具动态看板</div>
+          <span class="card-tag">每日自动更新</span>
+        </div>
+      </div>
+      <div class="card-desc">每天早上9点自动抓取最新AI工具资讯、行业落地案例及创业动态，开工前快速浏览。</div>
+      <div class="card-footer">
+        <div class="card-update">
+          <span class="status-dot status-auto"></span>
+          自动更新 · 每天 09:00
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="card card-research" href="pilates-topic-research.html" target="_blank">
+      <div class="card-header">
+        <div class="card-icon">📊</div>
+        <div class="card-meta">
+          <div class="card-title">B端内容策略报告</div>
+          <span class="card-tag">阶段性更新</span>
+        </div>
+      </div>
+      <div class="card-desc">普拉提行业B端内容策略深度报告，覆盖馆主、投资者、教练三类目标人群的选题方向与内容框架。</div>
+      <div class="card-footer">
+        <div class="card-update">
+          <span class="status-dot status-manual"></span>
+          手动更新 · 按需迭代
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="card card-pool" href="pilates-topic-pool.html" target="_blank">
+      <div class="card-header">
+        <div class="card-icon">💡</div>
+        <div class="card-meta">
+          <div class="card-title">三环方法论选题池</div>
+          <span class="card-tag">持续补充</span>
+        </div>
+      </div>
+      <div class="card-desc">基于三环选题法产出的初筛选题库，25个S/A级选题，按三类B端人群分组，持续扩充中。</div>
+      <div class="card-footer">
+        <div class="card-update">
+          <span class="status-dot status-manual"></span>
+          手动更新 · 持续迭代
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Notion 嵌入说明 -->
+  <div class="section-label">Notion 联动</div>
+  <div class="notion-block">
+    <h3>📎 如何在 Notion 中查看这些网页</h3>
+    <div class="notion-steps">
+      <div class="notion-step">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>等待云端部署完成</strong>（我正在处理），部署后你会收到一个真实的 <code>https://</code> 链接。</div>
+      </div>
+      <div class="notion-step">
+        <div class="step-num">2</div>
+        <div class="step-text">在 Notion 页面中，输入 <code>/embed</code> 插入嵌入块。</div>
+      </div>
+      <div class="notion-step">
+        <div class="step-num">3</div>
+        <div class="step-text">将 <code>https://</code> 链接粘贴进去，点击 <strong>Embed link</strong>，网页就会直接显示在 Notion 页面内。</div>
+      </div>
+      <div class="notion-step">
+        <div class="step-num">4</div>
+        <div class="step-text">每次我更新网页内容后，Notion 里无需任何操作，<strong>刷新即可看到最新版本</strong>。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 小贴士 -->
+  <div class="tips">
+    <div class="tips-icon">💡</div>
+    <div class="tips-body">
+      <h3>收藏技巧</h3>
+      <p>在浏览器中打开此页面后，按 <code>Ctrl+D</code>（Windows）或 <code>⌘+D</code>（Mac）添加书签，下次直接从书签进入，不用再找文件路径。</p>
+    </div>
+  </div>
+
+</main>
+
+<footer>Claw · 普拉提IP内容创作工作台 · 由 WorkBuddy 驱动</footer>
+
+<script>
+  // 实时时钟
+  function updateClock() {
+    const now = new Date();
+    const days = ["周日","周一","周二","周三","周四","周五","周六"];
+    const d = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 ${days[now.getDay()]} ${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}`;
+    document.getElementById("clock").textContent = d;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+</script>
+</body>
+</html>

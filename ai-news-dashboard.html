@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 工具动态新闻助手</title>
+  <style>
+    :root {
+      --bg: #0d0f14;
+      --surface: #141720;
+      --surface2: #1c2030;
+      --border: #252a3a;
+      --accent: #4f8ef7;
+      --accent2: #a855f7;
+      --accent3: #22d3ee;
+      --green: #34d399;
+      --yellow: #fbbf24;
+      --red: #f87171;
+      --text: #e2e8f0;
+      --text2: #94a3b8;
+      --text3: #64748b;
+      --card-radius: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      background: linear-gradient(135deg, #0d0f14 0%, #13182a 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .logo h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
+    .logo span { color: var(--accent); }
+
+    .header-meta {
+      display: flex; align-items: center; gap: 16px;
+    }
+    .date-badge {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 12px;
+      color: var(--text2);
+    }
+    .live-dot {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--green);
+    }
+    .live-dot::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    /* ─── LAYOUT ─── */
+    .layout {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px 24px 60px;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 24px;
+    }
+
+    /* ─── SIDEBAR ─── */
+    .sidebar { display: flex; flex-direction: column; gap: 16px; }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      overflow: hidden;
+    }
+    .panel-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text2);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .panel-header .icon { font-size: 14px; }
+
+    /* Category nav */
+    .cat-list { padding: 8px; }
+    .cat-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .cat-item:hover { background: var(--surface2); }
+    .cat-item.active { background: rgba(79, 142, 247, 0.12); }
+    .cat-item.active .cat-name { color: var(--accent); }
+    .cat-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .cat-name { font-size: 13px; flex: 1; }
+    .cat-count {
+      font-size: 11px;
+      color: var(--text3);
+      background: var(--surface2);
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+    .cat-item.active .cat-count {
+      background: rgba(79, 142, 247, 0.2);
+      color: var(--accent);
+    }
+
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+    }
+    .stat-cell {
+      background: var(--surface);
+      padding: 14px;
+      text-align: center;
+    }
+    .stat-cell .num { font-size: 22px; font-weight: 700; }
+    .stat-cell .lbl { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+    /* Subscribe */
+    .sub-body { padding: 14px 16px; }
+    .sub-desc { font-size: 12px; color: var(--text2); margin-bottom: 12px; line-height: 1.6; }
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .tag {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text2);
+    }
+    .tag:hover { border-color: var(--accent); color: var(--accent); }
+    .tag.active {
+      background: rgba(79, 142, 247, 0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .sub-input-row { display: flex; gap: 6px; }
+    .sub-input {
+      flex: 1;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-size: 12px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .sub-input:focus { border-color: var(--accent); }
+    .sub-input::placeholder { color: var(--text3); }
+    .btn-add {
+      background: var(--accent);
+      border: none;
+      border-radius: 8px;
+      padding: 7px 12px;
+      color: #fff;
+      font-size: 12px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-add:hover { opacity: 0.85; }
+
+    /* ─── MAIN CONTENT ─── */
+    .main { min-width: 0; }
+
+    /* Toolbar */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .search-box {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 14px;
+      transition: border-color 0.2s;
+    }
+    .search-box:focus-within { border-color: var(--accent); }
+    .search-box input {
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--text);
+      font-size: 13px;
+      flex: 1;
+    }
+    .search-box input::placeholder { color: var(--text3); }
+    .search-icon { color: var(--text3); font-size: 14px; }
+
+    .filter-tabs {
+      display: flex;
+      gap: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 4px;
+    }
+    .ftab {
+      padding: 6px 14px;
+      border-radius: 7px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text2);
+      border: none;
+      background: none;
+    }
+    .ftab:hover { color: var(--text); }
+    .ftab.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .sort-select {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 14px;
+      font-size: 12px;
+      color: var(--text2);
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* News cards */
+    .news-grid { display: flex; flex-direction: column; gap: 14px; }
+
+    .news-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 18px 20px;
+      transition: all 0.2s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .news-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--card-accent, var(--accent));
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .news-card:hover {
+      border-color: rgba(79, 142, 247, 0.4);
+      background: var(--surface2);
+      transform: translateX(2px);
+    }
+    .news-card:hover::before { opacity: 1; }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .company-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      border: 1px solid currentColor;
+      opacity: 0.85;
+    }
+    .company-logo { font-size: 13px; }
+    .tag-badge {
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .tag-product { background: rgba(79,142,247,.15); color: var(--accent); }
+    .tag-tech { background: rgba(168,85,247,.15); color: var(--accent2); }
+    .tag-strategy { background: rgba(34,211,238,.15); color: var(--accent3); }
+    .tag-personnel { background: rgba(251,191,36,.15); color: var(--yellow); }
+    .tag-partnership { background: rgba(52,211,153,.15); color: var(--green); }
+
+    .card-time {
+      margin-left: auto;
+      font-size: 11px;
+      color: var(--text3);
+      white-space: nowrap;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .card-summary {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.7;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .news-card.expanded .card-summary {
+      -webkit-line-clamp: unset;
+    }
+
+    .card-bottom {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .source-link {
+      font-size: 11px;
+      color: var(--text3);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .source-link:hover { color: var(--accent); }
+    .read-more {
+      margin-left: auto;
+      font-size: 12px;
+      color: var(--accent);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+    .read-more:hover { text-decoration: underline; }
+
+    /* Hot badge */
+    .hot-badge {
+      background: linear-gradient(135deg, #f87171, #fb923c);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 3px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Pagination / Load more */
+    .load-more-area {
+      display: flex;
+      justify-content: center;
+      margin-top: 24px;
+    }
+    .btn-load {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 28px;
+      color: var(--text2);
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-load:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Archive modal */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      width: 640px;
+      max-width: 92vw;
+      max-height: 80vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transform: scale(0.95);
+      transition: transform 0.25s;
+    }
+    .modal-overlay.open .modal { transform: scale(1); }
+    .modal-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-head h2 { font-size: 16px; font-weight: 600; }
+    .modal-close {
+      background: var(--surface2); border: none;
+      width: 28px; height: 28px; border-radius: 6px;
+      cursor: pointer; color: var(--text2);
+      font-size: 16px; display: flex; align-items: center; justify-content: center;
+    }
+    .modal-body { padding: 20px; overflow-y: auto; flex: 1; }
+
+    .archive-month { margin-bottom: 20px; }
+    .archive-month h3 {
+      font-size: 13px; font-weight: 600;
+      color: var(--text2); margin-bottom: 10px;
+      padding-bottom: 6px; border-bottom: 1px solid var(--border);
+    }
+    .archive-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 8px 0; border-bottom: 1px solid var(--border);
+      cursor: pointer; transition: opacity 0.2s;
+    }
+    .archive-item:hover { opacity: 0.75; }
+    .archive-item:last-child { border-bottom: none; }
+    .archive-date { font-size: 11px; color: var(--text3); min-width: 36px; }
+    .archive-title { font-size: 13px; line-height: 1.4; flex: 1; }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 24px; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-size: 13px;
+      color: var(--text);
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 300;
+      pointer-events: none;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { display: grid; grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .header-inner { padding: 0; }
+      .layout { padding: 16px; gap: 16px; }
+      .sidebar { grid-template-columns: 1fr; }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+
+    /* Section divider */
+    .section-label {
+      font-size: 12px; font-weight: 600;
+      color: var(--text3); letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 0 4px; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1; height: 1px;
+      background: var(--border);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text3);
+    }
+    .empty-state .icon { font-size: 40px; margin-bottom: 12px; }
+    .empty-state p { font-size: 14px; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">🤖</div>
+      <h1>AI <span>动态</span> 简报</h1>
+    </div>
+    <div class="header-meta">
+      <div class="date-badge" id="headerDate"></div>
+      <div class="live-dot">实时更新</div>
+      <button class="btn-load" style="padding:6px 14px;font-size:12px;border-radius:8px;" onclick="openArchive()">📂 历史存档</button>
+    </div>
+  </div>
+</header>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <!-- Category Nav -->
+    <div class="panel">
+      <div class="panel-header"><span class="icon">🏢</span> 公司分类</div>
+      <div class="cat-list" id="catList"></div>
+    </div>
+
+    <!-- Stats -->
+    <div class="panel">
+      <div class="panel-header"><span class="icon">📊</span> 本周数据</div>
+      <div class="stats-grid">
+        <div class="stat-cell"><div class="num" style="color:var(--accent)" id="statTotal">—</div><div class="lbl">条新闻</div></div>
+        <div class="stat-cell"><div class="num" style="color:var(--accent2)" id="statCo">—</div><div class="lbl">家公司</div></div>
+        <div class="stat-cell"><div class="num" style="color:var(--green)" id="statHot">—</div><div class="lbl">热点事件</div></div>
+        <div class="stat-cell"><div class="num" style="color:var(--yellow)" id="statDays">7</div><div class="lbl">天时效</div></div>
+      </div>
+    </div>
+
+    <!-- Subscribe -->
+    <div class="panel">
+      <div class="panel-header"><span class="icon">🔔</span> 关键词订阅</div>
+      <div class="sub-body">
+        <p class="sub-desc">选择或自定义关注的 AI 技术领域，第一时间获取相关动态。</p>
+        <div class="tag-cloud" id="tagCloud"></div>
+        <div class="sub-input-row">
+          <input class="sub-input" id="customTag" placeholder="输入自定义关键词..." />
+          <button class="btn-add" onclick="addCustomTag()">+ 添加</button>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="toolbar">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input id="searchInput" placeholder="搜索新闻标题或内容..." oninput="filterNews()" />
+      </div>
+      <div class="filter-tabs" id="filterTabs">
+        <button class="ftab active" data-filter="all" onclick="setFilter('all',this)">全部</button>
+        <button class="ftab" data-filter="产品发布" onclick="setFilter('产品发布',this)">产品发布</button>
+        <button class="ftab" data-filter="技术突破" onclick="setFilter('技术突破',this)">技术突破</button>
+        <button class="ftab" data-filter="战略合作" onclick="setFilter('战略合作',this)">战略合作</button>
+        <button class="ftab" data-filter="人事变动" onclick="setFilter('人事变动',this)">人事变动</button>
+      </div>
+      <select class="sort-select" id="sortSelect" onchange="sortNews()">
+        <option value="time">按时间</option>
+        <option value="hot">热度优先</option>
+        <option value="company">按公司</option>
+      </select>
+    </div>
+
+    <div class="section-label" id="sectionLabel">今日简报</div>
+    <div class="news-grid" id="newsGrid"></div>
+    <div class="load-more-area">
+      <button class="btn-load" id="loadMoreBtn" onclick="loadMore()">加载更多新闻</button>
+    </div>
+  </main>
+</div>
+
+<!-- Archive Modal -->
+<div class="modal-overlay" id="archiveModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>📂 历史新闻存档</h2>
+      <button class="modal-close" onclick="closeArchive()">✕</button>
+    </div>
+    <div class="modal-body" id="archiveBody"></div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─────────────────────────────────────────
+//  DATA
+// ─────────────────────────────────────────
+const COMPANIES = [
+  { id: 'all',       name: '全部',     color: '#4f8ef7', emoji: '🌐' },
+  { id: 'google',    name: 'Google',   color: '#ea4335', emoji: '🔵' },
+  { id: 'microsoft', name: 'Microsoft',color: '#00bcf2', emoji: '🪟' },
+  { id: 'meta',      name: 'Meta',     color: '#0668e1', emoji: '🦋' },
+  { id: 'openai',    name: 'OpenAI',   color: '#10a37f', emoji: '🧠' },
+  { id: 'anthropic', name: 'Anthropic',color: '#d97706', emoji: '🌊' },
+  { id: 'baidu',     name: '百度',     color: '#2932e1', emoji: '🔴' },
+  { id: 'alibaba',   name: '阿里巴巴', color: '#ff6a00', emoji: '🟠' },
+  { id: 'tencent',   name: '腾讯',     color: '#07c160', emoji: '🟢' },
+  { id: 'apple',     name: 'Apple',    color: '#a8a8a8', emoji: '🍎' },
+];
+
+const NEWS_DATA = [
+  {
+    id: 1,
+    company: 'google',
+    title: 'Google Maps 全面接入 Gemini AI，推出"Ask Maps"智能问答功能',
+    tag: '产品发布',
+    time: '2026-03-12',
+    relTime: '2天前',
+    source: 'MacRumors / US News',
+    sourceUrl: 'https://www.macrumors.com/2026/03/12/google-maps-gemini-integration/',
+    hot: true,
+    summary: 'Google 正式将 Gemini AI 集成至 Google Maps，推出全新"Ask Maps"自然语言问答功能，用户可通过对话方式向地图提问——如"附近哪里适合周末带孩子去野餐"。这一更新不仅支持复杂的现实场景理解，还能结合实时路况、用户评价等多维度数据给出综合推荐。这是继 Gmail 和 Chrome 之后，Google 将 Gemini 技术全面融入核心产品矩阵的又一重要举措。分析师认为，此举将显著提升 Maps 的日活用户时长及商业变现能力。',
+  },
+  {
+    id: 2,
+    company: 'microsoft',
+    title: 'Microsoft 发布 Copilot Health：AI 健康助理正式进军消费级医疗市场',
+    tag: '产品发布',
+    time: '2026-03-13',
+    relTime: '1天前',
+    source: 'OpenTools.ai / Creative Collaboration',
+    sourceUrl: 'https://opentools.ai/news/microsoft-launches-copilot-health-the-ai-revolution-in-personal-wellness',
+    hot: true,
+    summary: 'Microsoft 正式推出 Copilot Health，通过整合可穿戴设备数据与个人电子健康记录，为用户提供个性化健康洞察与管理建议。这一里程碑式产品标志着微软向消费级医疗 AI 市场的直接进军，与 OpenAI 的 ChatGPT Health（2026年1月发布）及 Anthropic 的健康功能展开正面竞争。该功能将集成于 Microsoft 365 生态内，支持与 Apple Health、三星健康等主流平台数据互通，预计2026年Q2面向所有 Copilot 订阅用户开放。',
+  },
+  {
+    id: 3,
+    company: 'meta',
+    title: 'Meta 旗舰模型"Avocado"推迟至5月发布，性能落后 Google Gemini 3',
+    tag: '技术突破',
+    time: '2026-03-13',
+    relTime: '1天前',
+    source: 'WinBuzzer / Analytics Insight',
+    sourceUrl: 'https://winbuzzer.com/2026/03/13/meta-delays-avocado-ai-model-after-failing-to-match-rivals-xcxwbn/',
+    hot: true,
+    summary: '据《纽约时报》3月12日报道，Meta 内部代号为"Avocado"的下一代旗舰 AI 模型因在推理与编程任务的内部基准测试中未能达到预期水平，决定将发布时间推迟至2026年5月甚至更晚。目前 Avocado 在多项指标上仍落后于 Google Gemini 3、OpenAI 和 Anthropic。为弥补差距，Meta 已与 Google 签署技术许可协议。尽管扎克伯格已为超级智能实验室投入高达 1350 亿美元，但此次延期令市场对 Meta AI 战略执行力产生质疑。',
+  },
+  {
+    id: 4,
+    company: 'openai',
+    title: 'OpenAI 与 Microsoft 续签战略合作协议，共同推进 AGI 商业化落地',
+    tag: '战略合作',
+    time: '2026-02-27',
+    relTime: '2周前',
+    source: 'Microsoft Blog',
+    sourceUrl: 'https://blogs.microsoft.com/blog/2026/02/27/microsoft-and-openai-joint-statement-on-continuing-partnership/',
+    hot: false,
+    summary: '微软与 OpenAI 联合发表声明，确认续签自2019年起建立的战略合作关系，双方将进一步深化在 Azure 云基础设施、企业 AI 产品及负责任 AI 研发方面的协作。此次续约明确了双方在 AGI 成果分配机制上的新条款，微软将继续作为 OpenAI 独家云服务商，并获得更广泛的模型商业化授权。合作的延续为 Copilot 产品线注入了长期稳定的技术支撑，同时也向市场传递了两家公司在 AI 领域协同深耕的强烈信号。',
+  },
+  {
+    id: 5,
+    company: 'anthropic',
+    title: 'Anthropic 发布 Claude Opus 4.6：编程能力与长任务持续性达行业领先',
+    tag: '产品发布',
+    time: '2026-02-05',
+    relTime: '5周前',
+    source: 'Anthropic / CNBC',
+    sourceUrl: 'https://www.anthropic.com/news/claude-opus-4-6',
+    hot: false,
+    summary: 'Anthropic 推出迄今最强模型 Claude Opus 4.6，在 Agentic 编程、计算机操作、工具调用、搜索及金融等领域均取得行业领先成绩。新模型显著增强了长时间持续任务的稳定性，支持"氛围式工作"（Vibe Working）——即在几乎无需人工干预的情况下自主完成复杂多步骤任务。Opus 4.6 的发布时间比 OpenAI Codex 桌面端晚三天，进一步加剧了两家公司在高端 AI 编程助理市场的激烈角逐。',
+  },
+  {
+    id: 6,
+    company: 'tencent',
+    title: '腾讯云发布 WorkBuddy 全场景 AI 智能体，兼容 OpenClaw 技能生态',
+    tag: '产品发布',
+    time: '2026-03-10',
+    relTime: '4天前',
+    source: 'IT之家',
+    sourceUrl: 'https://m.ithome.com/html/927399.htm',
+    hot: true,
+    summary: '腾讯云正式发布全场景 AI 智能体产品 WorkBuddy，用户下载安装后即可使用，并完全兼容 OpenClaw 技能生态。WorkBuddy 被业界称为"腾讯版小龙虾"，支持代码生成、文档处理、数据分析等多类工作场景。与此同时，微信团队被曝正在秘密研发独立 AI Agent 产品，进一步拓展腾讯在消费级 AI 入口的布局。分析师认为，腾讯此举意在以"Agent 入口"为核心，全面对标字节跳动、阿里等竞争对手在 AI 工具生态上的优势。',
+  },
+  {
+    id: 7,
+    company: 'baidu',
+    title: '百度健康内部孵化专业医疗 AI 助手，面向医生群体的安全可控 Agent',
+    tag: '产品发布',
+    time: '2026-03-13',
+    relTime: '1天前',
+    source: '科创板日报 / 新浪财经',
+    sourceUrl: 'https://finance.sina.com.cn/jjxw/2026-03-13/doc-inhqvxre4054252.shtml',
+    hot: false,
+    summary: '据知情人士向《科创板日报》独家透露，百度健康正在内部孵化一款面向医生群体的专业 AI 智能助手，主打"安全可控"，旨在提升医生在诊断辅助、病历撰写及医学文献检索等环节的工作效率。与消费级健康 AI 不同，该产品将严格遵循医疗合规要求，并与百度文心大模型深度结合。同日，百度智能云还宣布降低 AI 应用开发门槛，为中小企业开发者提供更低成本的大模型接入方案，进一步强化 B 端市场渗透。',
+  },
+  {
+    id: 8,
+    company: 'alibaba',
+    title: '阿里巴巴发布国内首批 AI Coding Plan，通义千问全面进军开发者市场',
+    tag: '产品发布',
+    time: '2026-03-12',
+    relTime: '2天前',
+    source: '知乎 / CSDN',
+    sourceUrl: 'https://zhuanlan.zhihu.com/p/2015468530938693485',
+    hot: false,
+    summary: '阿里巴巴基于通义千问推出 Coding Plan 订阅服务，成为国内首批将大模型能力以"开发者套餐"形式打包销售的平台之一，与字节跳动、腾讯、百度、Kimi、智谱展开正面竞争。据业内梳理，各平台在模型能力、价格策略和额度设计上差异显著，阿里的方案以高性价比和与阿里云生态的深度整合见长。分析师表示，"Coding Plan"大战折射出国产大模型厂商正从技术比拼转向商业化落地的关键拐点。',
+  },
+  {
+    id: 9,
+    company: 'google',
+    title: 'Google Labs 发布早期 AI 功能合集：Jules Agent 升级 Gemini 3 Flash，Flow 界面重设计',
+    tag: '技术突破',
+    time: '2026-03-05',
+    relTime: '9天前',
+    source: 'The Neuron / AI Weekly',
+    sourceUrl: 'https://www.theneuron.ai/ai-news-digests/around-the-horn-digest-everything-that-happened-in-ai-this-week-mar-1-7-2026/',
+    hot: false,
+    summary: 'Google Labs 集中发布一批实验性 AI 功能，包括：Jules Agent 升级至 Gemini 3 Flash 驱动（对个人用户免费）；Flow 创意写作界面全面重设计；Project Genie 推出"无限世界生成"能力；以及 SynthID 音频水印检测技术开放测试。这一系列发布展示了 Google 在 Agent、创意 AI 和内容溯源三大方向的战略布局，并再次强调了 Gemini 3 系列作为谷歌 AI 能力底座的核心地位。',
+  },
+  {
+    id: 10,
+    company: 'openai',
+    title: '前沿周：GPT-5.4、Gemini 3.1、Claude 4.6 三大模型密集发布，AI 进入新拐点',
+    tag: '技术突破',
+    time: '2026-03-08',
+    relTime: '6天前',
+    source: 'Substack / LLM Stats',
+    sourceUrl: 'https://micheallanham.substack.com/p/the-march-2026-ai-frontier-gpt-54',
+    hot: true,
+    summary: '2026年3月初，AI 行业迎来史无前例的"前沿周"——OpenAI、Google DeepMind、Anthropic 在短短数天内相继发布各自旗舰新模型 GPT-5.4、Gemini 3.1 与 Claude 4.6。三家公司在推理、多模态、长上下文及 Agentic 能力上你追我赶，行业分析师将此视为 AI 从"增长期"向"变现期"转型的关键节点。各模型的性能评测正在业界持续发酵，预计将深度影响企业级 AI 采购决策格局。',
+  },
+  {
+    id: 11,
+    company: 'apple',
+    title: 'Apple 发布搭载 M4 芯片的新款 iPad Air，AI 本地推理能力大幅提升',
+    tag: '产品发布',
+    time: '2026-03-02',
+    relTime: '12天前',
+    source: 'AI Weekly Issue 206',
+    sourceUrl: 'https://ai-weekly.ai/newsletter-03-03-2026/',
+    hot: false,
+    summary: 'Apple 正式发布新一代 iPad Air，搭载 M4 芯片并配备更大内存，在本地 AI 推理能力、连接性和 iPadOS 功能上实现跨越式升级。新版 iPad Air 将支持 Apple Intelligence 全功能，包括本地图像生成、文档摘要和语境感知 Siri。与依赖云端的竞品不同，Apple 坚持"隐私优先"的本地推理路线，进一步强化其在消费级 AI 硬件生态中的差异化竞争优势，被视为 Apple Intelligence 战略落地的重要节点。',
+  },
+  {
+    id: 12,
+    company: 'tencent',
+    title: 'OpenClaw 爆火：腾讯大厦外千名开发者排队，AI Agent 时代正式到来',
+    tag: '技术突破',
+    time: '2026-03-09',
+    relTime: '5天前',
+    source: '新浪财经 / 金融界',
+    sourceUrl: 'https://news.sina.cn/2026-03-09/detail-inhqmcph6800312.d.html',
+    hot: true,
+    summary: '3月6日，深圳腾讯大厦北广场聚集近千名开发者和 AI 爱好者，争相等待腾讯工程师协助安装开源 AI 工具 OpenClaw。这一场景引发广泛关注，"养龙虾"热度从科技圈蔓延至大众舆论。OpenClaw 作为 AI Agent 领域的新兴代表，凭借高度可扩展的技能生态和开源特性迅速走红。业界普遍认为，这场"排队事件"是 AI 正式迈入 Agent 时代的标志性时刻，国内外大厂均在加速布局 Agent 入口级产品。',
+  },
+  {
+    id: 13,
+    company: 'baidu',
+    title: '百度、阿里智能体入口争夺战：各自亮出"龙虾"级战略产品',
+    tag: '战略合作',
+    time: '2026-03-13',
+    relTime: '1天前',
+    source: '科创板日报 / 新浪财经',
+    sourceUrl: 'https://finance.sina.com.cn/jjxw/2026-03-13/doc-inhqvxre4054252.shtml',
+    hot: false,
+    summary: '在 OpenClaw 引爆 AI Agent 热潮后，百度与阿里巴巴相继公布各自的"智能体入口"级产品计划，直接对标腾讯的 WorkBuddy 生态。百度主打文心大模型驱动的企业级 Agent 平台，强调行业垂直化和安全可控；阿里则以通义千问为底座，侧重开发者工具链和云原生部署。行业人士指出，国内大厂的 AI Agent 争夺本质上是对下一代"AI 操作系统"入口的争夺，谁能率先建立起成熟的技能生态，谁就掌握未来 AI 应用分发的主导权。',
+  },
+  {
+    id: 14,
+    company: 'meta',
+    title: 'Meta 斥资 1350 亿美元押注超级智能，成立 AI Superintelligence Labs',
+    tag: '战略合作',
+    time: '2026-01-21',
+    relTime: '7周前',
+    source: 'Techi.com',
+    sourceUrl: 'https://www.techi.com/meta-ai-breakthrough-superintelligence-labs-2026/',
+    hot: false,
+    summary: 'Meta 在 Llama 系列发布仅6个月后宣布成立 AI Superintelligence Labs，并计划投入高达 1350 亿美元用于研发超级智能系统。扎克伯格公开表示，Meta 将把实现 AGI 作为公司最高战略优先级。与此同时，Meta 正在研发自研 AI 芯片，以降低对 NVIDIA 的依赖。然而随后 Avocado 模型的延期暴露了超高投入与实际落地之间的差距，引发投资者对其 AI 战略短期执行能力的疑虑。',
+  },
+];
+
+// ─────────────────────────────────────────
+//  STATE
+// ─────────────────────────────────────────
+let activeCompany = 'all';
+let activeFilter = 'all';
+let activeTags = new Set(['大模型', 'AI Agent', '产品发布']);
+let searchQuery = '';
+let sortMode = 'time';
+let visibleCount = 8;
+
+const DEFAULT_TAGS = ['大模型','AI Agent','产品发布','技术突破','医疗AI','编程工具','多模态','AGI','智能体','开源模型'];
+
+// Archive data
+const ARCHIVE = {
+  '2026年3月（当前）': NEWS_DATA.map(n => ({ date: n.time.slice(5), title: n.title, company: n.company })),
+  '2026年2月': [
+    { date: '02-27', title: 'Microsoft & OpenAI 续签战略合作协议，明确 AGI 商业化分配框架', company: 'microsoft' },
+    { date: '02-05', title: 'Anthropic 发布 Claude Opus 4.6，Agentic 编程达行业 SOTA', company: 'anthropic' },
+    { date: '02-10', title: 'OpenAI Codex 桌面端正式上线，与 Claude 展开编程助理正面竞争', company: 'openai' },
+    { date: '02-14', title: '百度文心大模型 4.5 发布，多模态理解能力全面升级', company: 'baidu' },
+    { date: '02-20', title: 'Google DeepMind 发布 AlphaCode 3，代码生成通过率创历史新高', company: 'google' },
+  ],
+  '2026年1月': [
+    { date: '01-21', title: 'Meta 成立 AI Superintelligence Labs，扎克伯格押注 1350 亿美元', company: 'meta' },
+    { date: '01-15', title: 'Apple Intelligence 全球正式上线，支持 50 个国家和地区', company: 'apple' },
+    { date: '01-08', title: 'OpenAI 推出 ChatGPT Health 功能，进军消费级医疗 AI', company: 'openai' },
+    { date: '01-12', title: '阿里通义万象 2.0 发布，图文生成能力对标 Midjourney', company: 'alibaba' },
+    { date: '01-25', title: '腾讯混元大模型 3.0 正式商用，企业版开始大规模部署', company: 'tencent' },
+  ],
+};
+
+// ─────────────────────────────────────────
+//  INIT
+// ─────────────────────────────────────────
+function init() {
+  // Header date
+  const now = new Date();
+  document.getElementById('headerDate').textContent =
+    `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 · 每日简报`;
+
+  // Category nav
+  renderCatList();
+  // Tags
+  renderTagCloud();
+  // Stats
+  updateStats();
+  // News
+  renderNews();
+  // Archive
+  renderArchive();
+}
+
+// ─────────────────────────────────────────
+//  CATEGORY
+// ─────────────────────────────────────────
+function renderCatList() {
+  const el = document.getElementById('catList');
+  el.innerHTML = COMPANIES.map(c => {
+    const cnt = c.id === 'all' ? NEWS_DATA.length
+      : NEWS_DATA.filter(n => n.company === c.id).length;
+    return `
+      <div class="cat-item${activeCompany===c.id?' active':''}"
+           onclick="selectCompany('${c.id}')" style="--card-accent:${c.color}">
+        <div class="cat-dot" style="background:${c.color}"></div>
+        <span class="cat-name">${c.emoji} ${c.name}</span>
+        <span class="cat-count">${cnt}</span>
+      </div>`;
+  }).join('');
+}
+
+function selectCompany(id) {
+  activeCompany = id;
+  visibleCount = 8;
+  renderCatList();
+  renderNews();
+  updateSectionLabel();
+}
+
+// ─────────────────────────────────────────
+//  TAGS
+// ─────────────────────────────────────────
+function renderTagCloud() {
+  const el = document.getElementById('tagCloud');
+  const allTags = [...new Set([...DEFAULT_TAGS, ...activeTags])];
+  el.innerHTML = allTags.map(t => `
+    <div class="tag${activeTags.has(t)?' active':''}" onclick="toggleTag('${t}')">${t}</div>
+  `).join('');
+}
+
+function toggleTag(t) {
+  if (activeTags.has(t)) activeTags.delete(t);
+  else activeTags.add(t);
+  renderTagCloud();
+  showToast(activeTags.has(t) ? `已订阅「${t}」` : `已取消订阅「${t}」`);
+}
+
+function addCustomTag() {
+  const input = document.getElementById('customTag');
+  const val = input.value.trim();
+  if (!val) return;
+  activeTags.add(val);
+  input.value = '';
+  renderTagCloud();
+  showToast(`已添加关键词「${val}」`);
+}
+
+// ─────────────────────────────────────────
+//  FILTER & SORT
+// ─────────────────────────────────────────
+function setFilter(f, btn) {
+  activeFilter = f;
+  visibleCount = 8;
+  document.querySelectorAll('.ftab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderNews();
+  updateSectionLabel();
+}
+
+function sortNews() {
+  sortMode = document.getElementById('sortSelect').value;
+  renderNews();
+}
+
+function filterNews() {
+  searchQuery = document.getElementById('searchInput').value.trim().toLowerCase();
+  visibleCount = 8;
+  renderNews();
+  updateSectionLabel();
+}
+
+function getFiltered() {
+  let data = [...NEWS_DATA];
+  if (activeCompany !== 'all') data = data.filter(n => n.company === activeCompany);
+  if (activeFilter !== 'all') data = data.filter(n => n.tag === activeFilter);
+  if (searchQuery) data = data.filter(n =>
+    n.title.toLowerCase().includes(searchQuery) ||
+    n.summary.toLowerCase().includes(searchQuery));
+
+  // Sort
+  if (sortMode === 'time') {
+    data.sort((a, b) => b.time.localeCompare(a.time));
+  } else if (sortMode === 'hot') {
+    data.sort((a, b) => (b.hot ? 1 : 0) - (a.hot ? 1 : 0) || b.time.localeCompare(a.time));
+  } else if (sortMode === 'company') {
+    data.sort((a, b) => a.company.localeCompare(b.company));
+  }
+  return data;
+}
+
+// ─────────────────────────────────────────
+//  RENDER NEWS
+// ─────────────────────────────────────────
+const TAG_CLASS = {
+  '产品发布': 'tag-product',
+  '技术突破': 'tag-tech',
+  '战略合作': 'tag-strategy',
+  '人事变动': 'tag-personnel',
+  '战略合作': 'tag-partnership',
+};
+
+function renderNews() {
+  const filtered = getFiltered();
+  const visible = filtered.slice(0, visibleCount);
+  const grid = document.getElementById('newsGrid');
+
+  if (visible.length === 0) {
+    grid.innerHTML = `<div class="empty-state"><div class="icon">🔍</div><p>没有找到相关新闻，请调整筛选条件</p></div>`;
+    document.getElementById('loadMoreBtn').style.display = 'none';
+    return;
+  }
+
+  grid.innerHTML = visible.map(n => {
+    const co = COMPANIES.find(c => c.id === n.company) || COMPANIES[0];
+    const tagCls = TAG_CLASS[n.tag] || 'tag-product';
+    return `
+      <div class="news-card" id="card-${n.id}" style="--card-accent:${co.color}" onclick="toggleCard(${n.id})">
+        <div class="card-top">
+          <div class="company-badge" style="color:${co.color};border-color:${co.color}">
+            <span class="company-logo">${co.emoji}</span>${co.name}
+          </div>
+          <span class="tag-badge ${tagCls}">${n.tag}</span>
+          ${n.hot ? '<span class="hot-badge">🔥 热点</span>' : ''}
+          <span class="card-time">${n.relTime}</span>
+        </div>
+        <div class="card-title">${n.title}</div>
+        <div class="card-summary">${n.summary}</div>
+        <div class="card-bottom">
+          <a class="source-link" href="${n.sourceUrl}" target="_blank" onclick="event.stopPropagation()">
+            🔗 ${n.source}
+          </a>
+          <span style="font-size:11px;color:var(--text3)">📅 ${n.time}</span>
+          <button class="read-more" onclick="event.stopPropagation();toggleCard(${n.id})">展开全文 ▾</button>
+        </div>
+      </div>`;
+  }).join('');
+
+  const btn = document.getElementById('loadMoreBtn');
+  btn.style.display = filtered.length > visibleCount ? 'block' : 'none';
+}
+
+function toggleCard(id) {
+  const card = document.getElementById('card-' + id);
+  if (!card) return;
+  card.classList.toggle('expanded');
+  const btn = card.querySelector('.read-more');
+  if (btn) btn.textContent = card.classList.contains('expanded') ? '收起 ▴' : '展开全文 ▾';
+}
+
+function loadMore() {
+  visibleCount += 6;
+  renderNews();
+}
+
+// ─────────────────────────────────────────
+//  STATS
+// ─────────────────────────────────────────
+function updateStats() {
+  document.getElementById('statTotal').textContent = NEWS_DATA.length;
+  document.getElementById('statCo').textContent = new Set(NEWS_DATA.map(n => n.company)).size;
+  document.getElementById('statHot').textContent = NEWS_DATA.filter(n => n.hot).length;
+}
+
+// ─────────────────────────────────────────
+//  SECTION LABEL
+// ─────────────────────────────────────────
+function updateSectionLabel() {
+  const el = document.getElementById('sectionLabel');
+  const filtered = getFiltered();
+  const co = COMPANIES.find(c => c.id === activeCompany);
+  if (searchQuery) el.textContent = `搜索"${searchQuery}"：${filtered.length} 条结果`;
+  else if (activeCompany !== 'all') el.textContent = `${co.emoji} ${co.name} · ${filtered.length} 条动态`;
+  else if (activeFilter !== 'all') el.textContent = `${activeFilter} · ${filtered.length} 条`;
+  else el.textContent = '今日简报';
+}
+
+// ─────────────────────────────────────────
+//  ARCHIVE
+// ─────────────────────────────────────────
+function renderArchive() {
+  const body = document.getElementById('archiveBody');
+  body.innerHTML = Object.entries(ARCHIVE).map(([month, items]) => `
+    <div class="archive-month">
+      <h3>${month}</h3>
+      ${items.map(item => {
+        const co = COMPANIES.find(c => c.id === item.company) || COMPANIES[0];
+        return `
+          <div class="archive-item">
+            <span class="archive-date">${item.date}</span>
+            <span style="font-size:12px;margin-right:4px">${co.emoji}</span>
+            <span class="archive-title">${item.title}</span>
+          </div>`;
+      }).join('')}
+    </div>
+  `).join('');
+}
+
+function openArchive() {
+  document.getElementById('archiveModal').classList.add('open');
+}
+function closeArchive() {
+  document.getElementById('archiveModal').classList.remove('open');
+}
+document.getElementById('archiveModal').addEventListener('click', function(e) {
+  if (e.target === this) closeArchive();
+});
+
+// ─────────────────────────────────────────
+//  TOAST
+// ─────────────────────────────────────────
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ─────────────────────────────────────────
+//  KEYBOARD
+// ─────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeArchive();
+});
+
+// GO
+init();
+</script>
+</body>
+</html>
