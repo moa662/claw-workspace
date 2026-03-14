@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Notion 嵌入指南 · Claw工作台</title>
+<style>
+:root{
+  --bg:#0a0c10;--s1:#111318;--s2:#181c24;--s3:#1e2330;
+  --bd:#252b3b;--bd2:#2e3650;
+  --a1:#c8a96e;--a2:#e8c98a;
+  --g1:#4ade80;--b1:#60a5fa;--p1:#c084fc;--r1:#f87171;--o1:#fb923c;
+  --t1:#e2e8f0;--t2:#94a3b8;--t3:#64748b;
+  --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background:var(--bg);color:var(--t1);
+  font-family:'PingFang SC','Microsoft YaHei','Segoe UI',system-ui,sans-serif;
+  min-height:100vh;
+}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px;}
+
+/* HERO */
+.hero{
+  padding:52px 24px 44px;text-align:center;
+  background:linear-gradient(160deg,#0a0c10 0%,#0d1420 60%,#0a0c10 100%);
+  border-bottom:1px solid var(--bd);position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(96,165,250,.08),transparent);
+  pointer-events:none;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  border:1px solid rgba(74,222,128,.35);border-radius:20px;
+  padding:5px 16px;font-size:12px;color:var(--g1);
+  background:rgba(74,222,128,.07);margin-bottom:20px;
+}
+.hero h1{font-size:clamp(24px,4vw,40px);font-weight:800;margin-bottom:12px;line-height:1.2;}
+.hero h1 span{
+  background:linear-gradient(135deg,var(--b1),var(--p1));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{font-size:14px;color:var(--t2);line-height:1.7;max-width:480px;margin:0 auto;}
+
+main{max-width:800px;margin:0 auto;padding:48px 24px 64px;}
+
+/* SECTION LABEL */
+.section-label{
+  display:flex;align-items:center;gap:10px;
+  font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--t3);margin-bottom:20px;margin-top:40px;
+}
+.section-label:first-child{margin-top:0;}
+.section-label::after{content:'';flex:1;height:1px;background:var(--bd);}
+
+/* URL CARDS */
+.url-cards{display:flex;flex-direction:column;gap:12px;margin-bottom:8px;}
+.url-card{
+  background:var(--s1);border:1px solid var(--bd);border-radius:var(--radius);
+  padding:18px 20px;display:flex;align-items:center;gap:16px;
+}
+.url-card-icon{
+  width:40px;height:40px;border-radius:10px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+}
+.icon-main{background:linear-gradient(135deg,var(--a1),var(--o1));}
+.icon-ai{background:linear-gradient(135deg,#4f8ef7,#a855f7);}
+.icon-research{background:linear-gradient(135deg,var(--a1),var(--o1));}
+.icon-pool{background:linear-gradient(135deg,var(--b1),var(--p1));}
+.url-card-info{flex:1;min-width:0;}
+.url-card-title{font-size:14px;font-weight:600;margin-bottom:4px;}
+.url-card-url{
+  font-size:12px;color:var(--b1);font-family:'Courier New',monospace;
+  word-break:break-all;line-height:1.5;
+}
+.copy-btn{
+  flex-shrink:0;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;
+  background:rgba(96,165,250,.12);border:1px solid rgba(96,165,250,.25);
+  color:var(--b1);cursor:pointer;transition:all .2s ease;white-space:nowrap;
+}
+.copy-btn:hover{background:rgba(96,165,250,.2);}
+.copy-btn.copied{background:rgba(74,222,128,.12);border-color:rgba(74,222,128,.25);color:var(--g1);}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:14px;}
+.step{
+  background:var(--s1);border:1px solid var(--bd);border-radius:var(--radius);
+  overflow:hidden;
+}
+.step-header{
+  display:flex;align-items:center;gap:14px;padding:16px 20px;
+}
+.step-num{
+  width:30px;height:30px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;color:#000;
+}
+.n1{background:linear-gradient(135deg,var(--b1),#6366f1);}
+.n2{background:linear-gradient(135deg,var(--a1),var(--o1));}
+.n3{background:linear-gradient(135deg,var(--g1),var(--b1));}
+.n4{background:linear-gradient(135deg,var(--p1),var(--r1));}
+.step-title{font-size:14px;font-weight:700;}
+.step-desc{font-size:12px;color:var(--t3);margin-top:2px;}
+.step-body{
+  padding:0 20px 16px;border-top:1px solid var(--bd);
+  padding-top:14px;
+}
+
+/* 命令块 */
+.cmd-block{
+  background:var(--s2);border:1px solid var(--bd2);border-radius:8px;
+  padding:12px 16px;font-size:13px;font-family:'Courier New',monospace;
+  color:var(--b1);display:flex;align-items:center;gap:10px;margin:10px 0;
+}
+.cmd-block .cmd-prefix{color:var(--t3);}
+.cmd-copy{
+  margin-left:auto;flex-shrink:0;
+  padding:4px 10px;border-radius:5px;font-size:11px;font-weight:600;
+  background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.2);
+  color:var(--b1);cursor:pointer;font-family:system-ui,sans-serif;
+  transition:all .2s;
+}
+.cmd-copy:hover{background:rgba(96,165,250,.2);}
+.cmd-copy.copied{background:rgba(74,222,128,.1);border-color:rgba(74,222,128,.2);color:var(--g1);}
+
+/* Notion 模拟 */
+.notion-mock{
+  background:#fff;border-radius:8px;padding:20px;color:#37352f;
+  font-family:'PingFang SC','Microsoft YaHei',sans-serif;
+}
+.notion-title{font-size:20px;font-weight:700;margin-bottom:16px;color:#37352f;}
+.notion-slash{
+  display:flex;align-items:center;gap:8px;
+  background:#f7f6f3;border-radius:4px;padding:6px 10px;
+  font-size:13px;color:#37352f;margin-bottom:8px;border:1px solid #e3e3e3;
+}
+.notion-dropdown{
+  background:#fff;border:1px solid #e3e3e3;border-radius:6px;
+  padding:6px 0;box-shadow:0 4px 16px rgba(0,0,0,.12);margin-bottom:8px;
+}
+.notion-menu-item{
+  padding:7px 14px;font-size:13px;color:#37352f;display:flex;align-items:center;gap:8px;
+}
+.notion-menu-item.active{background:#f0f0f0;}
+.notion-embed-box{
+  background:#f7f6f3;border:1px dashed #ccc;border-radius:4px;
+  padding:12px;text-align:center;font-size:12px;color:#9b9a97;
+}
+
+.tip{
+  background:var(--s2);border-left:3px solid var(--b1);
+  border-radius:0 8px 8px 0;padding:10px 14px;
+  font-size:12px;color:var(--t2);line-height:1.65;margin-top:10px;
+}
+.tip strong{color:var(--t1);}
+
+/* 完成 banner */
+.done-banner{
+  background:linear-gradient(135deg,rgba(74,222,128,.08),rgba(96,165,250,.08));
+  border:1px solid rgba(74,222,128,.25);border-radius:var(--radius);
+  padding:28px 24px;text-align:center;margin-top:40px;
+}
+.done-banner .emoji{font-size:40px;margin-bottom:12px;}
+.done-banner h3{font-size:18px;font-weight:700;margin-bottom:10px;}
+.done-banner p{font-size:13px;color:var(--t2);line-height:1.8;}
+
+/* 更新提示 */
+.update-tip{
+  background:var(--s1);border:1px solid var(--bd);border-radius:var(--radius);
+  padding:20px 24px;margin-top:16px;
+  display:flex;align-items:flex-start;gap:14px;
+}
+.update-tip-icon{font-size:20px;flex-shrink:0;}
+.update-tip-body h4{font-size:13px;font-weight:600;margin-bottom:6px;}
+.update-tip-body p{font-size:12px;color:var(--t2);line-height:1.65;}
+
+footer{text-align:center;padding:24px;font-size:12px;color:var(--t3);border-top:1px solid var(--bd);}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">✅ 部署成功 · 云端链接已就绪</div>
+  <h1>在 <span>Notion</span> 中嵌入工作台</h1>
+  <p class="hero-sub">你的工作台已部署至云端，复制下方链接即可在 Notion 任意页面嵌入查看。</p>
+</div>
+
+<main>
+
+  <!-- 所有URL -->
+  <div class="section-label">所有云端链接</div>
+  <div class="url-cards">
+
+    <div class="url-card">
+      <div class="url-card-icon icon-main">🏠</div>
+      <div class="url-card-info">
+        <div class="url-card-title">主控台（推荐嵌入这个）</div>
+        <div class="url-card-url" id="url-main">https://moa662.github.io/claw-workspace/</div>
+      </div>
+      <button class="copy-btn" onclick="copyUrl('url-main', this)">复制</button>
+    </div>
+
+    <div class="url-card">
+      <div class="url-card-icon icon-ai">🤖</div>
+      <div class="url-card-info">
+        <div class="url-card-title">AI 工具动态看板</div>
+        <div class="url-card-url" id="url-ai">https://moa662.github.io/claw-workspace/ai-news-dashboard.html</div>
+      </div>
+      <button class="copy-btn" onclick="copyUrl('url-ai', this)">复制</button>
+    </div>
+
+    <div class="url-card">
+      <div class="url-card-icon icon-research">📊</div>
+      <div class="url-card-info">
+        <div class="url-card-title">B端内容策略报告</div>
+        <div class="url-card-url" id="url-research">https://moa662.github.io/claw-workspace/pilates-topic-research.html</div>
+      </div>
+      <button class="copy-btn" onclick="copyUrl('url-research', this)">复制</button>
+    </div>
+
+    <div class="url-card">
+      <div class="url-card-icon icon-pool">💡</div>
+      <div class="url-card-info">
+        <div class="url-card-title">三环方法论选题池</div>
+        <div class="url-card-url" id="url-pool">https://moa662.github.io/claw-workspace/pilates-topic-pool.html</div>
+      </div>
+      <button class="copy-btn" onclick="copyUrl('url-pool', this)">复制</button>
+    </div>
+
+  </div>
+
+  <!-- Notion 嵌入步骤 -->
+  <div class="section-label">Notion 嵌入步骤</div>
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num n1">1</div>
+        <div>
+          <div class="step-title">复制上方链接</div>
+          <div class="step-desc">推荐嵌入「主控台」，或按需嵌入单个页面</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num n2">2</div>
+        <div>
+          <div class="step-title">在 Notion 页面输入 /embed</div>
+          <div class="step-desc">在你想放置的位置，输入斜杠命令</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="notion-mock">
+          <div class="notion-title">📋 Claw 内容工作台</div>
+          <div class="notion-slash">
+            <span style="color:#9b9a97;">/</span>
+            <span>embed</span>
+            <span style="margin-left:auto;font-size:11px;color:#9b9a97;">输入中...</span>
+          </div>
+          <div class="notion-dropdown">
+            <div class="notion-menu-item active">
+              <span>🔗</span> <strong>Embed</strong>
+              <span style="font-size:11px;color:#9b9a97;margin-left:auto;">嵌入外部内容</span>
+            </div>
+            <div class="notion-menu-item">
+              <span>🌐</span> Bookmark
+            </div>
+          </div>
+        </div>
+        <div class="tip">在 Notion 页面任意位置点击，输入 <strong>/embed</strong>，选择第一项 <strong>Embed</strong>。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num n3">3</div>
+        <div>
+          <div class="step-title">粘贴链接并点击 Embed link</div>
+          <div class="step-desc">将复制好的 https:// 链接粘贴进输入框</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="notion-mock">
+          <div class="notion-embed-box">
+            <div style="margin-bottom:8px;">🔗</div>
+            <div style="background:#fff;border:1px solid #e3e3e3;border-radius:4px;padding:8px 12px;margin-bottom:10px;text-align:left;font-size:12px;color:#37352f;">
+              https://moa662.github.io/claw-workspace/
+            </div>
+            <div style="display:inline-block;background:#000;color:#fff;padding:7px 20px;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;">
+              Embed link
+            </div>
+          </div>
+        </div>
+        <div class="tip">粘贴链接后，点击 <strong>Embed link</strong> 按钮确认嵌入。</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num n4">4</div>
+        <div>
+          <div class="step-title">调整嵌入框大小</div>
+          <div class="step-desc">拖动边框可调整显示高度</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="tip">
+          嵌入成功后，鼠标悬停在嵌入块上会出现调整手柄。<strong>拖动底部边框</strong>可以调整高度，建议拉高到 600px 以上，网页内容更完整。
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 完成 -->
+  <div class="done-banner">
+    <div class="emoji">🎉</div>
+    <h3>嵌入完成后的效果</h3>
+    <p>
+      Notion 页面里直接显示完整的工作台网页<br>
+      电脑、手机、平板均可访问<br>
+      我每次更新网页内容后，<strong style="color:var(--g1);">Notion 里自动显示最新版本</strong>，无需重新操作
+    </p>
+  </div>
+
+  <!-- 更新说明 -->
+  <div class="update-tip">
+    <div class="update-tip-icon">🔄</div>
+    <div class="update-tip-body">
+      <h4>关于内容更新</h4>
+      <p>
+        每次我更新网页（比如每天早上9点自动更新AI新闻），你需要把更新后的文件重新上传到 GitHub 仓库替换旧文件。<br>
+        上传方法：进入 <strong>github.com/moa662/claw-workspace</strong> → 点击文件 → 点铅笔图标编辑，或直接拖拽新文件上传替换。
+      </p>
+    </div>
+  </div>
+
+</main>
+
+<footer>Claw · 普拉提IP内容创作工作台 · Notion嵌入指南</footer>
+
+<script>
+function copyUrl(id, btn) {
+  const text = document.getElementById(id).textContent.trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '已复制 ✓';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '复制';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>
