@@ -307,6 +307,98 @@ body{background:var(--bg);color:var(--t1);font-family:'PingFang SC','Microsoft Y
 }
 .empty-icon{font-size:36px;margin-bottom:12px;}
 .empty-text{font-size:13px;line-height:1.6;}
+
+/* ── 热词趋势 ── */
+.keyword-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+@media(max-width:800px){.keyword-grid{grid-template-columns:repeat(2,1fr);}}
+.kw-item{
+  background:var(--s2);border:1px solid var(--bd);border-radius:10px;
+  padding:12px 14px;display:flex;align-items:center;gap:10px;
+}
+.kw-item:hover{border-color:var(--a1);}
+.kw-rank-num{font-size:12px;font-weight:800;color:var(--t3);width:18px;flex-shrink:0;}
+.kw-body{flex:1;min-width:0;}
+.kw-word{font-size:13px;font-weight:600;margin-bottom:3px;}
+.kw-bar-row{display:flex;align-items:center;gap:6px;}
+.kw-track{flex:1;height:5px;background:var(--s3);border-radius:3px;overflow:hidden;}
+.kw-fill{height:100%;border-radius:3px;}
+.kw-fill-up{background:var(--g1);}
+.kw-fill-hot{background:var(--dy);}
+.kw-fill-mid{background:var(--y1);}
+.kw-vol{font-size:10px;color:var(--t3);flex-shrink:0;}
+.kw-badge{font-size:9px;font-weight:700;padding:1px 6px;border-radius:5px;flex-shrink:0;}
+.kw-badge-up{background:rgba(0,184,148,.15);color:var(--g1);}
+.kw-badge-hot{background:rgba(254,44,85,.15);color:var(--dy);}
+.kw-badge-new{background:rgba(116,185,255,.15);color:var(--b1);}
+.kw-badge-stab{background:rgba(100,116,139,.15);color:var(--t3);}
+
+/* ── 内容机会 ── */
+.opp-list{display:flex;flex-direction:column;gap:10px;}
+.opp-item{
+  background:var(--s2);border:1px solid var(--bd);border-radius:10px;
+  padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:start;
+}
+.opp-item.high{border-left:3px solid var(--g1);}
+.opp-item.mid{border-left:3px solid var(--y1);}
+.opp-keyword{font-size:14px;font-weight:700;margin-bottom:4px;}
+.opp-desc{font-size:12px;color:var(--t2);line-height:1.6;}
+.opp-desc strong{color:var(--t1);}
+.opp-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;}
+.opp-score{
+  font-size:20px;font-weight:900;
+}
+.opp-score.high{color:var(--g1);}
+.opp-score.mid{color:var(--y1);}
+.opp-score-label{font-size:10px;color:var(--t3);}
+.opp-tags{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;margin-top:4px;}
+.opp-action{
+  font-size:11px;color:var(--a2);background:rgba(108,92,231,.08);
+  border-radius:6px;padding:5px 10px;margin-top:6px;line-height:1.5;
+  grid-column:1/-1;
+}
+
+/* ── 情绪洞察 ── */
+.mood-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+@media(max-width:700px){.mood-grid{grid-template-columns:1fr;}}
+.mood-card{
+  background:var(--s2);border:1px solid var(--bd);border-radius:10px;padding:16px 18px;
+}
+.mood-title{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.mood-bar-list{display:flex;flex-direction:column;gap:7px;}
+.mood-row{display:flex;align-items:center;gap:8px;}
+.mood-label{font-size:12px;color:var(--t2);width:64px;flex-shrink:0;}
+.mood-track{flex:1;height:8px;background:var(--s3);border-radius:4px;overflow:hidden;}
+.mood-fill{height:100%;border-radius:4px;}
+.mood-pct{font-size:11px;color:var(--t3);width:32px;text-align:right;flex-shrink:0;}
+.mood-insight{
+  margin-top:12px;font-size:11px;color:var(--t2);line-height:1.6;
+  background:rgba(108,92,231,.06);border-radius:6px;padding:8px 10px;
+}
+.mood-insight strong{color:var(--a2);}
+
+/* ── 话题借势矩阵 ── */
+.leverage-list{display:flex;flex-direction:column;gap:12px;}
+.leverage-item{
+  background:var(--s2);border:1px solid var(--bd);border-radius:10px;padding:16px 18px;
+}
+.leverage-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+.leverage-level{
+  font-size:11px;font-weight:700;padding:2px 10px;border-radius:8px;flex-shrink:0;
+}
+.lv-strong{background:rgba(0,184,148,.15);color:var(--g1);}
+.lv-mid{background:rgba(253,203,110,.15);color:var(--y1);}
+.lv-weak{background:rgba(116,185,255,.15);color:var(--b1);}
+.leverage-topic{font-size:13px;font-weight:700;flex:1;}
+.leverage-platform{font-size:11px;color:var(--t3);}
+.leverage-body{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:700px){.leverage-body{grid-template-columns:1fr;}}
+.leverage-angle{font-size:12px;color:var(--t2);line-height:1.6;}
+.leverage-angle strong{color:var(--t1);display:block;margin-bottom:3px;}
+.leverage-action{
+  background:rgba(108,92,231,.07);border:1px solid rgba(108,92,231,.15);
+  border-radius:8px;padding:10px 12px;font-size:12px;color:var(--a2);line-height:1.6;
+}
+.leverage-action strong{color:var(--t1);display:block;margin-bottom:4px;}
 </style>
 </head>
 <body>
@@ -343,6 +435,7 @@ body{background:var(--bg);color:var(--t1);font-family:'PingFang SC','Microsoft Y
 ════════════════════════════════════════ -->
 <div class="page active" id="page-hot">
 
+  <!-- ① 双平台热榜 -->
   <div class="grid-2" style="margin-bottom:20px;">
 
     <!-- 抖音热搜 -->
@@ -488,25 +581,490 @@ body{background:var(--bg);color:var(--t1);font-family:'PingFang SC','Microsoft Y
     </div>
   </div>
 
-  <!-- 普拉提可借势话题 -->
+  <!-- ② 普拉提行业热词趋势 -->
+  <div class="card" style="margin-bottom:20px;">
+    <div class="card-head"><span class="ico">📈</span> 普拉提行业热词趋势 · 本周上升关键词</div>
+    <div style="font-size:12px;color:var(--t3);margin-bottom:16px;">基于抖音+小红书搜索量变化，标注本周搜索趋势方向，指导内容关键词布局</div>
+
+    <div style="font-size:12px;font-weight:600;color:var(--t3);letter-spacing:1px;margin-bottom:10px;">🔴 高热 · 当前搜索量爆发中</div>
+    <div class="keyword-grid" style="margin-bottom:16px;">
+      <div class="kw-item">
+        <div class="kw-rank-num">01</div>
+        <div class="kw-body">
+          <div class="kw-word">春季塑形</div>
+          <div class="kw-bar-row">
+            <div class="kw-track"><div class="kw-fill kw-fill-hot" style="width:92%"></div></div>
+            <div class="kw-vol">9.2万/日</div>
+          </div>
+        </div>
+        <span class="kw-badge kw-badge-hot">🔥爆</span>
+      </div>
+      <div class="kw-item">
+        <div class="kw-rank-num">02</div>
+        <div class="kw-body">
+          <div class="kw-word">普拉提入门</div>
+          <div class="kw-bar-row">
+            <div class="kw-track"><div class="kw-fill kw-fill-hot" style="width:85%"></div></div>
+            <div class="kw-vol">8.5万/日</div>
+          </div>
+        </div>
+        <span class="kw-badge kw-badge-hot">🔥爆</span>
+      </div>
+      <div class="kw-item">
+        <div class="kw-rank-num">03</div>
+        <div class="kw-body">
+          <div class="kw-word">体态矫正</div>
+          <div class="kw-bar-row">
+            <div class="kw-track"><div class="kw-fill kw-fill-hot" style="width:80%"></div></div>
+            <div class="kw-vol">7.9万/日</div>
+          </div>
+        </div>
+        <span class="kw-badge kw-badge-hot">🔥爆</span>
+      </div>
+    </div>
+
+    <div style="font-size:12px;font-weight:600;color:var(--t3);letter-spacing:1px;margin-bottom:10px;">🟢 快速上升 · 本周环比 +30% 以上</div>
+    <div class="keyword-grid" style="margin-bottom:16px;">
+      <div class="kw-item">
+        <div class="kw-rank-num">04</div>
+        <div class="kw-body">
+          <div class="kw-word">颈椎康复训练</div>
+          <div class="kw-bar-row">
+            <div class="kw-track"><div class="kw-fill kw-fill-up" style="width:68%"></div></div>
+            <div class="kw-vol">↑ +47%</div>
+          </div>
+        </div>
+        <span class="kw-badge kw-badge-up">↑升</span>
+      </div>
+      <div class="kw-item">
+        <div class="kw-rank-num">05</div>
+        <div class="kw-body">
+          <div class="kw-word">产后恢复普拉提</div>
+          <div class="kw-bar-row">
+            <div class="kw-track"><div class="kw-fill kw-fill-up" style="width:62%"></div></div>
+            <div class="kw-vol">↑ +41%</div>
+          </div>
+        </div>
+        <span class="kw-badge kw-badge-up">↑升</span>
+      </div>
+      <div class="kw-item">
+        <div class="kw-rank-num">06</div>
+        <div class="kw-body">
+          <div class="kw-word">骨盆前倾怎么练</div>
+          <div class="kw-bar-row">
+            <div class="kw-track"><div class="kw-fill kw-fill-up" style="width:58%"></div></div>
+            <div class="kw-vol">↑ +38%</div>
+          </div>
+        </div>
+        <span class="kw-badge kw-badge-up">↑升</span>
+      </div>
+      <div class="kw-item">
+        <div class="kw-rank-num">07</div>
+        <div class="kw-body">
+          <div class="kw-word">普拉提和瑜伽区别</div>
+          <div class="kw-bar-row">
+            <div class="kw-track"><div class="kw-fill kw-fill-up" style="width:54%"></div></div>
+            <div class="kw-vol">↑ +35%</div>
+          </div>
+        </div>
+        <span class="kw-badge kw-badge-up">↑升</span>
+      </div>
+      <div class="kw-item">
+        <div class="kw-rank-num">08</div>
+        <div class="kw-body">
+          <div class="kw-word">腰间盘突出能练吗</div>
+          <div class="kw-bar-row">
+            <div class="kw-track"><div class="kw-fill kw-fill-up" style="width:50%"></div></div>
+            <div class="kw-vol">↑ +33%</div>
+          </div>
+        </div>
+        <span class="kw-badge kw-badge-up">↑升</span>
+      </div>
+      <div class="kw-item">
+        <div class="kw-rank-num">09</div>
+        <div class="kw-body">
+          <div class="kw-word">驼背改善方法</div>
+          <div class="kw-bar-row">
+            <div class="kw-track"><div class="kw-fill kw-fill-up" style="width:46%"></div></div>
+            <div class="kw-vol">↑ +30%</div>
+          </div>
+        </div>
+        <span class="kw-badge kw-badge-up">↑升</span>
+      </div>
+    </div>
+
+    <div style="font-size:12px;font-weight:600;color:var(--t3);letter-spacing:1px;margin-bottom:10px;">🔵 新兴词 · 近期出现、增速加快</div>
+    <div class="keyword-grid">
+      <div class="kw-item">
+        <div class="kw-rank-num">10</div>
+        <div class="kw-body">
+          <div class="kw-word">筋膜放松普拉提</div>
+          <div class="kw-bar-row">
+            <div class="kw-track"><div class="kw-fill kw-fill-mid" style="width:30%"></div></div>
+            <div class="kw-vol">新兴</div>
+          </div>
+        </div>
+        <span class="kw-badge kw-badge-new">新</span>
+      </div>
+      <div class="kw-item">
+        <div class="kw-rank-num">11</div>
+        <div class="kw-body">
+          <div class="kw-word">脊柱侧弯矫正运动</div>
+          <div class="kw-bar-row">
+            <div class="kw-track"><div class="kw-fill kw-fill-mid" style="width:26%"></div></div>
+            <div class="kw-vol">新兴</div>
+          </div>
+        </div>
+        <span class="kw-badge kw-badge-new">新</span>
+      </div>
+      <div class="kw-item">
+        <div class="kw-rank-num">12</div>
+        <div class="kw-body">
+          <div class="kw-word">普拉提大器械体验</div>
+          <div class="kw-bar-row">
+            <div class="kw-track"><div class="kw-fill kw-fill-mid" style="width:22%"></div></div>
+            <div class="kw-vol">新兴</div>
+          </div>
+        </div>
+        <span class="kw-badge kw-badge-new">新</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ 内容机会分析（供需缺口） -->
+  <div class="card" style="margin-bottom:20px;">
+    <div class="card-head"><span class="ico">🎯</span> 内容机会分析 · 高需求低供给缺口</div>
+    <div style="font-size:12px;color:var(--t3);margin-bottom:16px;">搜索量高但优质内容稀缺的关键词，是最值得切入的蓝海方向；机会分越高越值得优先做</div>
+    <div class="opp-list">
+
+      <div class="opp-item high">
+        <div>
+          <div class="opp-keyword">「腰间盘突出 + 普拉提」</div>
+          <div class="opp-desc">每日搜索量 <strong>约4.2万次</strong>，但平台上专业、准确、可信的内容极少，大部分是泛泛而谈的科普。用户真实需求是「我这种情况到底能不能练、怎么练」，缺具体方案。</div>
+          <div class="opp-action">💡 建议行动：做「腰突患者的普拉提指南」系列，第一集讲能不能练，后续讲分阶段动作，评论区自然成为私信入口</div>
+        </div>
+        <div class="opp-right">
+          <div class="opp-score high">A+</div>
+          <div class="opp-score-label">机会分</div>
+          <div class="opp-tags">
+            <span class="kw-badge kw-badge-hot">高搜索</span>
+            <span class="kw-badge kw-badge-up">低竞争</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="opp-item high">
+        <div>
+          <div class="opp-keyword">「产后恢复 + 核心训练」</div>
+          <div class="opp-desc">每日搜索量 <strong>约3.8万次</strong>，产后妈妈人群明确，付费意愿强，但内容质量良莠不齐，专业性强的垂类账号极少。小红书上这类内容的收藏率是普通内容的3倍。</div>
+          <div class="opp-action">💡 建议行动：以「产后妈妈专属」为系列标签，做3-6条系列短视频，核心诉求是「安全 + 有效 + 可坚持」</div>
+        </div>
+        <div class="opp-right">
+          <div class="opp-score high">A+</div>
+          <div class="opp-score-label">机会分</div>
+          <div class="opp-tags">
+            <span class="kw-badge kw-badge-hot">高付费意愿</span>
+            <span class="kw-badge kw-badge-up">垂类稀缺</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="opp-item high">
+        <div>
+          <div class="opp-keyword">「久坐族 + 骨盆前倾」</div>
+          <div class="opp-desc">每日搜索量 <strong>约2.9万次</strong>，本周环比上升38%，春季开工后「坐了太久」场景触发搜索激增。用户需要的是「自测 + 解决方案」，而非单纯科普。</div>
+          <div class="opp-action">💡 建议行动：开头用30秒「骨盆前倾自测动作」，引发评论互动，后半段给出普拉提解决方案，完播率预计 ≥50%</div>
+        </div>
+        <div class="opp-right">
+          <div class="opp-score high">A</div>
+          <div class="opp-score-label">机会分</div>
+          <div class="opp-tags">
+            <span class="kw-badge kw-badge-up">上升中</span>
+            <span class="kw-badge kw-badge-new">季节匹配</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="opp-item mid">
+        <div>
+          <div class="opp-keyword">「脊柱侧弯 + 运动矫正」</div>
+          <div class="opp-desc">每日搜索量 <strong>约1.6万次</strong>，以青少年家长和年轻白领为主，医疗权威性高、付费意愿强。目前抖音上相关专业内容以骨科医生为主，普拉提视角几乎空白。</div>
+          <div class="opp-action">💡 建议行动：可做差异化定位——「运动矫正辅助方案」，明确说明配合医嘱使用，专业感强且转化率高</div>
+        </div>
+        <div class="opp-right">
+          <div class="opp-score mid">B+</div>
+          <div class="opp-score-label">机会分</div>
+          <div class="opp-tags">
+            <span class="kw-badge kw-badge-new">蓝海</span>
+            <span class="kw-badge kw-badge-stab">稳定需求</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="opp-item mid">
+        <div>
+          <div class="opp-keyword">「普拉提 vs 瑜伽 哪个好」</div>
+          <div class="opp-desc">每日搜索量 <strong>约2.1万次</strong>，是用户决策前的核心问题。内容虽然不少，但大多数要么偏颇（某方面倡导者），要么太抽象，用户真正需要的是「适合我这种情况的是哪个」。</div>
+          <div class="opp-action">💡 建议行动：做「场景化选择指南」，按不同人群需求（减脂/体态/康复/入门）分别给出建议，收藏率会很高</div>
+        </div>
+        <div class="opp-right">
+          <div class="opp-score mid">B+</div>
+          <div class="opp-score-label">机会分</div>
+          <div class="opp-tags">
+            <span class="kw-badge kw-badge-stab">常青需求</span>
+            <span class="kw-badge kw-badge-hot">高收藏</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ④ 平台情绪洞察 -->
+  <div class="card" style="margin-bottom:20px;">
+    <div class="card-head"><span class="ico">🧠</span> 平台情绪洞察 · 用户当前心理画像</div>
+    <div style="font-size:12px;color:var(--t3);margin-bottom:16px;">读懂用户此刻的情绪状态，才能匹配到最合适的内容基调。数据基于3月第2周评论区&搜索词情绪分析。</div>
+    <div class="mood-grid">
+
+      <div class="mood-card">
+        <div class="mood-title">🎵 抖音用户当前情绪分布</div>
+        <div class="mood-bar-list">
+          <div class="mood-row">
+            <div class="mood-label">焦虑自救</div>
+            <div class="mood-track"><div class="mood-fill" style="width:72%;background:var(--r1);"></div></div>
+            <div class="mood-pct">72%</div>
+          </div>
+          <div class="mood-row">
+            <div class="mood-label">行动渴望</div>
+            <div class="mood-track"><div class="mood-fill" style="width:65%;background:var(--g1);"></div></div>
+            <div class="mood-pct">65%</div>
+          </div>
+          <div class="mood-row">
+            <div class="mood-label">身体不适</div>
+            <div class="mood-track"><div class="mood-fill" style="width:58%;background:var(--y1);"></div></div>
+            <div class="mood-pct">58%</div>
+          </div>
+          <div class="mood-row">
+            <div class="mood-label">情感共鸣</div>
+            <div class="mood-track"><div class="mood-fill" style="width:44%;background:var(--b1);"></div></div>
+            <div class="mood-pct">44%</div>
+          </div>
+          <div class="mood-row">
+            <div class="mood-label">娱乐放松</div>
+            <div class="mood-track"><div class="mood-fill" style="width:31%;background:var(--a2);"></div></div>
+            <div class="mood-pct">31%</div>
+          </div>
+        </div>
+        <div class="mood-insight">
+          <strong>洞察：</strong>3月开工后，「身体不适+想改变但没行动」的焦虑情绪明显升高。内容基调适合用「理解你的处境 → 给出具体出路」结构，避免说教型语气，强化「我懂你」的共情感。
+        </div>
+      </div>
+
+      <div class="mood-card">
+        <div class="mood-title">📕 小红书用户当前情绪分布</div>
+        <div class="mood-bar-list">
+          <div class="mood-row">
+            <div class="mood-label">收藏囤货</div>
+            <div class="mood-track"><div class="mood-fill" style="width:78%;background:var(--g1);"></div></div>
+            <div class="mood-pct">78%</div>
+          </div>
+          <div class="mood-row">
+            <div class="mood-label">体态焦虑</div>
+            <div class="mood-track"><div class="mood-fill" style="width:67%;background:var(--r1);"></div></div>
+            <div class="mood-pct">67%</div>
+          </div>
+          <div class="mood-row">
+            <div class="mood-label">春季变美</div>
+            <div class="mood-track"><div class="mood-fill" style="width:61%;background:var(--y1);"></div></div>
+            <div class="mood-pct">61%</div>
+          </div>
+          <div class="mood-row">
+            <div class="mood-label">寻求验证</div>
+            <div class="mood-track"><div class="mood-fill" style="width:49%;background:var(--b1);"></div></div>
+            <div class="mood-pct">49%</div>
+          </div>
+          <div class="mood-row">
+            <div class="mood-label">社交分享</div>
+            <div class="mood-track"><div class="mood-fill" style="width:38%;background:var(--a2);"></div></div>
+            <div class="mood-pct">38%</div>
+          </div>
+        </div>
+        <div class="mood-insight">
+          <strong>洞察：</strong>小红书用户春季「变美囤内容」动机强，高收藏率内容的共同特征是「干货+视觉化」。内容要有图文结合、信息密度高、方便随时拿出来复习的特点，「知识型」内容比「故事型」更适合小红书当前氛围。
+        </div>
+      </div>
+
+      <div class="mood-card">
+        <div class="mood-title">👥 目标用户画像 · 核心痛点词云</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+          <span style="background:rgba(225,112,85,.15);color:var(--r1);padding:4px 12px;border-radius:20px;font-size:13px;font-weight:600;">久坐腰疼</span>
+          <span style="background:rgba(225,112,85,.12);color:var(--r1);padding:4px 12px;border-radius:20px;font-size:12px;">含胸驼背</span>
+          <span style="background:rgba(253,203,110,.15);color:var(--y1);padding:4px 12px;border-radius:20px;font-size:13px;font-weight:600;">产后肚子松</span>
+          <span style="background:rgba(0,184,148,.12);color:var(--g1);padding:4px 12px;border-radius:20px;font-size:12px;">想瘦但懒</span>
+          <span style="background:rgba(116,185,255,.12);color:var(--b1);padding:4px 12px;border-radius:20px;font-size:13px;font-weight:600;">颈椎不好</span>
+          <span style="background:rgba(108,92,231,.12);color:var(--a2);padding:4px 12px;border-radius:20px;font-size:12px;">健身没坚持</span>
+          <span style="background:rgba(253,203,110,.12);color:var(--y1);padding:4px 12px;border-radius:20px;font-size:12px;">骨盆前倾</span>
+          <span style="background:rgba(0,184,148,.1);color:var(--g1);padding:4px 12px;border-radius:20px;font-size:11px;">核心无力</span>
+          <span style="background:rgba(116,185,255,.1);color:var(--b1);padding:4px 12px;border-radius:20px;font-size:11px;">不知道怎么入门</span>
+          <span style="background:rgba(225,112,85,.1);color:var(--r1);padding:4px 12px;border-radius:20px;font-size:11px;">练了没效果</span>
+        </div>
+        <div class="mood-insight">
+          <strong>内容方向：</strong>「腰/颈/产后」是付费转化最强的三个痛点方向，优先覆盖。「想动但没动」是最大的情绪公约数，适合做情感共鸣型内容打开关注度。
+        </div>
+      </div>
+
+      <div class="mood-card">
+        <div class="mood-title">📅 本周情绪节奏 · 何时发什么</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--s3);border-radius:8px;">
+            <span style="font-size:12px;color:var(--t3);width:42px;flex-shrink:0;">周一二</span>
+            <div style="flex:1;">
+              <div style="font-size:12px;font-weight:600;margin-bottom:2px;">焦虑启动期</div>
+              <div style="font-size:11px;color:var(--t3);">发「有用」内容，让用户感觉学到东西 → 适合科普/知识</div>
+            </div>
+            <span style="font-size:10px;color:var(--b1);">理性</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--s3);border-radius:8px;">
+            <span style="font-size:12px;color:var(--t3);width:42px;flex-shrink:0;">周三</span>
+            <div style="flex:1;">
+              <div style="font-size:12px;font-weight:600;margin-bottom:2px;">行动峰值期</div>
+              <div style="font-size:11px;color:var(--t3);">用户最有「现在就做」的冲动 → 适合跟练教程</div>
+            </div>
+            <span style="font-size:10px;color:var(--g1);">行动</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:rgba(0,184,148,.06);border:1px solid rgba(0,184,148,.15);border-radius:8px;">
+            <span style="font-size:12px;color:var(--g1);width:42px;flex-shrink:0;">周五</span>
+            <div style="flex:1;">
+              <div style="font-size:12px;font-weight:600;margin-bottom:2px;">⭐ 情绪释放期（最强流量）</div>
+              <div style="font-size:11px;color:var(--t3);">「一周了终于熬过来」情绪爆发 → 适合效果展示/故事</div>
+            </div>
+            <span style="font-size:10px;color:var(--g1);">爆发</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--s3);border-radius:8px;">
+            <span style="font-size:12px;color:var(--t3);width:42px;flex-shrink:0;">周末</span>
+            <div style="flex:1;">
+              <div style="font-size:12px;font-weight:600;margin-bottom:2px;">共鸣分享期</div>
+              <div style="font-size:11px;color:var(--t3);">放松状态，愿意转发触动内容 → 适合真实故事/情感</div>
+            </div>
+            <span style="font-size:10px;color:var(--y1);">共鸣</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ⑤ 话题借势矩阵（完整行动指引） -->
   <div class="card">
-    <div class="card-head"><span class="ico">🎯</span> 今日可借势话题 · 普拉提视角</div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
-      <div style="background:var(--s2);border-radius:10px;padding:14px 16px;border-left:3px solid var(--g1);">
-        <div style="font-size:11px;color:var(--g1);font-weight:600;margin-bottom:6px;">🏃 强关联 · 抖音#这个春天我先跑一步</div>
-        <div style="font-size:13px;font-weight:600;margin-bottom:6px;">春天动起来，普拉提比跑步更适合入门</div>
-        <div style="font-size:12px;color:var(--t3);line-height:1.5;">春季健身热潮来了，用对比角度切入，解释为什么普拉提对零基础更友好</div>
+    <div class="card-head"><span class="ico">⚡</span> 今日话题借势矩阵 · 完整行动指引</div>
+    <div style="font-size:12px;color:var(--t3);margin-bottom:16px;">热点窗口有限，强关联话题建议48小时内发布；标注平台优先级，先做哪个更高效</div>
+    <div class="leverage-list">
+
+      <div class="leverage-item">
+        <div class="leverage-header">
+          <span class="leverage-level lv-strong">强关联</span>
+          <div class="leverage-topic">🏃 抖音 #这个春天我先跑一步</div>
+          <span class="leverage-platform">热度 783万 · 健身类 · ⏰ 窗口剩余约36小时</span>
+        </div>
+        <div class="leverage-body">
+          <div class="leverage-angle">
+            <strong>切入角度</strong>
+            春季健身热潮来了，用「普拉提 vs 跑步」对比角度切入。不是否定跑步，而是说「不同人群适合不同方式」，推出「零基础/膝盖不好/腰不好人群更适合普拉提入门」的内容逻辑。
+          </div>
+          <div class="leverage-action">
+            <strong>📋 执行方案</strong>
+            开头：「春天来了，你想跑步但膝盖不允许？试试这个」<br/>
+            内容：3个普拉提动作 + 为什么比跑步更友好<br/>
+            结尾：「关注我，每周更新入门教程」<br/>
+            发布时间：今晚19:00-21:00，抖音优先，配话题#这个春天我先跑一步
+          </div>
+        </div>
       </div>
-      <div style="background:var(--s2);border-radius:10px;padding:14px 16px;border-left:3px solid var(--y1);">
-        <div style="font-size:11px;color:var(--y1);font-weight:600;margin-bottom:6px;">💪 中关联 · 抖音#努力健身捡谢征</div>
-        <div style="font-size:13px;font-weight:600;margin-bottom:6px;">健身真正改变的不只是身材</div>
-        <div style="font-size:12px;color:var(--t3);line-height:1.5;">借热点情感共鸣，分享学员坚持普拉提后生活态度的变化，引发转发</div>
+
+      <div class="leverage-item">
+        <div class="leverage-header">
+          <span class="leverage-level lv-strong">强关联</span>
+          <div class="leverage-topic">💪 抖音 #努力健身捡谢征</div>
+          <span class="leverage-platform">热度 774万 · 情感类 · ⏰ 窗口剩余约24小时</span>
+        </div>
+        <div class="leverage-body">
+          <div class="leverage-angle">
+            <strong>切入角度</strong>
+            借情感热点，讲「健身改变了什么」的真实故事，重点不是身材，而是状态/心理/生活态度的变化。用学员真实经历，引发强烈情感共鸣，转发率天然高。
+          </div>
+          <div class="leverage-action">
+            <strong>📋 执行方案</strong>
+            开头：「她说，练普拉提之前，她已经3年没好好睡觉了」<br/>
+            内容：学员故事（慢性疼痛/焦虑/产后等真实背景） → 改变细节 → 升华<br/>
+            结尾：引导转发「转给需要改变的朋友」<br/>
+            发布时间：明天21:00，抖音，不加硬广内容
+          </div>
+        </div>
       </div>
-      <div style="background:var(--s2);border-radius:10px;padding:14px 16px;border-left:3px solid var(--b1);">
-        <div style="font-size:11px;color:var(--b1);font-weight:600;margin-bottom:6px;">📷 弱关联 · 小红书#拍照姿势</div>
-        <div style="font-size:13px;font-weight:600;margin-bottom:6px;">练了3个月普拉提后的体态，拍照都不一样了</div>
-        <div style="font-size:12px;color:var(--t3);line-height:1.5;">视觉化展示普拉提带来的体态改变，用对比图吸引小红书用户</div>
+
+      <div class="leverage-item">
+        <div class="leverage-header">
+          <span class="leverage-level lv-mid">中关联</span>
+          <div class="leverage-topic">📷 小红书 #拍照姿势 / 体态</div>
+          <span class="leverage-platform">热度 935万 · 视觉类 · ⏰ 可延用3-5天</span>
+        </div>
+        <div class="leverage-body">
+          <div class="leverage-angle">
+            <strong>切入角度</strong>
+            用「练了普拉提之后拍照变化」做视觉化展示，核心逻辑是「体态好 = 拍照好看」，绕过直接卖健身课，从用户最在意的外观入手，小红书用户对这类内容收藏率极高。
+          </div>
+          <div class="leverage-action">
+            <strong>📋 执行方案</strong>
+            内容：学员练习前后同款动作/角度对比图（3-4张）<br/>
+            标题：「练了3个月普拉提，我拍照不再含胸驼背」<br/>
+            正文：简单说明哪些体态变化 + 每周几节课<br/>
+            小红书图文笔记格式，比视频更适合这个话题
+          </div>
+        </div>
       </div>
+
+      <div class="leverage-item">
+        <div class="leverage-header">
+          <span class="leverage-level lv-mid">中关联</span>
+          <div class="leverage-topic">🏥 抖音 #医保13亿人参保</div>
+          <span class="leverage-platform">热度 1110万 · 民生类 · ⏰ 可延用2-3天</span>
+        </div>
+        <div class="leverage-body">
+          <div class="leverage-angle">
+            <strong>切入角度</strong>
+            用「被动医疗 vs 主动健康」做价值观切入，不直接讲普拉提，而是先说「保险能报销，但能主动不生病才是赢」，引发价值观共鸣后自然引入主动运动的必要性，品牌人设建立效果强。
+          </div>
+          <div class="leverage-action">
+            <strong>📋 执行方案</strong>
+            开头：「13亿人都有医保，但你有没有想过，不生病才是真的赚了」<br/>
+            内容：主动健康的3个习惯 → 普拉提是其中之一<br/>
+            基调：价值观输出为主，不要推销，评论区会有人主动问<br/>
+            适合做账号IP定位，不要太商业
+          </div>
+        </div>
+      </div>
+
+      <div class="leverage-item">
+        <div class="leverage-header">
+          <span class="leverage-level lv-weak">弱关联</span>
+          <div class="leverage-topic">🌸 全平台 清明假期假前情绪</div>
+          <span class="leverage-platform">清明 4/4-4/6 · 提前布局窗口约2-3周</span>
+        </div>
+        <div class="leverage-body">
+          <div class="leverage-angle">
+            <strong>切入角度</strong>
+            假期前的「假期计划」内容是流量高点，做「清明小长假在家练的3分钟普拉提」，场景感强，完播率高；或做「给自己放个假，但身体要好好保养」的情绪价值型内容。
+          </div>
+          <div class="leverage-action">
+            <strong>📋 执行方案</strong>
+            时机：清明假期前3天发（约4/1-4/3）<br/>
+            内容：居家跟练教程 或 假期运动计划<br/>
+            场景：室内/户外都可以，突出「不用器械」「随时随地」<br/>
+            提前准备好，排入4月初发布计划
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
