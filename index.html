@@ -140,6 +140,18 @@ main{flex:1;max-width:960px;width:100%;margin:0 auto;padding:48px 24px;}
 }
 .card:hover .card-arrow{transform:translateX(4px);color:var(--c1);}
 
+/* DAILY QUOTE */
+.daily-quote{
+  background:linear-gradient(135deg,rgba(200,169,110,.07),rgba(192,132,252,.05));
+  border:1px solid rgba(200,169,110,.2);border-radius:var(--radius);
+  padding:22px 28px;margin-bottom:48px;
+  display:flex;align-items:flex-start;gap:16px;
+}
+.quote-mark{font-size:36px;line-height:1;color:rgba(200,169,110,.3);flex-shrink:0;margin-top:-4px;font-family:Georgia,serif;}
+.quote-body{}
+.quote-text{font-size:15px;color:var(--t1);line-height:1.75;font-style:italic;margin-bottom:8px;}
+.quote-source{font-size:12px;color:var(--a1);letter-spacing:.5px;}
+
 /* TIPS */
 .tips{
   background:var(--s1);border:1px solid var(--bd);border-radius:var(--radius);
@@ -195,8 +207,17 @@ footer{text-align:center;padding:24px;font-size:12px;color:var(--t3);border-top:
 
 <main>
 
-  <!-- 工具入口 -->
-  <div class="section-label">工具入口</div>
+  <!-- 每日一语 -->
+  <div class="daily-quote">
+    <div class="quote-mark">"</div>
+    <div class="quote-body">
+      <div class="quote-text" id="quoteText"></div>
+      <div class="quote-source" id="quoteSource"></div>
+    </div>
+  </div>
+
+  <!-- 我的工具 -->
+  <div class="section-label">我的工具</div>
   <div class="cards">
 
     <a class="card card-ai" href="ai-news-dashboard.html" target="_blank">
@@ -212,6 +233,25 @@ footer{text-align:center;padding:24px;font-size:12px;color:var(--t3);border-top:
         <div class="card-update">
           <span class="status-dot status-auto"></span>
           自动更新 · 每天 09:00
+        </div>
+        <div class="card-update" style="color:var(--t3);font-size:10px;">最后更新 2026.03.16</div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="card card-news" href="daily-news.html" target="_blank">
+      <div class="card-header">
+        <div class="card-icon">🗞️</div>
+        <div class="card-meta">
+          <div class="card-title">每日全球要闻</div>
+          <span class="card-tag">每日自动更新</span>
+        </div>
+      </div>
+      <div class="card-desc">每天08:00自动抓取国际、国内、财经三大板块要闻，DeepSeek AI提炼今日5条最值得关注的精华。</div>
+      <div class="card-footer">
+        <div class="card-update">
+          <span class="status-dot status-auto"></span>
+          自动更新 · 每天 08:00
         </div>
         <div class="card-update" style="color:var(--t3);font-size:10px;">最后更新 2026.03.16</div>
         <span class="card-arrow">→</span>
@@ -256,24 +296,11 @@ footer{text-align:center;padding:24px;font-size:12px;color:var(--t3);border-top:
       </div>
     </a>
 
-    <a class="card card-news" href="daily-news.html" target="_blank">
-      <div class="card-header">
-        <div class="card-icon">🗞️</div>
-        <div class="card-meta">
-          <div class="card-title">每日全球要闻</div>
-          <span class="card-tag">每日自动更新</span>
-        </div>
-      </div>
-      <div class="card-desc">每天08:00自动抓取国际、国内、财经三大板块要闻，DeepSeek AI提炼今日5条最值得关注的精华。</div>
-      <div class="card-footer">
-        <div class="card-update">
-          <span class="status-dot status-auto"></span>
-          自动更新 · 每天 08:00
-        </div>
-        <div class="card-update" style="color:var(--t3);font-size:10px;">最后更新 2026.03.16</div>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
+  </div>
+
+  <!-- 同事工具 -->
+  <div class="section-label">同事工具</div>
+  <div class="cards">
 
     <a class="card card-douyin" href="douyin-dashboard.html" target="_blank">
       <div class="card-header">
@@ -314,25 +341,23 @@ footer{text-align:center;padding:24px;font-size:12px;color:var(--t3);border-top:
     </a>
 
   </div>
+
+  <!-- Notion 联动 -->
   <div class="section-label">Notion 联动</div>
   <div class="notion-block">
-    <h3>📎 如何在 Notion 中查看这些网页</h3>
+    <h3>📎 如何在 Notion 中嵌入这些网页</h3>
     <div class="notion-steps">
       <div class="notion-step">
         <div class="step-num">1</div>
-        <div class="step-text"><strong>等待云端部署完成</strong>（我正在处理），部署后你会收到一个真实的 <code>https://</code> 链接。</div>
-      </div>
-      <div class="notion-step">
-        <div class="step-num">2</div>
         <div class="step-text">在 Notion 页面中，输入 <code>/embed</code> 插入嵌入块。</div>
       </div>
       <div class="notion-step">
-        <div class="step-num">3</div>
-        <div class="step-text">将 <code>https://</code> 链接粘贴进去，点击 <strong>Embed link</strong>，网页就会直接显示在 Notion 页面内。</div>
+        <div class="step-num">2</div>
+        <div class="step-text">将对应页面的 <code>https://moa662.github.io/claw-workspace/xxx.html</code> 链接粘贴进去，点击 <strong>Embed link</strong>。</div>
       </div>
       <div class="notion-step">
-        <div class="step-num">4</div>
-        <div class="step-text">每次我更新网页内容后，Notion 里无需任何操作，<strong>刷新即可看到最新版本</strong>。</div>
+        <div class="step-num">3</div>
+        <div class="step-text">每次内容更新后，Notion 里无需任何操作，<strong>刷新即可看到最新版本</strong>。</div>
       </div>
     </div>
   </div>
@@ -360,6 +385,46 @@ footer{text-align:center;padding:24px;font-size:12px;color:var(--t3);border-top:
   }
   updateClock();
   setInterval(updateClock, 1000);
+
+  // 每日一语（按日期轮换，每天固定一条）
+  const quotes = [
+    { text: "你不需要做得完美，你只需要今天比昨天好一点点。", source: "普拉提创作笔记" },
+    { text: "内容是你送出去的礼物，而不是你发出去的广告。", source: "创作者手册" },
+    { text: "重复是专业的开始，坚持是风格的起点。", source: "运营日记" },
+    { text: "每一条没人看的视频，都是在为下一条爆款铺路。", source: "运营日记" },
+    { text: "不是找到了方向再出发，而是出发了才找到方向。", source: "创作者手册" },
+    { text: "你在意的细节，正是让人停下来的理由。", source: "普拉提创作笔记" },
+    { text: "普拉提教的不只是动作，是和自己身体重新建立关系。", source: "普拉提创作笔记" },
+    { text: "好内容不是写给所有人的，是写给那个最需要它的人的。", source: "创作者手册" },
+    { text: "流量是结果，信任才是资产。", source: "运营日记" },
+    { text: "做内容就像种树：今天浇水，不一定今天看到花。", source: "创作者手册" },
+    { text: "你的真实，比你的完美更有价值。", source: "普拉提创作笔记" },
+    { text: "慢下来，才能让观众跟上你。", source: "运营日记" },
+    { text: "每次发布都是一次微小的勇气。", source: "创作者手册" },
+    { text: "专注一个赛道，比什么都做要走得远得多。", source: "运营日记" },
+    { text: "身体记住的，比脑子记住的更长久。", source: "普拉提创作笔记" },
+    { text: "不是算法选择了你，是你的内容让算法没有理由忽视你。", source: "运营日记" },
+    { text: "比起追热点，更重要的是成为那个热点。", source: "创作者手册" },
+    { text: "一个好问题，比十个好答案更有价值。", source: "普拉提创作笔记" },
+    { text: "稳定输出，是最好的个人品牌策略。", source: "运营日记" },
+    { text: "今天迈出的一小步，是明天回头看时最重要的那一步。", source: "创作者手册" },
+    { text: "你的专业不是壁垒，你的温度才是。", source: "普拉提创作笔记" },
+    { text: "做内容就是把自己最好的部分，慷慨地给出去。", source: "创作者手册" },
+    { text: "数据是镜子，它只照出现实，不决定未来。", source: "运营日记" },
+    { text: "让观众感受到被看见，比让他们感受到被教育更重要。", source: "普拉提创作笔记" },
+    { text: "不积跬步，无以至千里。积累，是最朴素的复利。", source: "创作者手册" },
+    { text: "好的开头，是对观众时间最起码的尊重。", source: "运营日记" },
+    { text: "做自己擅长的事，讲别人需要听的话。", source: "创作者手册" },
+    { text: "每一条评论，都是一个真实的人在向你伸手。", source: "普拉提创作笔记" },
+    { text: "平台会变，算法会变，但真正有价值的内容不会过时。", source: "运营日记" },
+    { text: "学会休息，不是放弃，是为了跑得更远。", source: "普拉提创作笔记" },
+  ];
+
+  const today = new Date();
+  const dayIndex = (today.getFullYear() * 365 + today.getMonth() * 31 + today.getDate()) % quotes.length;
+  const q = quotes[dayIndex];
+  document.getElementById("quoteText").textContent = q.text;
+  document.getElementById("quoteSource").textContent = "— " + q.source;
 </script>
 </body>
 </html>
