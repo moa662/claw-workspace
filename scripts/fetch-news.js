@@ -1,7 +1,7 @@
 /**
  * fetch-news.js
  * 每天 08:00 由 GitHub Actions 执行
- * 抓取 RSS → 调用 DeepSeek 生成摘要 → 写入 news-data.json
+ * 调用 DeepSeek 联网搜索，整理当日中文新闻 → 写入 news-data.json
  */
 
 const https = require("https");
@@ -10,97 +10,14 @@ const path = require("path");
 
 const DEEPSEEK_API_KEY = process.env.DSAPIKEY;
 
-// ─── RSS 新闻源 ───────────────────────────────────────────────
-const SOURCES = [
-  {
-    category: "international",
-    label: "🌍 国际要闻",
-    feeds: [
-      "https://feeds.bbci.co.uk/news/world/rss.xml",
-      "https://feeds.reuters.com/reuters/worldNews",
-    ],
-  },
-  {
-    category: "china",
-    label: "🇨🇳 国内要闻",
-    feeds: [
-      "http://www.xinhuanet.com/politics/news_politics.xml",
-      "https://rsshub.app/cctv/world",
-    ],
-  },
-  {
-    category: "finance",
-    label: "📈 财经动态",
-    feeds: [
-      "https://feeds.bloomberg.com/markets/news.rss",
-      "https://rsshub.app/cls/telegraph",
-    ],
-  },
-];
-
-// ─── 工具函数 ─────────────────────────────────────────────────
-function fetchUrl(url) {
-  return new Promise((resolve, reject) => {
-    const mod = url.startsWith("https") ? https : require("http");
-    const req = mod.get(url, { timeout: 10000, headers: { "User-Agent": "Mozilla/5.0 NewsBot/1.0" } }, (res) => {
-      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-        return fetchUrl(res.headers.location).then(resolve).catch(reject);
-      }
-      let data = "";
-      res.on("data", (c) => (data += c));
-      res.on("end", () => resolve(data));
-    });
-    req.on("error", reject);
-    req.on("timeout", () => { req.destroy(); reject(new Error("timeout")); });
-  });
-}
-
-function parseRSS(xml, maxItems = 5) {
-  const items = [];
-  const itemReg = /<item[^>]*>([\s\S]*?)<\/item>/gi;
-  let match;
-  while ((match = itemReg.exec(xml)) !== null && items.length < maxItems) {
-    const block = match[1];
-    const title = (block.match(/<title[^>]*><!\[CDATA\[(.*?)\]\]><\/title>/i) ||
-                   block.match(/<title[^>]*>(.*?)<\/title>/i) || [])[1] || "";
-    const link  = (block.match(/<link[^>]*>(.*?)<\/link>/i) || [])[1] || "";
-    const desc  = (block.match(/<description[^>]*><!\[CDATA\[(.*?)\]\]><\/description>/i) ||
-                   block.match(/<description[^>]*>(.*?)<\/description>/i) || [])[1] || "";
-    const pubDate = (block.match(/<pubDate[^>]*>(.*?)<\/pubDate>/i) || [])[1] || "";
-    if (title.trim()) {
-      items.push({
-        title: title.trim().replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">"),
-        link: link.trim(),
-        desc: desc.replace(/<[^>]+>/g, "").trim().slice(0, 120),
-        pubDate: pubDate.trim(),
-      });
-    }
-  }
-  return items;
-}
-
-async function fetchCategory(source) {
-  const items = [];
-  for (const feed of source.feeds) {
-    try {
-      const xml = await fetchUrl(feed);
-      const parsed = parseRSS(xml, 4);
-      items.push(...parsed);
-    } catch (e) {
-      console.warn(`[WARN] 抓取失败: ${feed} → ${e.message}`);
-    }
-  }
-  return { category: source.category, label: source.label, items: items.slice(0, 6) };
-}
-
-// ─── DeepSeek 摘要 ────────────────────────────────────────────
-function callDeepSeek(prompt) {
+// ─── 调用 DeepSeek ────────────────────────────────────────────
+function callDeepSeek(messages, maxTokens = 3000) {
   return new Promise((resolve, reject) => {
     const body = JSON.stringify({
       model: "deepseek-chat",
-      messages: [{ role: "user", content: prompt }],
-      max_tokens: 600,
-      temperature: 0.5,
+      messages,
+      max_tokens: maxTokens,
+      temperature: 0.3,
     });
     const options = {
       hostname: "api.deepseek.com",
@@ -111,7 +28,7 @@ function callDeepSeek(prompt) {
         "Authorization": `Bearer ${DEEPSEEK_API_KEY}`,
         "Content-Length": Buffer.byteLength(body),
       },
-      timeout: 30000,
+      timeout: 60000,
     };
     const req = https.request(options, (res) => {
       let data = "";
@@ -119,9 +36,9 @@ function callDeepSeek(prompt) {
       res.on("end", () => {
         try {
           const json = JSON.parse(data);
-          resolve(json.choices?.[0]?.message?.content || "摘要生成失败");
+          resolve(json.choices?.[0]?.message?.content || "");
         } catch {
-          reject(new Error("DeepSeek 响应解析失败"));
+          reject(new Error("DeepSeek 响应解析失败: " + data.slice(0, 200)));
         }
       });
     });
@@ -132,41 +49,101 @@ function callDeepSeek(prompt) {
   });
 }
 
-async function generateSummary(allItems) {
-  if (!DEEPSEEK_API_KEY) return ["（未配置 API Key，跳过 AI 摘要）"];
-  const headlines = allItems
-    .flatMap((c) => c.items.slice(0, 3).map((i) => `- ${i.title}`))
-    .slice(0, 15)
-    .join("\n");
-  const prompt = `以下是今日全球新闻标题，请用中文提炼出5条最值得关注的要点，每条50字以内，格式为编号列表（1. 2. 3. 4. 5.），语气简洁专业：\n\n${headlines}`;
-  try {
-    const result = await callDeepSeek(prompt);
-    return result.split("\n").filter((l) => /^\d+\./.test(l.trim())).slice(0, 5);
-  } catch (e) {
-    console.warn("[WARN] AI 摘要失败:", e.message);
-    return ["（AI 摘要暂时不可用）"];
-  }
-}
-
 // ─── 主流程 ───────────────────────────────────────────────────
 async function main() {
-  console.log("📰 开始抓取新闻...");
-  const results = await Promise.all(SOURCES.map(fetchCategory));
+  if (!DEEPSEEK_API_KEY) {
+    console.error("❌ 未配置 DSAPIKEY 环境变量");
+    process.exit(1);
+  }
 
-  console.log("🤖 生成 AI 要点摘要...");
-  const summary = await generateSummary(results);
+  const today = new Date();
+  const dateStr = `${today.getFullYear()}年${today.getMonth()+1}月${today.getDate()}日`;
+  console.log(`📰 开始整理 ${dateStr} 新闻...`);
 
+  const prompt = `请整理${dateStr}的最新新闻，输出严格符合以下 JSON 格式，不要有任何多余文字，直接输出 JSON：
+
+{
+  "summary": ["今日要点1（50字以内）", "今日要点2", "今日要点3", "今日要点4", "今日要点5"],
+  "categories": [
+    {
+      "category": "international",
+      "label": "🌍 国际局势",
+      "color": "#60a5fa",
+      "items": [
+        {"title": "新闻标题", "desc": "100字以内的中文摘要", "tag": "分类标签", "link": ""}
+      ]
+    },
+    {
+      "category": "china",
+      "label": "🏛️ 国内要闻",
+      "color": "#4ade80",
+      "items": []
+    },
+    {
+      "category": "tech",
+      "label": "💻 科技产业",
+      "color": "#c084fc",
+      "items": []
+    },
+    {
+      "category": "finance",
+      "label": "📊 金融市场",
+      "color": "#fb923c",
+      "items": []
+    },
+    {
+      "category": "sports",
+      "label": "⚽ 体育动态",
+      "color": "#f87171",
+      "items": []
+    }
+  ]
+}
+
+要求：
+- 每个分类 3-5 条新闻
+- 全部使用中文
+- tag 字段填写简短分类词（如：军事、科技、金融、政策等）
+- summary 是今日最值得关注的5条跨分类精华，每条不超过60字
+- 只输出 JSON，不要有任何解释文字`;
+
+  let rawJson = "";
+  try {
+    rawJson = await callDeepSeek([
+      { role: "system", content: "你是一个专业的新闻编辑，擅长整理每日全球要闻。请严格按照用户要求的 JSON 格式输出，不要有任何多余内容。" },
+      { role: "user", content: prompt }
+    ]);
+    console.log("✅ DeepSeek 返回内容长度:", rawJson.length);
+  } catch(e) {
+    console.error("❌ DeepSeek 调用失败:", e.message);
+    process.exit(1);
+  }
+
+  // 提取 JSON（防止模型输出了额外文字）
+  const jsonMatch = rawJson.match(/\{[\s\S]*\}/);
+  if (!jsonMatch) {
+    console.error("❌ 无法从响应中提取 JSON:\n", rawJson.slice(0, 500));
+    process.exit(1);
+  }
+
+  let newsData;
+  try {
+    newsData = JSON.parse(jsonMatch[0]);
+  } catch(e) {
+    console.error("❌ JSON 解析失败:", e.message);
+    process.exit(1);
+  }
+
+  // 补充时间字段
   const now = new Date();
-  const output = {
-    updatedAt: now.toISOString(),
-    updatedAtCN: `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 ${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}`,
-    summary,
-    categories: results,
-  };
+  newsData.updatedAt = now.toISOString();
+  newsData.updatedAtCN = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 ${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}`;
 
   const outPath = path.join(__dirname, "..", "news-data.json");
-  fs.writeFileSync(outPath, JSON.stringify(output, null, 2), "utf-8");
-  console.log(`✅ 完成！共抓取 ${results.reduce((n, c) => n + c.items.length, 0)} 条新闻，写入 news-data.json`);
+  fs.writeFileSync(outPath, JSON.stringify(newsData, null, 2), "utf-8");
+
+  const totalItems = (newsData.categories || []).reduce((n, c) => n + (c.items||[]).length, 0);
+  console.log(`✅ 完成！共整理 ${totalItems} 条新闻，写入 news-data.json`);
 }
 
 main().catch((e) => { console.error("❌ 脚本异常:", e); process.exit(1); });

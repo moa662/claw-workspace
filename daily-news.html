@@ -8,7 +8,7 @@
 :root{
   --bg:#0a0c10;--s1:#111318;--s2:#181c24;--s3:#1e2330;
   --bd:#252b3b;--bd2:#2e3650;
-  --a1:#c8a96e;--a2:#e8c98a;--a3:#8b6c3e;
+  --a1:#c8a96e;--a2:#e8c98a;
   --g1:#4ade80;--b1:#60a5fa;--p1:#c084fc;--r1:#f87171;--o1:#fb923c;
   --t1:#e2e8f0;--t2:#94a3b8;--t3:#64748b;
   --radius:14px;
@@ -24,137 +24,179 @@ body{
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px;}
 
-/* HERO */
+/* ── HERO ── */
 .hero{
-  padding:52px 24px 44px;text-align:center;position:relative;overflow:hidden;
-  background:linear-gradient(160deg,#0a0c10 0%,#0d1420 60%,#0a0c10 100%);
+  padding:48px 24px 40px;text-align:center;position:relative;overflow:hidden;
+  background:linear-gradient(160deg,#0a0c10 0%,#0c1220 60%,#0a0c10 100%);
   border-bottom:1px solid var(--bd);
 }
 .hero::before{
   content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(96,165,250,.07),transparent);
+  background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(96,165,250,.06),transparent);
   pointer-events:none;
 }
-.hero-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  border:1px solid rgba(96,165,250,.35);border-radius:20px;
-  padding:5px 16px;font-size:12px;color:var(--b1);
-  background:rgba(96,165,250,.07);margin-bottom:20px;letter-spacing:.5px;
-}
-.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--b1);animation:pulse 2s ease-in-out infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.85);}}
-.hero h1{font-size:clamp(24px,4vw,40px);font-weight:800;letter-spacing:-.5px;line-height:1.2;margin-bottom:10px;}
-.hero h1 .brand{background:linear-gradient(135deg,var(--b1),var(--p1));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.hero-meta{font-size:13px;color:var(--t3);margin-top:8px;}
-.hero-meta span{color:var(--t2);}
-
-/* BACK */
 .back-btn{
-  display:inline-flex;align-items:center;gap:6px;
   position:absolute;top:20px;left:24px;
+  display:inline-flex;align-items:center;gap:5px;
   font-size:12px;color:var(--t3);text-decoration:none;
   padding:5px 12px;border:1px solid var(--bd);border-radius:8px;
-  transition:color .2s,border-color .2s;
+  transition:all .2s;
 }
 .back-btn:hover{color:var(--t1);border-color:var(--bd2);}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  border:1px solid rgba(96,165,250,.3);border-radius:20px;
+  padding:4px 14px;font-size:11px;color:var(--b1);
+  background:rgba(96,165,250,.07);margin-bottom:18px;letter-spacing:.5px;
+}
+.hero-badge .dot{
+  width:6px;height:6px;border-radius:50%;background:var(--b1);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.8);}}
+.hero h1{
+  font-size:clamp(22px,4vw,38px);font-weight:800;
+  letter-spacing:-.5px;line-height:1.2;margin-bottom:8px;
+}
+.hero h1 .brand{
+  background:linear-gradient(135deg,var(--b1),var(--p1));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-date{font-size:13px;color:var(--t2);margin-top:6px;}
+.hero-date span{color:var(--t3);font-size:11px;margin-left:10px;}
 
-/* MAIN */
-main{flex:1;max-width:1100px;width:100%;margin:0 auto;padding:40px 24px;}
+/* ── MAIN ── */
+main{flex:1;max-width:1200px;width:100%;margin:0 auto;padding:36px 24px 48px;}
 
-/* SECTION LABEL */
-.section-label{
+/* ── SECTION LABEL ── */
+.sec-label{
   display:flex;align-items:center;gap:10px;
   font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--t3);margin-bottom:20px;
+  color:var(--t3);margin-bottom:18px;
 }
-.section-label::after{content:'';flex:1;height:1px;background:var(--bd);}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--bd);}
 
-/* AI 摘要 */
-.summary-block{
-  background:linear-gradient(135deg,rgba(96,165,250,.08),rgba(192,132,252,.08));
-  border:1px solid rgba(96,165,250,.25);border-radius:var(--radius);
-  padding:24px 28px;margin-bottom:40px;
-}
-.summary-block h2{
-  font-size:14px;font-weight:700;color:var(--b1);
-  margin-bottom:16px;display:flex;align-items:center;gap:8px;
-}
-.summary-list{display:flex;flex-direction:column;gap:10px;}
-.summary-item{
-  display:flex;align-items:flex-start;gap:12px;
-  font-size:13px;color:var(--t2);line-height:1.65;
-}
-.summary-num{
-  min-width:22px;height:22px;border-radius:50%;
-  background:linear-gradient(135deg,var(--b1),var(--p1));
-  display:flex;align-items:center;justify-content:center;
-  font-size:11px;font-weight:700;color:#000;flex-shrink:0;margin-top:1px;
-}
-
-/* 新闻分类网格 */
-.news-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:20px;margin-bottom:48px;
-}
-.news-col{
-  background:var(--s1);border:1px solid var(--bd);border-radius:var(--radius);
+/* ── AI 今日精华 ── */
+.summary-wrap{
+  background:var(--s1);
+  border:1px solid rgba(96,165,250,.2);
+  border-radius:var(--radius);
   overflow:hidden;
+  margin-bottom:36px;
 }
-.news-col-header{
-  padding:16px 20px;border-bottom:1px solid var(--bd);
-  display:flex;align-items:center;justify-content:space-between;
+.summary-header{
+  padding:14px 20px;
+  background:linear-gradient(90deg,rgba(96,165,250,.1),rgba(192,132,252,.08));
+  border-bottom:1px solid rgba(96,165,250,.15);
+  display:flex;align-items:center;gap:8px;
+  font-size:13px;font-weight:700;color:var(--b1);
 }
-.news-col-title{font-size:14px;font-weight:700;}
-.news-col-count{font-size:11px;color:var(--t3);}
-.news-items{display:flex;flex-direction:column;}
-.news-item{
-  padding:14px 20px;border-bottom:1px solid var(--bd);
+.summary-body{
+  padding:6px 0;
+}
+.summary-item{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:12px 20px;
+  border-bottom:1px solid var(--bd);
   transition:background .15s;
 }
-.news-item:last-child{border-bottom:none;}
-.news-item:hover{background:var(--s2);}
-.news-item-title{
-  font-size:13px;font-weight:600;line-height:1.5;margin-bottom:6px;color:var(--t1);
+.summary-item:last-child{border-bottom:none;}
+.summary-item:hover{background:var(--s2);}
+.s-num{
+  min-width:24px;height:24px;border-radius:50%;
+  background:linear-gradient(135deg,var(--b1),var(--p1));
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;color:#000;flex-shrink:0;margin-top:1px;
 }
-.news-item-title a{color:inherit;text-decoration:none;}
-.news-item-title a:hover{color:var(--b1);}
-.news-item-desc{font-size:12px;color:var(--t3);line-height:1.6;margin-bottom:8px;}
-.news-item-meta{display:flex;align-items:center;gap:8px;}
-.news-source{
-  font-size:10px;font-weight:600;letter-spacing:.5px;
-  padding:2px 8px;border-radius:4px;
+.s-text{font-size:13px;color:var(--t2);line-height:1.7;}
+
+/* ── 新闻分区网格 ── */
+.cat-section{margin-bottom:32px;}
+.cat-header{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:12px;
+}
+.cat-icon{
+  font-size:18px;line-height:1;
+}
+.cat-title{
+  font-size:15px;font-weight:700;
+}
+.cat-count{
+  font-size:11px;color:var(--t3);
+  background:rgba(255,255,255,.05);
+  padding:2px 8px;border-radius:10px;
+}
+
+.news-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:12px;
+}
+
+/* ── 新闻卡片 ── */
+.news-card{
+  background:var(--s1);
+  border:1px solid var(--bd);
+  border-radius:12px;
+  padding:16px 18px;
+  display:flex;flex-direction:column;gap:8px;
+  transition:transform .2s,border-color .2s,box-shadow .2s;
+  position:relative;overflow:hidden;
+}
+.news-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--cat-color,var(--bd)),transparent);
+}
+.news-card:hover{
+  transform:translateY(-2px);
+  border-color:var(--cat-color,var(--bd2));
+  box-shadow:0 8px 24px rgba(0,0,0,.3);
+}
+.card-title-row{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:8px;
+}
+.card-title{
+  font-size:13px;font-weight:700;line-height:1.5;color:var(--t1);flex:1;
+}
+.card-tag{
+  font-size:10px;font-weight:600;letter-spacing:.4px;
+  padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;
   background:rgba(255,255,255,.06);color:var(--t3);
+  border:1px solid var(--bd);
 }
-.news-time{font-size:10px;color:var(--t3);}
-
-/* 空状态 */
-.empty-state{
-  padding:40px 20px;text-align:center;color:var(--t3);font-size:13px;
+.card-desc{
+  font-size:12px;color:var(--t3);line-height:1.7;
 }
-.empty-state .icon{font-size:32px;margin-bottom:12px;}
+.card-link{
+  font-size:11px;color:var(--b1);text-decoration:none;
+  display:inline-flex;align-items:center;gap:3px;margin-top:2px;
+  opacity:.7;transition:opacity .15s;
+}
+.card-link:hover{opacity:1;}
 
-/* LOADING */
+/* ── LOADING / EMPTY ── */
 .loading{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  min-height:300px;gap:16px;color:var(--t3);font-size:13px;
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;min-height:200px;gap:14px;
+  color:var(--t3);font-size:13px;
 }
 .spinner{
-  width:32px;height:32px;border:2px solid var(--bd);
+  width:28px;height:28px;border:2px solid var(--bd);
   border-top-color:var(--b1);border-radius:50%;
-  animation:spin .8s linear infinite;
+  animation:spin .7s linear infinite;
 }
 @keyframes spin{to{transform:rotate(360deg);}}
 
-/* FOOTER */
-footer{text-align:center;padding:24px;font-size:12px;color:var(--t3);border-top:1px solid var(--bd);}
+/* ── FOOTER ── */
+footer{
+  text-align:center;padding:20px 24px;
+  font-size:11px;color:var(--t3);
+  border-top:1px solid var(--bd);
+  line-height:1.8;
+}
 footer a{color:var(--t3);text-decoration:none;}
 footer a:hover{color:var(--t1);}
-
-/* 色彩配置 */
-.cat-international .news-col-title{color:#60a5fa;}
-.cat-china .news-col-title{color:#4ade80;}
-.cat-finance .news-col-title{color:#fb923c;}
 </style>
 </head>
 <body>
@@ -163,94 +205,82 @@ footer a:hover{color:var(--t1);}
   <a class="back-btn" href="index.html">← 工作台</a>
   <div class="hero-badge"><span class="dot"></span>每天 08:00 自动更新</div>
   <h1>每日<span class="brand">全球要闻</span></h1>
-  <div class="hero-meta">更新时间：<span id="updateTime">加载中...</span></div>
+  <div class="hero-date" id="heroDate">加载中...</div>
 </div>
 
 <main>
 
-  <!-- AI 今日要点 -->
-  <div class="section-label">AI 今日要点</div>
-  <div class="summary-block">
-    <h2>🤖 DeepSeek 精选 · 今日5条最值得关注</h2>
-    <div class="summary-list" id="summaryList">
-      <div class="loading"><div class="spinner"></div>正在加载...</div>
+  <!-- AI 今日精华 -->
+  <div class="sec-label">AI 今日精华</div>
+  <div class="summary-wrap">
+    <div class="summary-header">🤖 DeepSeek 精选 · 今日最值得关注的5件事</div>
+    <div class="summary-body" id="summaryBody">
+      <div class="loading"><div class="spinner"></div>加载中...</div>
     </div>
   </div>
 
-  <!-- 新闻分类 -->
-  <div class="section-label">分类要闻</div>
-  <div class="news-grid" id="newsGrid">
-    <div class="loading" style="grid-column:1/-1"><div class="spinner"></div>正在加载新闻...</div>
+  <!-- 分类新闻 -->
+  <div id="categoriesWrap">
+    <div class="loading"><div class="spinner"></div>加载新闻中...</div>
   </div>
 
 </main>
 
 <footer>
-  数据来源：Reuters · BBC · 新华社 · Bloomberg · 财联社 &nbsp;·&nbsp;
-  <a href="index.html">← 返回工作台</a>
+  数据来源：DeepSeek AI 每日整理 · 国际、国内、科技、金融、体育全覆盖<br>
+  <a href="index.html">← 返回工作台</a> &nbsp;·&nbsp; Claw · 普拉提IP工作台
 </footer>
 
 <script>
-const CAT_CONFIG = {
-  international: { label: "🌍 国际要闻", cls: "cat-international" },
-  china:         { label: "🇨🇳 国内要闻", cls: "cat-china" },
-  finance:       { label: "📈 财经动态",  cls: "cat-finance" },
-};
-
 function formatDate(iso) {
   try {
     const d = new Date(iso);
-    return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日 ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
-  } catch { return iso; }
+    const days = ["周日","周一","周二","周三","周四","周五","周六"];
+    return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日 ${days[d.getDay()]}`;
+  } catch { return ""; }
 }
 
 function renderSummary(items) {
-  const el = document.getElementById("summaryList");
-  if (!items || items.length === 0) {
-    el.innerHTML = '<div style="color:var(--t3);font-size:13px;">暂无摘要</div>';
+  const el = document.getElementById("summaryBody");
+  if (!items || !items.length) {
+    el.innerHTML = '<div style="padding:20px;color:var(--t3);font-size:13px;text-align:center;">暂无摘要</div>';
     return;
   }
   el.innerHTML = items.map((text, i) => `
     <div class="summary-item">
-      <div class="summary-num">${i + 1}</div>
-      <div>${text.replace(/^\d+\.\s*/, "")}</div>
+      <div class="s-num">${i+1}</div>
+      <div class="s-text">${text.replace(/^\d+[\.\、]\s*/,"")}</div>
     </div>
   `).join("");
 }
 
-function renderNews(categories) {
-  const grid = document.getElementById("newsGrid");
-  if (!categories || categories.length === 0) {
-    grid.innerHTML = '<div class="empty-state"><div class="icon">📭</div>暂无新闻数据</div>';
+function renderCategories(categories) {
+  const wrap = document.getElementById("categoriesWrap");
+  if (!categories || !categories.length) {
+    wrap.innerHTML = '<div class="loading">暂无新闻数据</div>';
     return;
   }
-  grid.innerHTML = categories.map((cat) => {
-    const cfg = CAT_CONFIG[cat.category] || { label: cat.label, cls: "" };
+  wrap.innerHTML = categories.map(cat => {
+    const color = cat.color || "#60a5fa";
     const items = cat.items || [];
-    const itemsHTML = items.length === 0
-      ? '<div class="empty-state"><div class="icon">📭</div>暂无数据</div>'
-      : items.map((item) => `
-          <div class="news-item">
-            <div class="news-item-title">
-              ${item.link
-                ? `<a href="${item.link}" target="_blank" rel="noopener">${item.title}</a>`
-                : item.title}
-            </div>
-            ${item.desc ? `<div class="news-item-desc">${item.desc}...</div>` : ""}
-            <div class="news-item-meta">
-              <span class="news-source">${cat.label.replace(/[🌍🇨🇳📈]\s*/u, "")}</span>
-              ${item.pubDate ? `<span class="news-time">${item.pubDate.slice(0, 16)}</span>` : ""}
-            </div>
-          </div>
-        `).join("");
+    const cards = items.map(item => `
+      <div class="news-card" style="--cat-color:${color}">
+        <div class="card-title-row">
+          <div class="card-title">${item.title}</div>
+          ${item.tag ? `<span class="card-tag">${item.tag}</span>` : ""}
+        </div>
+        ${item.desc ? `<div class="card-desc">${item.desc}</div>` : ""}
+        ${item.link ? `<a class="card-link" href="${item.link}" target="_blank" rel="noopener">查看原文 →</a>` : ""}
+      </div>
+    `).join("");
 
     return `
-      <div class="news-col ${cfg.cls}">
-        <div class="news-col-header">
-          <div class="news-col-title">${cfg.label}</div>
-          <div class="news-col-count">${items.length} 条</div>
+      <div class="cat-section">
+        <div class="sec-label">
+          <span style="color:${color};font-size:14px;">${cat.label}</span>
+          <span class="cat-count">${items.length} 条</span>
         </div>
-        <div class="news-items">${itemsHTML}</div>
+        <div class="news-grid">${cards}</div>
       </div>
     `;
   }).join("");
@@ -262,22 +292,24 @@ async function loadNews() {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
 
-    document.getElementById("updateTime").textContent =
-      data.updatedAtCN || formatDate(data.updatedAt) || "未知";
+    // 日期
+    const dateEl = document.getElementById("heroDate");
+    const dateStr = data.updatedAtCN
+      ? data.updatedAtCN
+      : formatDate(data.updatedAt);
+    dateEl.innerHTML = `${dateStr} <span>自动更新</span>`;
 
     renderSummary(data.summary);
-    renderNews(data.categories);
-  } catch (e) {
-    console.error(e);
-    document.getElementById("updateTime").textContent = "数据加载失败";
-    document.getElementById("summaryList").innerHTML =
-      `<div style="color:var(--r1);font-size:13px;">⚠️ 新闻数据暂未生成，GitHub Actions 将在今天 08:00 自动运行。<br>也可前往 GitHub 仓库手动触发 workflow。</div>`;
-    document.getElementById("newsGrid").innerHTML =
-      `<div class="empty-state" style="grid-column:1/-1">
-        <div class="icon">⏳</div>
-        数据将于每天 08:00 自动更新<br>
-        <span style="font-size:11px;margin-top:8px;display:block;">首次需手动在 GitHub Actions 触发</span>
+    renderCategories(data.categories);
+
+  } catch(e) {
+    document.getElementById("heroDate").textContent = "数据加载失败";
+    document.getElementById("summaryBody").innerHTML = `
+      <div style="padding:20px 24px;color:var(--r1);font-size:13px;line-height:1.8;">
+        ⚠️ 新闻数据暂未生成。<br>
+        GitHub Actions 将在每天 08:00 自动运行，或前往仓库手动触发 workflow。
       </div>`;
+    document.getElementById("categoriesWrap").innerHTML = "";
   }
 }
 
