@@ -1,0 +1,51 @@
+---
+description: 
+alwaysApply: true
+enabled: true
+updatedAt: 2026-03-16T06:59:35.331Z
+provider: 
+---
+
+# Git 命令调用规则
+
+## 环境说明
+
+当前系统（Windows）中 `git` 未加入 PATH，直接调用 `git` 会报"不是内部或外部命令"错误。
+GitHub 需要通过本地代理才能连通，代理端口为 **7897**。
+
+## 正确调用方式
+
+**始终使用短路径 + 代理参数调用 git：**
+
+```
+C:\PROGRA~1\Git\cmd\git.exe -C <仓库路径> -c http.proxy=http://127.0.0.1:7897 <git命令>
+```
+
+### 常用示例
+
+```bash
+# 查看状态
+C:\PROGRA~1\Git\cmd\git.exe -C c:\Users\storm\WorkBuddy\Claw status
+
+# 查看日志（不需要网络，不用加代理）
+C:\PROGRA~1\Git\cmd\git.exe -C c:\Users\storm\WorkBuddy\Claw log --oneline -3
+
+# 推送（必须加代理）
+C:\PROGRA~1\Git\cmd\git.exe -C c:\Users\storm\WorkBuddy\Claw -c http.proxy=http://127.0.0.1:7897 push origin main
+
+# 提交（不需要网络，不用加代理）
+C:\PROGRA~1\Git\cmd\git.exe -C c:\Users\storm\WorkBuddy\Claw add -A
+C:\PROGRA~1\Git\cmd\git.exe -C c:\Users\storm\WorkBuddy\Claw commit -m "提交信息"
+```
+
+## 禁止的写法
+
+- ❌ `git push origin main`（PATH 中没有 git）
+- ❌ `"C:\Program Files\Git\cmd\git.exe"`（带引号的长路径在 cmd 中无法执行）
+- ❌ `powershell -Command "git ..."`（同样找不到 git）
+- ❌ push 时不加 `-c http.proxy=http://127.0.0.1:7897`（连不上 GitHub）
+
+## commit 信息注意
+
+- commit -m 的内容不能包含空格+特殊字符组合，否则会被 shell 拆分报错
+- 建议使用简短中文描述，避免英文冒号、括号等符号

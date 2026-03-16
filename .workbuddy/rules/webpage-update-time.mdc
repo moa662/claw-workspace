@@ -1,0 +1,37 @@
+---
+description: 
+alwaysApply: true
+enabled: true
+updatedAt: 2026-03-16T06:13:08.999Z
+provider: 
+---
+
+# 工作台卡片更新时间规则
+
+## 规则
+
+每次修改任何网页文件（`.html`）并准备 commit 之前，**必须同步更新 `index.html` 中对应卡片的"最后更新时间"**。
+
+## index.html 卡片对应关系
+
+| 文件 | 对应卡片 |
+|------|----------|
+| `pilates-topic-pool.html` | 同心圆选题池 |
+| `pilates-topic-research.html` | 短视频选题研究报告 |
+| `ai-news-dashboard.html` | AI 资讯看板 |
+| `notion-embed-guide.html` | Notion 嵌入指南 |
+
+## 时间格式
+
+更新时间格式统一为：`YYYY-MM-DD`，例如：`2026-03-16`
+
+## 操作顺序
+
+1. 修改目标 HTML 文件内容
+2. **更新 `index.html` 中对应卡片的更新时间**
+3. 一并 commit 和 push
+
+## 禁止
+
+- ❌ 只改内容页、不更新工作台卡片时间
+- ❌ commit 信息里提到某文件更新，但 index.html 卡片时间未同步
