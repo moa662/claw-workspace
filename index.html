@@ -100,6 +100,10 @@ main{flex:1;max-width:960px;width:100%;margin:0 auto;padding:48px 24px;}
 .card-pool:hover{border-color:rgba(96,165,250,.4);}
 .card-pool::before{background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(96,165,250,.06),transparent);}
 
+.card-news{--c1:#4ade80;--c2:#60a5fa;}
+.card-news:hover{border-color:rgba(74,222,128,.4);}
+.card-news::before{background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(74,222,128,.06),transparent);}
+
 .card-icon{
   width:44px;height:44px;border-radius:10px;
   background:linear-gradient(135deg,var(--c1),var(--c2));
@@ -242,6 +246,25 @@ footer{text-align:center;padding:24px;font-size:12px;color:var(--t3);border-top:
         <div class="card-update">
           <span class="status-dot status-manual"></span>
           手动更新 · 持续迭代
+        </div>
+        <div class="card-update" style="color:var(--t3);font-size:10px;">最后更新 2026.03.16</div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="card card-news" href="daily-news.html" target="_blank">
+      <div class="card-header">
+        <div class="card-icon">🗞️</div>
+        <div class="card-meta">
+          <div class="card-title">每日全球要闻</div>
+          <span class="card-tag">每日自动更新</span>
+        </div>
+      </div>
+      <div class="card-desc">每天08:00自动抓取国际、国内、财经三大板块要闻，DeepSeek AI提炼今日5条最值得关注的精华。</div>
+      <div class="card-footer">
+        <div class="card-update">
+          <span class="status-dot status-auto"></span>
+          自动更新 · 每天 08:00
         </div>
         <div class="card-update" style="color:var(--t3);font-size:10px;">最后更新 2026.03.16</div>
         <span class="card-arrow">→</span>
