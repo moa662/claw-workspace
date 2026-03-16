@@ -91,12 +91,6 @@ async function main() {
       "color": "#fb923c",
       "items": []
     },
-    {
-      "category": "sports",
-      "label": "⚽ 体育动态",
-      "color": "#f87171",
-      "items": []
-    }
   ]
 }
 
