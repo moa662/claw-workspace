@@ -1,388 +1,650 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>每日要闻 · Claw</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日要闻</title>
 <style>
-:root{
-  --bg:#07090f;--s1:#0e1117;--s2:#141820;--s3:#1a1f2e;
-  --bd:#1e2535;--bd2:#28304a;
-  --t1:#e8edf5;--t2:#8b96b0;--t3:#4a5470;
-  --radius:16px;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{
-  background:var(--bg);color:var(--t1);
-  font-family:'PingFang SC','Microsoft YaHei','Segoe UI',system-ui,sans-serif;
-  min-height:100vh;
-}
-::-webkit-scrollbar{width:4px;}
-::-webkit-scrollbar-track{background:transparent;}
-::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:2px;}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* ─── HERO ─── */
-.hero{
-  position:relative;overflow:hidden;
-  padding:56px 32px 48px;text-align:center;
-  background:var(--bg);
-  border-bottom:1px solid var(--bd);
-}
-.hero-glow{
-  position:absolute;top:-80px;left:50%;transform:translateX(-50%);
-  width:600px;height:300px;border-radius:50%;
-  background:radial-gradient(ellipse,rgba(99,102,241,.12) 0%,transparent 70%);
-  pointer-events:none;
-}
-.back-btn{
-  position:absolute;top:22px;left:28px;
-  display:inline-flex;align-items:center;gap:5px;
-  font-size:12px;color:var(--t3);text-decoration:none;
-  padding:5px 12px;border:1px solid var(--bd);border-radius:8px;
-  transition:all .2s;background:var(--s1);
-}
-.back-btn:hover{color:var(--t1);border-color:var(--bd2);}
-.hero-pill{
-  display:inline-flex;align-items:center;gap:7px;
-  background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25);
-  border-radius:20px;padding:5px 16px;margin-bottom:20px;
-  font-size:11px;color:#a5b4fc;letter-spacing:.6px;
-}
-.live-dot{
-  width:7px;height:7px;border-radius:50%;background:#818cf8;
-  box-shadow:0 0 8px #818cf8;
-  animation:livepulse 1.8s ease-in-out infinite;
-}
-@keyframes livepulse{0%,100%{opacity:1;box-shadow:0 0 8px #818cf8;}50%{opacity:.4;box-shadow:0 0 3px #818cf8;}}
-.hero h1{
-  font-size:clamp(26px,4.5vw,44px);font-weight:800;
-  letter-spacing:-1px;line-height:1.15;margin-bottom:10px;
-}
-.grad-text{
-  background:linear-gradient(120deg,#a78bfa,#60a5fa,#34d399);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.hero-sub{font-size:13px;color:var(--t3);margin-top:6px;}
-.hero-sub b{color:var(--t2);}
+  :root {
+    --bg: #0d0d0f;
+    --surface: #151519;
+    --surface-hover: #1c1c22;
+    --border: rgba(255,255,255,0.07);
+    --text-primary: #f0f0f0;
+    --text-secondary: #9d9ba3;
+    --text-muted: #5a5860;
+    --accent: #4ade80;
+    --accent-dim: rgba(74,222,128,0.1);
+    --accent-border: rgba(74,222,128,0.25);
+    --warn: #fb923c;
+    --warn-dim: rgba(251,146,60,0.1);
+    --blue: #60a5fa;
+    --blue-dim: rgba(96,165,250,0.1);
+    --purple: #c084fc;
+    --purple-dim: rgba(192,132,252,0.1);
+    --yellow: #facc15;
+    --yellow-dim: rgba(250,204,21,0.1);
+  }
 
-/* ─── LAYOUT ─── */
-.page{max-width:1280px;margin:0 auto;padding:40px 28px 60px;}
+  body {
+    background: var(--bg);
+    font-family: -apple-system, 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+    color: var(--text-primary);
+    min-height: 100vh;
+  }
 
-/* ─── SECTION TITLE ─── */
-.sec{margin-bottom:40px;}
-.sec-head{
-  display:flex;align-items:center;gap:12px;
-  margin-bottom:20px;
-}
-.sec-icon{
-  width:36px;height:36px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:17px;flex-shrink:0;
-}
-.sec-info h2{font-size:15px;font-weight:700;}
-.sec-info p{font-size:11px;color:var(--t3);margin-top:2px;}
-.sec-line{flex:1;height:1px;background:var(--bd);}
+  /* ── Header ── */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 36px 0 28px;
+    text-align: center;
+  }
+  .header-eyebrow {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .header-title {
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+  }
+  .header-title span {
+    color: var(--accent);
+  }
+  .header-date {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+  }
+  .live-dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-/* ─── AI 精华卡 ─── */
-.ai-card{
-  background:linear-gradient(135deg,#0e1117 0%,#111827 100%);
-  border:1px solid rgba(129,140,248,.2);
-  border-radius:var(--radius);
-  overflow:hidden;
-  position:relative;
-}
-.ai-card::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(99,102,241,.08),transparent);
-  pointer-events:none;
-}
-.ai-header{
-  padding:18px 24px 14px;
-  border-bottom:1px solid rgba(129,140,248,.12);
-  display:flex;align-items:center;justify-content:space-between;
-}
-.ai-header-left{display:flex;align-items:center;gap:10px;}
-.ai-badge{
-  background:linear-gradient(135deg,#6366f1,#8b5cf6);
-  color:#fff;font-size:10px;font-weight:700;letter-spacing:.5px;
-  padding:3px 10px;border-radius:6px;
-}
-.ai-title{font-size:13px;font-weight:600;color:#c7d2fe;}
-.ai-meta{font-size:11px;color:var(--t3);}
-.ai-body{padding:8px 0;}
-.ai-item{
-  display:grid;grid-template-columns:48px 1fr;align-items:start;
-  padding:12px 24px;gap:0;
-  border-bottom:1px solid rgba(255,255,255,.04);
-  transition:background .15s;cursor:default;
-}
-.ai-item:last-child{border-bottom:none;}
-.ai-item:hover{background:rgba(99,102,241,.05);}
-.ai-rank{
-  font-size:22px;font-weight:900;line-height:1.3;
-  background:linear-gradient(135deg,#6366f1,#a78bfa);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  letter-spacing:-1px;
-}
-.ai-text{font-size:13px;color:var(--t2);line-height:1.75;padding-top:2px;}
+  /* ── Layout ── */
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 36px 20px 80px;
+  }
 
-/* ─── 新闻网格 ─── */
-.news-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-  gap:14px;
-}
+  /* ── Section ── */
+  .section {
+    margin-bottom: 48px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-icon { font-size: 18px; }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    flex: 1;
+  }
+  .section-count {
+    font-size: 11px;
+    color: var(--text-muted);
+    background: rgba(255,255,255,0.05);
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
 
-/* ─── 新闻卡片 ─── */
-.ncard{
-  background:var(--s1);
-  border:1px solid var(--bd);
-  border-radius:var(--radius);
-  padding:20px;
-  display:flex;flex-direction:column;gap:10px;
-  position:relative;overflow:hidden;
-  transition:transform .2s ease,border-color .25s,box-shadow .25s;
-  cursor:default;
-}
-/* 顶部色条 */
-.ncard::after{
-  content:'';position:absolute;top:0;left:20px;right:20px;height:2px;
-  background:var(--c);border-radius:0 0 2px 2px;
-  opacity:.7;
-}
-.ncard:hover{
-  transform:translateY(-3px);
-  border-color:var(--c-bd);
-  box-shadow:0 12px 32px rgba(0,0,0,.35), 0 0 0 1px var(--c-bd);
-}
-/* 悬浮光晕 */
-.ncard::before{
-  content:'';position:absolute;inset:0;border-radius:var(--radius);
-  background:radial-gradient(ellipse 80% 50% at 50% -10%,var(--c-glow),transparent);
-  opacity:0;transition:opacity .25s;pointer-events:none;
-}
-.ncard:hover::before{opacity:1;}
+  /* ── 今日精华 ── */
+  .highlights-card {
+    background: var(--surface);
+    border: 1px solid var(--accent-border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .highlights-top {
+    background: linear-gradient(90deg, rgba(74,222,128,0.13) 0%, rgba(74,222,128,0.03) 100%);
+    padding: 14px 22px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .highlights-top-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .highlights-top-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+  .highlight-row {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .highlight-row:last-child { border-bottom: none; }
+  .highlight-row:hover { background: var(--surface-hover); }
+  .h-num {
+    font-size: 24px;
+    font-weight: 800;
+    font-family: 'Georgia', serif;
+    color: var(--accent);
+    opacity: 0.35;
+    min-width: 30px;
+    line-height: 1.2;
+  }
+  .h-text {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--text-primary);
+    padding-top: 2px;
+  }
 
-.ncard-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
-.ncard-tag{
-  display:inline-flex;align-items:center;gap:4px;
-  font-size:10px;font-weight:700;letter-spacing:.5px;
-  padding:3px 9px;border-radius:6px;flex-shrink:0;
-  background:var(--c-tag-bg);color:var(--c-tag);
-  border:1px solid var(--c-tag-bd);
-}
-.ncard-title{
-  font-size:14px;font-weight:700;line-height:1.5;color:var(--t1);
-  flex:1;
-}
-.ncard-desc{
-  font-size:12px;color:var(--t3);line-height:1.75;
-  border-left:2px solid var(--c-line);
-  padding-left:10px;margin-left:2px;
-}
-.ncard-footer{
-  display:flex;align-items:center;justify-content:space-between;
-  padding-top:10px;border-top:1px solid var(--bd);
-  margin-top:auto;
-}
-.ncard-src{font-size:10px;color:var(--t3);display:flex;align-items:center;gap:4px;}
-.ncard-src::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--c);flex-shrink:0;}
-.ncard-arrow{
-  font-size:12px;color:var(--t3);
-  transition:color .2s,transform .2s;
-}
-.ncard:hover .ncard-arrow{color:var(--c);transform:translateX(3px);}
+  /* ── 新闻列表 ── */
+  .news-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .news-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: all 0.2s;
+  }
+  .news-card:hover {
+    background: var(--surface-hover);
+    border-color: rgba(255,255,255,0.12);
+    transform: translateY(-1px);
+  }
+  .news-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 4px 9px;
+    border-radius: 5px;
+    white-space: nowrap;
+    align-self: flex-start;
+  }
+  .tag-green  { color: var(--accent); background: var(--accent-dim); }
+  .tag-orange { color: var(--warn); background: var(--warn-dim); }
+  .tag-blue   { color: var(--blue); background: var(--blue-dim); }
+  .tag-purple { color: var(--purple); background: var(--purple-dim); }
+  .tag-yellow { color: var(--yellow); background: var(--yellow-dim); }
 
-/* 颜色主题 */
-.theme-intl{
-  --c:#60a5fa;--c-bd:rgba(96,165,250,.25);
-  --c-glow:rgba(96,165,250,.06);
-  --c-line:rgba(96,165,250,.3);
-  --c-tag-bg:rgba(96,165,250,.1);--c-tag:#93c5fd;--c-tag-bd:rgba(96,165,250,.2);
-}
-.theme-china{
-  --c:#34d399;--c-bd:rgba(52,211,153,.25);
-  --c-glow:rgba(52,211,153,.06);
-  --c-line:rgba(52,211,153,.3);
-  --c-tag-bg:rgba(52,211,153,.1);--c-tag:#6ee7b7;--c-tag-bd:rgba(52,211,153,.2);
-}
-.theme-tech{
-  --c:#a78bfa;--c-bd:rgba(167,139,250,.25);
-  --c-glow:rgba(167,139,250,.06);
-  --c-line:rgba(167,139,250,.3);
-  --c-tag-bg:rgba(167,139,250,.1);--c-tag:#c4b5fd;--c-tag-bd:rgba(167,139,250,.2);
-}
-.theme-finance{
-  --c:#fb923c;--c-bd:rgba(251,146,60,.25);
-  --c-glow:rgba(251,146,60,.06);
-  --c-line:rgba(251,146,60,.3);
-  --c-tag-bg:rgba(251,146,60,.1);--c-tag:#fdba74;--c-tag-bd:rgba(251,146,60,.2);
-}
+  .news-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.55;
+    margin-bottom: 6px;
+  }
+  .news-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
 
-/* 分区图标背景色 */
-.icon-intl{background:rgba(96,165,250,.12);}
-.icon-china{background:rgba(52,211,153,.12);}
-.icon-tech{background:rgba(167,139,250,.12);}
-.icon-finance{background:rgba(251,146,60,.12);}
+  /* ── 热点追踪 ── */
+  .tracker-scroll {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.1) transparent;
+  }
+  .tracker-scroll::-webkit-scrollbar { height: 4px; }
+  .tracker-scroll::-webkit-scrollbar-track { background: transparent; }
+  .tracker-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
 
-/* ─── LOADING ─── */
-.loading{
-  display:flex;flex-direction:column;align-items:center;
-  justify-content:center;min-height:240px;gap:14px;color:var(--t3);
-}
-.spinner{
-  width:30px;height:30px;border:2px solid var(--bd);
-  border-top-color:#818cf8;border-radius:50%;
-  animation:spin .7s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg);}}
+  .tracker-card {
+    min-width: 340px;
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .tracker-card:hover { border-color: rgba(255,255,255,0.12); }
 
-/* ─── FOOTER ─── */
-footer{
-  border-top:1px solid var(--bd);
-  padding:20px 28px;
-  display:flex;align-items:center;justify-content:space-between;
-  flex-wrap:wrap;gap:10px;
-  font-size:11px;color:var(--t3);
-}
-footer a{color:var(--t3);text-decoration:none;transition:color .2s;}
-footer a:hover{color:var(--t1);}
-.footer-right{display:flex;align-items:center;gap:16px;}
+  .tracker-head {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .tracker-status {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+  .status-hot  { background: rgba(239,68,68,0.15); color: #f87171; }
+  .status-live { background: rgba(74,222,128,0.12); color: #4ade80; }
+  .status-watch{ background: rgba(250,204,21,0.12); color: #facc15; }
+
+  .tracker-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    flex: 1;
+  }
+  .tracker-lastupdate {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* 时间轴 */
+  .timeline {
+    padding: 6px 20px 20px 20px;
+  }
+  .timeline-item {
+    display: flex;
+    gap: 0;
+    position: relative;
+    padding-bottom: 20px;
+  }
+  .timeline-item:last-child { padding-bottom: 0; }
+
+  .tl-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 48px;
+    flex-shrink: 0;
+    padding-top: 14px;
+  }
+  .tl-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    flex-shrink: 0;
+    z-index: 1;
+  }
+  .tl-dot.old { background: var(--text-muted); }
+  .tl-line {
+    width: 2px;
+    flex: 1;
+    background: var(--border);
+    margin-top: 4px;
+  }
+  .timeline-item:last-child .tl-line { display: none; }
+
+  .tl-right {
+    flex: 1;
+    padding-top: 10px;
+  }
+  .tl-date {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+    letter-spacing: 0.3px;
+  }
+  .tl-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.5;
+    margin-bottom: 4px;
+  }
+  .tl-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  /* ── 分隔线 ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 12px 0 36px;
+  }
+
+  /* ── 底部 ── */
+  .footer {
+    text-align: center;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .footer a {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer a:hover { color: var(--accent); }
 </style>
 </head>
 <body>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-glow"></div>
-  <a class="back-btn" href="index.html">← 工作台</a>
-  <div class="hero-pill"><span class="live-dot"></span>每天 08:00 自动更新</div>
-  <h1>每日<span class="grad-text">全球要闻</span></h1>
-  <p class="hero-sub">更新于 <b id="updateTime">加载中...</b></p>
-</div>
-
-<!-- MAIN -->
-<div class="page" id="pageContent">
-  <div class="loading"><div class="spinner"></div>正在加载今日要闻...</div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <span>数据来源 · DeepSeek AI 每日整理 · 国际 / 国内 / 科技 / 金融</span>
-  <div class="footer-right">
-    <a href="index.html">← 返回工作台</a>
-    <span>Claw · 普拉提IP工作台</span>
+<!-- Header -->
+<div class="header">
+  <div class="header-eyebrow">Daily Briefing</div>
+  <div class="header-title">每日<span>要闻</span></div>
+  <div class="header-date">
+    <span class="live-dot"></span>
+    2026年3月16日 · 周一 · 更新于 08:00
   </div>
-</footer>
+</div>
 
-<script>
-const CAT_THEME = {
-  international:{ theme:"theme-intl",  icon:"icon-intl",  emoji:"🌍" },
-  china:        { theme:"theme-china", icon:"icon-china", emoji:"🏛️" },
-  tech:         { theme:"theme-tech",  icon:"icon-tech",  emoji:"💻" },
-  finance:      { theme:"theme-finance",icon:"icon-finance",emoji:"📊" },
-};
+<div class="container">
 
-// 过滤掉体育板块
-const HIDDEN_CATS = ["sports"];
-
-function buildSummaryHTML(summary) {
-  if(!summary||!summary.length) return '<div style="padding:20px;color:var(--t3);text-align:center;font-size:13px;">暂无摘要</div>';
-  return `
-    <div class="ai-body">
-      ${summary.map((t,i)=>`
-        <div class="ai-item">
-          <div class="ai-rank">0${i+1}</div>
-          <div class="ai-text">${t.replace(/^\d+[\.\、\s]+/,"")}</div>
-        </div>
-      `).join("")}
+  <!-- ① 今日精华 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">⚡</span>
+      <span class="section-title">今日精华</span>
+      <span class="section-count">5 条</span>
     </div>
-  `;
-}
-
-function buildCatHTML(cat) {
-  const cfg = CAT_THEME[cat.category] || { theme:"theme-intl", icon:"icon-intl", emoji:"📌" };
-  const items = (cat.items||[]);
-  const cards = items.map(item=>`
-    <div class="ncard ${cfg.theme}">
-      <div class="ncard-top">
-        <div class="ncard-title">${item.title}</div>
-        ${item.tag?`<span class="ncard-tag">${item.tag}</span>`:""}
+    <div class="highlights-card">
+      <div class="highlights-top">
+        <span>✦</span>
+        <span class="highlights-top-label">今天最值得关注的 5 件事</span>
+        <span class="highlights-top-sub">AI 每日精选</span>
       </div>
-      ${item.desc?`<div class="ncard-desc">${item.desc}</div>`:""}
-      <div class="ncard-footer">
-        <span class="ncard-src">${cat.label.replace(/[^\u4e00-\u9fa5a-zA-Z\s]/g,"").trim()}</span>
-        ${item.link?`<a class="ncard-arrow" href="${item.link}" target="_blank" rel="noopener">查看 →</a>`:`<span class="ncard-arrow">→</span>`}
+      <div class="highlight-row">
+        <div class="h-num">01</div>
+        <div class="h-text">IEA创纪录释放2.717亿桶石油储备，伊朗战事引发全球能源危机，布伦特原油突破105美元</div>
+      </div>
+      <div class="highlight-row">
+        <div class="h-num">02</div>
+        <div class="h-text">英伟达GTC 2026大会今日开幕，黄仁勋主题演讲将揭晓下一代GPU，AI算力军备竞赛白热化</div>
+      </div>
+      <div class="highlight-row">
+        <div class="h-num">03</div>
+        <div class="h-text">央视3·15晚会曝光AI大模型被投毒、网红鸡爪双氧水泡发等乱象，监管部门已启动执法</div>
+      </div>
+      <div class="highlight-row">
+        <div class="h-num">04</div>
+        <div class="h-text">十五五规划纲要30次提及人工智能，AI正式成为国民经济增长支柱产业战略方向</div>
+      </div>
+      <div class="highlight-row">
+        <div class="h-num">05</div>
+        <div class="h-text">黄金冲上5020美元/盎司后回落，比特币突破73000美元，全球避险情绪与投机热情并存</div>
       </div>
     </div>
-  `).join("");
+  </div>
 
-  return `
-    <div class="sec">
-      <div class="sec-head">
-        <div class="sec-icon ${cfg.icon}">${cfg.emoji}</div>
-        <div class="sec-info">
-          <h2>${cat.label}</h2>
-          <p>${items.length} 条要闻</p>
-        </div>
-        <div class="sec-line"></div>
-      </div>
-      <div class="news-grid">${cards}</div>
+  <!-- ② 热点追踪 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">🔥</span>
+      <span class="section-title">热点追踪</span>
+      <span class="section-count">持续更新</span>
     </div>
-  `;
-}
+    <div class="tracker-scroll">
 
-async function loadNews() {
-  try {
-    const res = await fetch(`news-data.json?t=${Date.now()}`);
-    if(!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-
-    // 更新时间
-    document.getElementById("updateTime").textContent =
-      data.updatedAtCN || data.updatedAt?.slice(0,10) || "未知";
-
-    // 过滤掉不需要的分类
-    const cats = (data.categories||[]).filter(c=>!HIDDEN_CATS.includes(c.category));
-
-    // 拼接页面
-    document.getElementById("pageContent").innerHTML = `
-      <!-- AI 精华 -->
-      <div class="sec">
-        <div class="sec-head">
-          <div class="sec-icon" style="background:rgba(99,102,241,.12);">🤖</div>
-          <div class="sec-info">
-            <h2>AI 今日精华</h2>
-            <p>DeepSeek 跨板块精选 · 5条最值得关注</p>
-          </div>
-          <div class="sec-line"></div>
+      <!-- 追踪1：中东局势 -->
+      <div class="tracker-card">
+        <div class="tracker-head">
+          <span class="tracker-status status-hot">🔴 进行中</span>
+          <span class="tracker-name">中东局势：伊朗与美以冲突</span>
+          <span class="tracker-lastupdate">最新 3月16日</span>
         </div>
-        <div class="ai-card">
-          <div class="ai-header">
-            <div class="ai-header-left">
-              <span class="ai-badge">DeepSeek</span>
-              <span class="ai-title">今日全球要闻精华摘要</span>
+        <div class="timeline">
+
+          <div class="timeline-item">
+            <div class="tl-left">
+              <div class="tl-dot"></div>
+              <div class="tl-line"></div>
             </div>
-            <span class="ai-meta">${data.updatedAtCN||""}</span>
+            <div class="tl-right">
+              <div class="tl-date">3月16日 · 今日最新</div>
+              <div class="tl-title">IEA创纪录释放石油储备，美国组建护航联盟</div>
+              <div class="tl-desc">IEA宣布各国政府释放2.717亿桶石油储备，立即供应亚洲；美国拟组建霍尔木兹海峡护航联盟，法国马克龙呼吁确保航行自由。</div>
+            </div>
           </div>
-          ${buildSummaryHTML(data.summary)}
+
+          <div class="timeline-item">
+            <div class="tl-left">
+              <div class="tl-dot"></div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-right">
+              <div class="tl-date">3月15日</div>
+              <div class="tl-title">伊朗已发射约700枚导弹、3600架无人机</div>
+              <div class="tl-desc">伊朗革命卫队公布战绩，打击目标包括地区内美军基地及以色列，美以部队死伤总数约5000人。伊朗新任最高领袖穆杰塔巴重申将向敌人索赔。</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="tl-left">
+              <div class="tl-dot old"></div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-right">
+              <div class="tl-date">3月14日</div>
+              <div class="tl-title">霍尔木兹海峡封锁，原油供应中断</div>
+              <div class="tl-desc">伊朗宣布限制霍尔木兹海峡通航，全球约20%石油运输通道受阻，布伦特原油单日暴涨逾8%，亚洲进口国紧急启动储备。</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="tl-left">
+              <div class="tl-dot old"></div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-right">
+              <div class="tl-date">3月10日</div>
+              <div class="tl-title">美以对伊朗核设施发动联合打击</div>
+              <div class="tl-desc">美以联军对伊朗纳坦兹等核设施实施精确打击，伊朗宣布全国进入战争状态，中俄在联合国安理会召开紧急会议。</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="tl-left">
+              <div class="tl-dot old"></div>
+            </div>
+            <div class="tl-right">
+              <div class="tl-date">3月5日 · 起点</div>
+              <div class="tl-title">伊朗核谈判破裂，紧张局势骤然升级</div>
+              <div class="tl-desc">维也纳伊核协议第九轮谈判宣告破裂，伊朗随即宣布恢复铀浓缩至90%，美国立即召集盟友商讨军事选项。</div>
+            </div>
+          </div>
+
         </div>
       </div>
-      ${cats.map(buildCatHTML).join("")}
-    `;
-  } catch(e) {
-    document.getElementById("updateTime").textContent = "加载失败";
-    document.getElementById("pageContent").innerHTML = `
-      <div style="text-align:center;padding:60px 20px;color:var(--t3);">
-        <div style="font-size:32px;margin-bottom:16px;">⏳</div>
-        <div style="font-size:14px;color:var(--t2);margin-bottom:8px;">新闻数据将于每天 08:00 自动更新</div>
-        <div style="font-size:12px;">首次可前往 GitHub Actions 手动触发</div>
-      </div>`;
-  }
-}
 
-loadNews();
-</script>
+      <!-- 追踪2：AI算力竞赛 -->
+      <div class="tracker-card">
+        <div class="tracker-head">
+          <span class="tracker-status status-live">🟢 持续跟进</span>
+          <span class="tracker-name">AI算力竞赛：英伟达 vs 全球</span>
+          <span class="tracker-lastupdate">最新 3月16日</span>
+        </div>
+        <div class="timeline">
+
+          <div class="timeline-item">
+            <div class="tl-left">
+              <div class="tl-dot"></div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-right">
+              <div class="tl-date">3月16日 · 今日最新</div>
+              <div class="tl-title">GTC 2026开幕，黄仁勋演讲备受期待</div>
+              <div class="tl-desc">英伟达年度开发者大会于圣何塞拉开帷幕，黄仁勋将于北京时间3月17日凌晨02:00发表主题演讲，外界普遍预期将发布Blackwell Ultra或下一代架构GPU。</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="tl-left">
+              <div class="tl-dot old"></div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-right">
+              <div class="tl-date">3月12日</div>
+              <div class="tl-title">英伟达对华GPU供应本季再缩30%</div>
+              <div class="tl-desc">受出口管制升级影响，英伟达本财季对中国大陆GPU供应缩减30%；国内厂商华为昇腾、寒武纪订单量随之激增。</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="tl-left">
+              <div class="tl-dot old"></div>
+            </div>
+            <div class="tl-right">
+              <div class="tl-date">3月1日</div>
+              <div class="tl-title">十五五规划将AI列为支柱产业</div>
+              <div class="tl-desc">中国发布十五五规划纲要，30次提及人工智能，明确"人工智能+"行动，国家队资金将大规模涌入AI基础设施建设。</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ③ 国际局势 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">🌍</span>
+      <span class="section-title">国际局势</span>
+      <span class="section-count">4 条</span>
+    </div>
+    <div class="news-grid">
+      <div class="news-card">
+        <span class="news-tag tag-orange">能源危机</span>
+        <div class="news-title">IEA创纪录释放2.717亿桶石油储备</div>
+        <div class="news-desc">国际能源署宣布各国政府从战略储备中释放2.717亿桶石油，其中美洲成员国释放1.722亿桶，创纪录规模将立即供应亚洲，弥补因伊朗战事中断的原油供应。</div>
+      </div>
+      <div class="news-card">
+        <span class="news-tag tag-orange">中东冲突</span>
+        <div class="news-title">伊朗：已向美以发射约700枚导弹、3600架无人机</div>
+        <div class="news-desc">伊朗伊斯兰革命卫队表示，截至3月15日晚已打击地区内美军基地及以色列，美以部队死伤总数约5000人。美国拟组建霍尔木兹海峡"护航联盟"。</div>
+      </div>
+      <div class="news-card">
+        <span class="news-tag tag-yellow">油价</span>
+        <div class="news-title">布伦特原油失守105美元，WTI失守98美元</div>
+        <div class="news-desc">油价高位震荡，布伦特原油日内涨2.58%后回落；特朗普要求其他国家协助确保霍尔木兹海峡安全，伊朗誓言反抗。</div>
+      </div>
+      <div class="news-card">
+        <span class="news-tag tag-blue">中美贸易</span>
+        <div class="news-title">中美经贸团队在巴黎开启新一轮磋商</div>
+        <div class="news-desc">当地时间3月15日，中美两国经贸团队在法国巴黎开始新一轮磋商。美国贸易代表办公室对包括中国在内的60个经济体发起301调查，中方强烈反对。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ 国内要闻 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">🏛️</span>
+      <span class="section-title">国内要闻</span>
+      <span class="section-count">4 条</span>
+    </div>
+    <div class="news-grid">
+      <div class="news-card">
+        <span class="news-tag tag-blue">货币政策</span>
+        <div class="news-title">央行开展5000亿元买断式逆回购，缩量续作</div>
+        <div class="news-desc">3月16日，央行以固定数量、利率招标方式开展5000亿元、182天买断式逆回购操作。当月有6000亿元到期，此次缩量1000亿元，为2025年6月以来首次缩量续作。</div>
+      </div>
+      <div class="news-card">
+        <span class="news-tag tag-orange">消费保护</span>
+        <div class="news-title">3·15晚会曝光AI大模型被投毒、网红鸡爪等乱象</div>
+        <div class="news-desc">央视3·15晚会曝光漂白鸡爪、外泌体三无产品、增高骗局、AI大模型被投毒、荐股骗局等违法行为，市场监管总局已迅速启动应急处置机制。</div>
+      </div>
+      <div class="news-card">
+        <span class="news-tag tag-green">政策</span>
+        <div class="news-title">十五五规划纲要30次提及人工智能</div>
+        <div class="news-desc">3月13日发布的《国民经济和社会发展第十五个五年规划纲要》，明确"人工智能+"行动走向系统谋划，AI将成为国民经济增长支柱产业。</div>
+      </div>
+      <div class="news-card">
+        <span class="news-tag tag-blue">经济数据</span>
+        <div class="news-title">1-2月国民经济运行情况今日发布</div>
+        <div class="news-desc">国务院新闻办公室今日上午举行发布会，国家统计局新闻发言人付凌晖介绍2026年1-2月份国民经济运行情况。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑤ 科技产业 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">💻</span>
+      <span class="section-title">科技产业</span>
+      <span class="section-count">3 条</span>
+    </div>
+    <div class="news-grid">
+      <div class="news-card">
+        <span class="news-tag tag-purple">AI硬件</span>
+        <div class="news-title">英伟达GTC 2026大会今日开幕，黄仁勋凌晨演讲</div>
+        <div class="news-desc">素有"AI界春晚"之称的GTC 2026于今日在圣何塞开幕，黄仁勋将于北京时间3月17日凌晨02:00发表主题演讲，预计发布新一代GPU技术。</div>
+      </div>
+      <div class="news-card">
+        <span class="news-tag tag-purple">半导体</span>
+        <div class="news-title">英特尔CEO：存储芯片短缺至少持续到2028年</div>
+        <div class="news-desc">英特尔CEO陈立武表示，存储芯片短缺局面至少还将持续至2028年。英伟达本财季对中国大陆GPU供应已缩减30%。</div>
+      </div>
+      <div class="news-card">
+        <span class="news-tag tag-green">AI创业</span>
+        <div class="news-title">"1人+1万块GPU"能否打造独角兽？上海正在验证</div>
+        <div class="news-desc">上海人工智能创新小镇正验证OpenAI CEO奥尔特曼的预言，Vibe coding令创业者无需敲代码即可完成开发。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑥ 金融市场 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">📊</span>
+      <span class="section-title">金融市场</span>
+      <span class="section-count">3 条</span>
+    </div>
+    <div class="news-grid">
+      <div class="news-card">
+        <span class="news-tag tag-yellow">贵金属</span>
+        <div class="news-title">黄金突破5020美元后回落，日内跌1.04%</div>
+        <div class="news-desc">现货黄金价格剧烈波动，先后突破5020美元/盎司，最终失守4970美元；纽约期金同步下跌。</div>
+      </div>
+      <div class="news-card">
+        <span class="news-tag tag-yellow">加密货币</span>
+        <div class="news-title">比特币破73000美元，以太坊涨近5%</div>
+        <div class="news-desc">比特币升破73000美元，日内涨2.58%；以太坊升破2200美元，日内涨4.99%。全球避险资金与投机资金同步涌入。</div>
+      </div>
+      <div class="news-card">
+        <span class="news-tag tag-blue">企业动态</span>
+        <div class="news-title">茅台"美女董秘"蒋焰涉嫌严重违纪违法被查</div>
+        <div class="news-desc">茅台董秘蒋焰涉嫌严重违纪违法被查，公司表示不影响正常生产经营。东吴证券今日复牌，拟收购东海证券83.77%股份。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="index.html">← 返回工作台</a>
+  </div>
+
+</div>
 </body>
 </html>
