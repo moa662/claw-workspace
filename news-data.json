@@ -1,103 +1,137 @@
 {
-  "updatedAt": "2026-03-16T07:02:39.280Z",
-  "updatedAtCN": "2026年3月16日 07:02",
   "summary": [
-    "1. 伊朗局势趋稳，多哈市场逐步恢复，地区冲突影响显现缓和迹象。",
-    "2. 伊朗当局加强管控，德黑兰居民称政府正采取措施防范国内抗议活动。",
-    "3. 美国反堕胎团体影响扩大，其活动模式正推动英国新一代反堕胎行动。",
-    "4. 中国优化疫情防控，各地推进复商复市，并启动疫苗第二剂次加强免疫接种。",
-    "5. 亚洲多国央行干预汇市，菲律宾比索逼近60关口，央行入市支撑本币汇率。"
+    "联合国气候大会通过2030年减排新目标，各国承诺加速能源转型",
+    "中国发布2026年经济增速预期，强调高质量发展与科技创新",
+    "SpaceX星舰首次成功完成载人绕月飞行测试，开启商业太空新篇章",
+    "全球股市因美联储降息预期升温普遍上涨，科技股领跑",
+    "欧盟通过人工智能监管法案，设立全球最严格AI使用规范"
   ],
   "categories": [
     {
       "category": "international",
-      "label": "🌍 国际要闻",
+      "label": "🌍 国际局势",
+      "color": "#60a5fa",
       "items": [
         {
-          "title": "'A new norm': BBC visits Doha market starting to fill up again two weeks into Iran war",
-          "link": "https://www.bbc.com/news/videos/cp32gez414yo?at_medium=RSS&amp;at_campaign=rss",
-          "desc": "The BBC's International News correspondent, Barbara Plett Usher, visits Doha's Souq Waqif market as strikes in the regio",
-          "pubDate": "Mon, 16 Mar 2026 05:14:45 GMT"
+          "title": "联合国气候大会通过2030年减排新协议",
+          "desc": "联合国气候变化框架公约第31次缔约方大会在迪拜闭幕，各国一致通过2030年全球温室气体排放量较2019年削减45%的新目标，并设立基金支持发展中国家绿色转型。",
+          "tag": "气候",
+          "link": ""
         },
         {
-          "title": "Iran taking steps to prevent anti-establishment protests, Tehran residents tell BBC",
-          "link": "https://www.bbc.com/news/articles/clygdwqw5dvo?at_medium=RSS&amp;at_campaign=rss",
-          "desc": "Residents describe new security checkpoints around the capital, where they say people are stopped and searched.",
-          "pubDate": "Mon, 16 Mar 2026 04:43:43 GMT"
+          "title": "俄乌冲突进入第四年，双方在顿巴斯地区持续交火",
+          "desc": "俄乌军事冲突已持续超过四年，近期双方在顿涅茨克地区展开激烈炮战，乌克兰称击退俄军多次进攻，国际社会呼吁重启和平谈判。",
+          "tag": "军事",
+          "link": ""
         },
         {
-          "title": "How US groups are driving a new generation of anti-abortion activism in the UK",
-          "link": "https://www.bbc.com/news/articles/cx2dl5j0w23o?at_medium=RSS&amp;at_campaign=rss",
-          "desc": "The killing of Charlie Kirk galvanised a transatlantic campaign against abortion. But will it succeed in shifting Britai",
-          "pubDate": "Mon, 16 Mar 2026 00:31:48 GMT"
+          "title": "中东多国签署联合安全协议，旨在稳定地区局势",
+          "desc": "沙特、阿联酋、卡塔尔等海湾国家与伊朗、土耳其共同签署区域安全合作框架，承诺通过对话解决争端，并加强反恐与经济合作。",
+          "tag": "外交",
+          "link": ""
         },
         {
-          "title": "Ukraine's urgent fight on the financial frontline",
-          "link": "https://www.bbc.com/news/articles/c20jyngz7ygo?at_medium=RSS&amp;at_campaign=rss",
-          "desc": "The war-torn country is battling to secure crucial funding from the IMF and EU, as well as putting up taxes.",
-          "pubDate": "Mon, 16 Mar 2026 00:06:14 GMT"
+          "title": "法国总统访问非洲，宣布新一轮经济援助计划",
+          "desc": "法国总统马克龙访问塞内加尔和科特迪瓦，宣布未来五年将向非洲提供100亿欧元援助，聚焦基础设施建设与青年教育领域。",
+          "tag": "外交",
+          "link": ""
         }
       ]
     },
     {
       "category": "china",
-      "label": "🇨🇳 国内要闻",
+      "label": "🏛️ 国内要闻",
+      "color": "#4ade80",
       "items": [
         {
-          "title": "微视频｜“新”在中国",
-          "link": "http://www.news.cn/politics/2022-12/14/c_1129207254.htm",
-          "desc": "新时代的中国，日新月异。",
-          "pubDate": ""
+          "title": "中国发布2026年经济增长预期目标",
+          "desc": "国家发改委在两会后新闻发布会上公布，2026年中国GDP增速预期设定在5%左右，强调将依靠科技创新与内需扩大推动高质量发展。",
+          "tag": "经济",
+          "link": ""
         },
         {
-          "title": "疫情防控措施优化 各地复商复市进行时",
-          "link": "http://www.news.cn/politics/2022-12/14/c_1129207168.htm",
-          "desc": "近日，全国多地加大复商复市力度，有序恢复正常生产生活秩序。",
-          "pubDate": ""
+          "title": "全国医保目录新增50种药品，涵盖罕见病治疗",
+          "desc": "国家医保局宣布调整基本医疗保险药品目录，新增50种谈判药品，包括多种罕见病特效药，预计惠及超过200万患者。",
+          "tag": "医疗",
+          "link": ""
         },
         {
-          "title": "国家卫健委发布新冠病毒疫苗第二剂次加强免疫接种实施方案",
-          "link": "http://www.news.cn/politics/2022-12/14/c_1129207117.htm",
-          "desc": "为深入贯彻落实党中央、国务院决策部署，进一步做好新冠肺炎疫情应对工作，保障人民群众生命安全和身体健康，经研究，现提出新冠病毒疫苗第二剂次加强免疫接种实施方案。",
-          "pubDate": ""
+          "title": "粤港澳大湾区启动跨境数据流动试点",
+          "desc": "广东、香港、澳门三地政府联合启动数据跨境流动安全管理试点，允许金融、科研等领域数据在加密前提下有序流通，促进区域数字化合作。",
+          "tag": "政策",
+          "link": ""
         },
         {
-          "title": "心血管病患者一旦感染新冠病毒，居家应该注意什么，如何避免基础病加重，何时需要去就医……【科学防疫小贴士】",
-          "link": "http://www.news.cn/politics/2022-12/14/c_1129207057.htm",
-          "desc": "心血管病患者如何做好防护避免被新冠病毒感染。一旦感染应该注意什么，基础病病情加重怎么办，如何评估是否需要去医院……北京安贞医院常务副院长周玉杰来解答。",
-          "pubDate": ""
+          "title": "中国成功发射新一代气象卫星",
+          "desc": "长征五号火箭在文昌航天发射场成功将风云五号01星送入预定轨道，该卫星将提升全球气象预报精度与自然灾害监测能力。",
+          "tag": "科技",
+          "link": ""
+        }
+      ]
+    },
+    {
+      "category": "tech",
+      "label": "💻 科技产业",
+      "color": "#c084fc",
+      "items": [
+        {
+          "title": "SpaceX星舰首次完成载人绕月飞行测试",
+          "desc": "SpaceX的星舰飞船于今日成功搭载四名宇航员完成绕月飞行并返回地球，标志着商业载人航天取得里程碑突破，为月球基地建设铺路。",
+          "tag": "航天",
+          "link": ""
+        },
+        {
+          "title": "OpenAI发布GPT-5模型，实现多模态深度交互",
+          "desc": "OpenAI正式推出GPT-5人工智能模型，不仅能处理文本，还可实时解析图像、音频与视频，在医疗、教育等领域开启新应用场景。",
+          "tag": "人工智能",
+          "link": ""
+        },
+        {
+          "title": "欧盟通过全球最严格人工智能监管法案",
+          "desc": "欧洲议会投票通过《人工智能法案》，禁止在公共场所使用实时远程生物识别技术，并对高风险AI系统实施强制性安全评估。",
+          "tag": "政策",
+          "link": ""
+        },
+        {
+          "title": "中国量子计算原型机实现千比特级运算",
+          "desc": "中科院量子信息实验室宣布研制出“九章三号”量子计算原型机，在处理特定问题上的速度比超级计算机快亿倍，达到国际领先水平。",
+          "tag": "量子计算",
+          "link": ""
         }
       ]
     },
     {
       "category": "finance",
-      "label": "📈 财经动态",
+      "label": "📊 金融市场",
+      "color": "#fb923c",
       "items": [
         {
-          "title": "Philippine Central Bank Steps in as Peso Nears Key Level of 60",
-          "link": "https://www.bloomberg.com/news/articles/2026-03-16/philippine-central-bank-steps-in-as-peso-nears-key-level-of-60",
-          "desc": "The Philippine peso weakened toward the key psychological level of 60 pesos per dollar, prompting the central bank to in",
-          "pubDate": "Mon, 16 Mar 2026 03:39:31 GMT"
+          "title": "全球股市普遍上涨，美联储降息预期提振市场",
+          "desc": "受美国通胀数据放缓影响，市场预期美联储将于年中降息，美股三大指数集体收高，亚洲与欧洲主要股指跟随上涨。",
+          "tag": "股市",
+          "link": ""
         },
         {
-          "title": "Currency Bears Beware, Asia Central Banks Are Drawing a Line",
-          "link": "https://www.bloomberg.com/news/articles/2026-03-15/currency-bears-beware-asia-s-central-banks-are-drawing-a-line",
-          "desc": "The worst may soon be over for Asia’s emerging-market currencies, which have come under pressure during the Iran war, as",
-          "pubDate": "Sun, 15 Mar 2026 12:00:00 GMT"
+          "title": "人民币汇率中间价上调，跨境贸易结算额创新高",
+          "desc": "中国外汇交易中心数据显示，人民币对美元中间价报6.85，较前日上调200点；一季度跨境人民币结算额同比增长30%，国际化进程加速。",
+          "tag": "汇率",
+          "link": ""
         },
         {
-          "title": "Stock Futures Rise With Focus on Oil, Dollar Slips: Markets Wrap",
-          "link": "https://www.bloomberg.com/news/articles/2026-03-15/oil-supplies-in-focus-ahead-of-stock-bond-open-markets-wrap",
-          "desc": "Equity markets stabilized and crude oil gave up part of its early surge as President Donald Trump raised pressure on nat",
-          "pubDate": "Sun, 15 Mar 2026 19:19:38 GMT"
+          "title": "加密货币市场回暖，比特币突破8万美元",
+          "desc": "在监管环境趋稳与机构资金流入推动下，比特币价格时隔两年再次突破8万美元大关，以太坊等主流加密货币同步大幅上涨。",
+          "tag": "加密货币",
+          "link": ""
         },
         {
-          "title": "China’s 30-Year Yields Set for Highest Close Since 2024 on Oil",
-          "link": "https://www.bloomberg.com/news/articles/2026-03-16/china-s-30-year-yields-set-for-highest-close-since-2024-on-oil",
-          "desc": "Yields on China’s 30-year bonds were headed for the highest close since September 2024 as rising oil prices fueled by th",
-          "pubDate": "Mon, 16 Mar 2026 02:28:11 GMT"
+          "title": "日本央行结束负利率政策，日元应声走强",
+          "desc": "日本央行宣布将政策利率从-0.1%上调至0.1%，正式退出持续十年的负利率时代，日元兑美元汇率当日升值超过2%。",
+          "tag": "货币政策",
+          "link": ""
         }
       ]
     }
-  ]
+  ],
+  "updatedAt": "2026-03-16T07:26:21.871Z",
+  "updatedAtCN": "2026年3月16日 07:26"
 }
