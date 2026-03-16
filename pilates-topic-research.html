@@ -191,6 +191,39 @@ body{background:var(--bg);color:var(--t1);font-family:'PingFang SC','Microsoft Y
 .sum-item h4{font-size:13px;font-weight:600;margin-bottom:3px;}
 .sum-item p{font-size:12px;color:var(--t2);line-height:1.6;}
 
+/* ── 双维度标注（与选题池v3联动） ── */
+/* 三环法来源标签 */
+.ring-tag{font-size:10px;padding:2px 7px;border-radius:3px;font-weight:600;}
+.ring-hist{background:rgba(251,146,60,.12);color:#fb923c;border:1px solid rgba(251,146,60,.25);}
+.ring-biz{background:rgba(52,211,153,.12);color:#34d399;border:1px solid rgba(52,211,153,.25);}
+.ring-ref{background:rgba(167,139,250,.12);color:#a78bfa;border:1px solid rgba(167,139,250,.25);}
+/* 人群圈层标签 */
+.circle-tag{font-size:10px;padding:2px 7px;border-radius:3px;font-weight:600;}
+.circle-core{background:rgba(248,113,113,.12);color:#f87171;border:1px solid rgba(248,113,113,.25);}
+.circle-mid{background:rgba(200,169,110,.12);color:#c8a96e;border:1px solid rgba(200,169,110,.25);}
+.circle-outer{background:rgba(74,222,128,.12);color:#4ade80;border:1px solid rgba(74,222,128,.25);}
+.circle-all{background:rgba(192,132,252,.12);color:#c084fc;border:1px solid rgba(192,132,252,.25);}
+/* 必拍徽章 */
+.cross-badge{font-size:10px;padding:2px 8px;border-radius:3px;font-weight:700;background:rgba(251,191,36,.15);color:#fbbf24;border:1px solid rgba(251,191,36,.3);}
+/* 双维度标注区 */
+.tc-dims{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px;}
+/* 方法论Banner */
+.method-banner{background:linear-gradient(135deg,rgba(96,165,250,.06),rgba(251,146,60,.04));border:1px solid rgba(96,165,250,.2);border-radius:var(--radius);padding:18px 22px;margin-bottom:24px;}
+.mb-title{font-size:13px;font-weight:700;color:#60a5fa;margin-bottom:10px;}
+.mb-body{font-size:12px;color:var(--t2);line-height:1.8;}
+.mb-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.mb-tag{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;}
+/* 交叉矩阵 */
+.matrix-wrap{overflow-x:auto;margin:12px 0 4px;}
+.matrix{width:100%;border-collapse:collapse;font-size:11px;}
+.matrix th,.matrix td{padding:7px 10px;text-align:center;border:1px solid var(--bd);}
+.matrix thead th{background:var(--s2);color:var(--t3);font-weight:600;letter-spacing:.4px;}
+.matrix tbody th{text-align:left;background:var(--s2);color:var(--t2);font-weight:600;white-space:nowrap;}
+.matrix td.ms{background:rgba(248,113,113,.12);color:#f87171;font-weight:700;}
+.matrix td.ma{background:rgba(200,169,110,.12);color:#c8a96e;font-weight:700;}
+.matrix td.mb{background:rgba(100,116,139,.1);color:#94a3b8;}
+.matrix-note{font-size:11px;color:var(--t3);line-height:1.7;margin-top:6px;}
+
 footer{border-top:1px solid var(--bd);padding:24px;text-align:center;font-size:12px;color:var(--t3);}
 
 @media(max-width:768px){
@@ -204,9 +237,9 @@ footer{border-top:1px solid var(--bd);padding:24px;text-align:center;font-size:1
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-tag">✦ 普拉提行业 B端内容研究 · v2</div>
+  <div class="hero-tag">✦ 普拉提行业 B端内容研究 · v3 · 双维度选题评级</div>
   <h1>短视频选题<span>研究报告</span></h1>
-  <p class="hero-sub">以微信视频号为核心平台，深度挖掘普拉提馆主真实痛点，产出10个高度对应需求的短视频选题</p>
+  <p class="hero-sub">同心圆（人群维度）× 三环选题法（内容来源）双维度交叉验证<br>以微信视频号为核心平台，10个高评级选题附完整创作指南</p>
   <div class="hero-meta">
     <div class="meta-item"><div class="meta-dot" style="background:#07c160"></div>视频号为主平台</div>
     <div class="meta-item"><div class="meta-dot" style="background:#c8a96e"></div>数据更新至 2026年3月</div>
@@ -438,9 +471,53 @@ footer{border-top:1px solid var(--bd);padding:24px;text-align:center;font-size:1
     <div class="sec-num">04</div>
     <div class="sec-title">
       <h2>十大短视频选题</h2>
-      <p>每个选题新增「痛点匹配度」维度标注，点击展开完整创作指南</p>
+      <p>双维度交叉评级：同心圆人群层级 × 三环选题法内容来源，点击展开完整创作指南</p>
     </div>
   </div>
+
+  <!-- 双维度方法论说明 -->
+  <div class="method-banner">
+    <div class="mb-title">⭕ 双维度选题评级系统 · 与选题池 v3 联动</div>
+    <div class="mb-body">
+      每个选题同时标注两套维度，两套方法互相印证：<br>
+      <b style="color:#60a5fa">① 于困困三层同心圆（人群维度）</b> — 判断选题给谁看：
+      <span class="circle-tag circle-core">🔴 核心圈·馆主</span>
+      <span class="circle-tag circle-mid">🟡 辐射圈·教练</span>
+      <span class="circle-tag circle-outer">🟢 潜在圈·投资者</span>
+      <span class="circle-tag circle-all">💡 三圈通吃</span>
+      &nbsp;&nbsp;
+      <b style="color:#fb923c">② 三环选题法（内容来源）</b> — 判断选题有没有内容支撑：
+      <span class="ring-tag ring-hist">🟠 历史验证</span>
+      <span class="ring-tag ring-biz">🟢 业务交付</span>
+      <span class="ring-tag ring-ref">🟣 对标账号</span>
+    </div>
+    <div class="matrix-wrap">
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th>人群 ↓ / 内容来源 →</th>
+            <th>🟠 历史验证</th>
+            <th>🟢 业务交付</th>
+            <th>🟣 对标账号</th>
+            <th>多池命中</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th>🔴 核心圈（馆主）</th><td class="ms">S级</td><td class="ms">S级</td><td class="ma">A级</td><td class="ms">🏆 必拍</td></tr>
+          <tr><th>🟡 辐射圈（教练）</th><td class="ma">A级</td><td class="ms">S级</td><td class="ma">A级</td><td class="ms">S级</td></tr>
+          <tr><th>🟢 潜在圈（投资者）</th><td class="mb">B级</td><td class="ma">A级</td><td class="mb">B级</td><td class="ma">A级</td></tr>
+        </tbody>
+      </table>
+      <p class="matrix-note">💡 找到选题的人群行 × 内容来源列，交叉位置即为建议评级。<b style="color:#fbbf24">🏆 双S·必拍</b> = 核心圈选题 + 多池命中，无条件优先创作。</p>
+    </div>
+    <div class="mb-tags">
+      <div class="mb-tag" style="background:rgba(251,191,36,.1);color:#fbbf24;border:1px solid rgba(251,191,36,.25);">🏆 双S · 必拍</div>
+      <div class="mb-tag" style="background:rgba(248,113,113,.1);color:#f87171;border:1px solid rgba(248,113,113,.2);">S级 · 双维度强命中</div>
+      <div class="mb-tag" style="background:rgba(200,169,110,.1);color:#c8a96e;border:1px solid rgba(200,169,110,.2);">A级 · 单维度强命中</div>
+      <div class="mb-tag" style="background:rgba(100,116,139,.1);color:#94a3b8;border:1px solid rgba(100,116,139,.2);">B级 · 验证后再拍</div>
+    </div>
+  </div>
+
   <div class="topics-list" id="topicsList"></div>
 </section>
 
@@ -561,7 +638,7 @@ footer{border-top:1px solid var(--bd);padding:24px;text-align:center;font-size:1
 </section>
 
 </div>
-<footer>普拉提B端内容选题研究报告 v2 · 数据更新至2026年3月 · 以微信视频号为核心平台</footer>
+<footer>普拉提B端内容选题研究报告 v3 · 双维度选题评级（同心圆 × 三环法）· 数据更新至2026年3月 · 以微信视频号为核心平台</footer>
 
 <script>
 // ── 痛点地图数据 ──
@@ -607,6 +684,7 @@ const TOPICS = [
   {
     theme:'开普拉提馆前三个月，我踩过的7个坑（含完整筹备清单）',
     painLevel:'high', painText:'命中 P1现金流 + P7管理混乱',
+    circle:'mid', crossRank:'S', rings:['biz','hist'],
     audience:'准备创业的普拉提教练 / 正在筹备开店的健身从业者',
     format:'创始人经验自述 + 清单字幕 + 实景办公室拍摄，视频号竖版3分钟以内',
     value:'一份可直接复用的开馆SOP清单，覆盖证件办理时间线、装修避坑、首批学员获取策略，私信领取完整清单引流私域',
@@ -620,6 +698,7 @@ const TOPICS = [
   {
     theme:'我开普拉提馆第一年：月收入、固定成本、现在后悔了吗？',
     painLevel:'high', painText:'命中 P1现金流 · 最高痛感',
+    circle:'core', crossRank:'SS', rings:['hist','biz'],
     audience:'有创业想法的普拉提教练 / 对创业感兴趣的普拉提爱好者',
     format:'年度复盘vlog，真实数字曝光 + 情绪化叙事 + 面对镜头直接讲，视频号首发朋友圈同步',
     value:'真实财务数据+情感共鸣，同时吸引B端创业者研究和C端用户围观，双向流量；年度复盘适合作为账号高光标杆内容',
@@ -633,6 +712,7 @@ const TOPICS = [
   {
     theme:'同一条街三家普拉提馆，两年后只剩我一家：我做对了3件事',
     painLevel:'high', painText:'命中 P5同质化竞争 · 直击焦虑',
+    circle:'core', crossRank:'SS', rings:['hist','ref'],
     audience:'面临竞争压力的馆主 / 在红海市场中挣扎的创业者',
     format:'竞争故事叙事 + 三馆对比分析 + 复盘独白，视频号首发+公众号长文版本联动',
     value:'通过竞争视角反推差异化优势，提炼3个在红海市场存活的核心能力，故事性强，视频号易裂变',
@@ -646,6 +726,7 @@ const TOPICS = [
   {
     theme:'普拉提馆月续卡率从52%做到79%：我只改了这3件事',
     painLevel:'high', painText:'命中 P3会员续费 · 直接可复用',
+    circle:'core', crossRank:'SS', rings:['biz','hist'],
     audience:'已开业但会员流失严重的馆主 / 运营负责人',
     format:'Before/After数据对比 + 方法论拆解 + 截图证明，适合视频号"干货卡片"竖版形式',
     value:'3个可立即执行的续卡率提升动作，附真实数据截图，可复制性极强；私信领取完整SOP引流私域',
@@ -659,6 +740,7 @@ const TOPICS = [
   {
     theme:'我花了3万广告费换来5个试课学员之后，终于搞明白普拉提馆怎么获客',
     painLevel:'high', painText:'命中 P2获客成本 · 极强共鸣',
+    circle:'core', crossRank:'SS', rings:['hist','biz'],
     audience:'依赖付费广告但ROI低下的馆主 / 准备做线上推广的工作室主',
     format:'失败经历自述 + 转折点复盘 + 现在的低成本获客路径，视频号叙事感强适合完播',
     value:'一套适合小型普拉提馆的获客组合拳（视频号内容+私域社群+口碑裂变），用失败案例建立信任感',
@@ -672,6 +754,7 @@ const TOPICS = [
   {
     theme:'招到一个好教练有多难？我面试了200人后总结出的筛选标准',
     painLevel:'mid', painText:'命中 P4教练招募难',
+    circle:'core', crossRank:'S', rings:['biz'],
     audience:'正在扩张团队的馆主 / 有意转型管理岗的资深教练',
     format:'访谈感独白 + 精剪面试片段 + 筛选标准清单，视频号首发+同步小红书',
     value:'一套适合小型普拉提馆的教练筛选评估标准（技术+服务意识+价值观），填补行业人才筛选内容空白',
@@ -685,6 +768,7 @@ const TOPICS = [
   {
     theme:'我为什么把私教课砍掉一半，营收反而涨了30%？',
     painLevel:'high', painText:'命中 P1现金流 + P5定价困境',
+    circle:'core', crossRank:'SS', rings:['biz','ref'],
     audience:'依赖单一私教课收入、面临盈利压力的馆主',
     format:'反直觉结论 + 数据拆解 + 新盈利模型解析（小团课/会员制重构），视频号首发',
     value:'用反直觉商业决策揭示普拉提馆收入结构重组逻辑，提供一套面向2026年的新盈利模型，挑战行业共识引发讨论',
@@ -698,6 +782,7 @@ const TOPICS = [
   {
     theme:'普拉提馆主不懂拍视频？我用这套方法30天视频号涨粉3000',
     painLevel:'mid', painText:'命中 P6内容运营能力弱',
+    circle:'mid', crossRank:'S', rings:['hist','biz'],
     audience:'想做视频号但不知从何入手的馆主 / 技术型创始人',
     format:'自我迭代过程展示 + 具体方法步骤 + 前后对比，在视频号上发"如何做视频号"，meta感强',
     value:'一个技术背景馆主可直接抄作业的视频号冷启动方案，强调低成本、无需专业团队，在视频号上发此内容自带示范效应',
@@ -711,6 +796,7 @@ const TOPICS = [
   {
     theme:'教练培养了半年，她辞职开了竞争对手的店：我学到了什么',
     painLevel:'mid', painText:'命中 P4教练留用难 · 情感共鸣强',
+    circle:'core', crossRank:'S', rings:['biz','hist'],
     audience:'正在头疼教练流失的馆主 / 有意建立合伙机制的创业者',
     format:'真实经历叙事 + 情感化表达 + 解决方案（合伙/股权/成长通道），视频号情感类内容完播率高',
     value:'通过真实痛苦经历建立共鸣，引入"教练合伙人机制"解决方案，为有意了解教练留用机制的馆主提供思路',
@@ -724,6 +810,7 @@ const TOPICS = [
   {
     theme:'孕产普拉提：我开馆第三年转型的蓝海赛道，现在客单价翻了2倍',
     painLevel:'mid', painText:'命中 P5同质化竞争 · 差异化破局',
+    circle:'outer', crossRank:'A', rings:['ref','biz'],
     audience:'考虑细分赛道差异化的馆主 / 有孕产资质的教练创业者',
     format:'转型故事 + 市场数据佐证 + 获客渠道拆解（妇产科合作等），视频号首发+公众号联动',
     value:'孕产普拉提高客单价、低竞争的蓝海赛道验证，提供完整渠道合作方法，适合普通馆差异化突围',
@@ -736,9 +823,31 @@ const TOPICS = [
   },
 ];
 
+function circleLabel(c){
+  if(c==='core') return '<span class="circle-tag circle-core">🔴 核心圈·馆主</span>';
+  if(c==='mid')  return '<span class="circle-tag circle-mid">🟡 辐射圈·教练</span>';
+  if(c==='outer')return '<span class="circle-tag circle-outer">🟢 潜在圈·投资者</span>';
+  if(c==='all')  return '<span class="circle-tag circle-all">💡 三圈通吃</span>';
+  return '';
+}
+function ringLabel(r){
+  if(r==='hist') return '<span class="ring-tag ring-hist">🟠 历史验证</span>';
+  if(r==='biz')  return '<span class="ring-tag ring-biz">🟢 业务交付</span>';
+  if(r==='ref')  return '<span class="ring-tag ring-ref">🟣 对标账号</span>';
+  return '';
+}
+function crossBadge(cr){
+  if(cr==='SS') return '<span class="cross-badge">🏆 双S · 必拍</span>';
+  if(cr==='S')  return '<span class="cross-badge" style="background:rgba(248,113,113,.12);color:#f87171;border-color:rgba(248,113,113,.3);">⭐ S级 · 优先拍</span>';
+  if(cr==='A')  return '<span class="cross-badge" style="background:rgba(200,169,110,.1);color:#c8a96e;border-color:rgba(200,169,110,.25);">A级</span>';
+  return '';
+}
+
 function renderTopics(){
   const list = document.getElementById('topicsList');
-  list.innerHTML = TOPICS.map((t,i)=>`
+  list.innerHTML = TOPICS.map((t,i)=>{
+    const dimsHtml = `${circleLabel(t.circle||'')}${(t.rings||[]).map(ringLabel).join('')}${crossBadge(t.crossRank||'')}`;
+    return `
     <div class="topic-card" id="tc${i}" onclick="toggleTopic(${i})">
       <div class="tc-head">
         <div class="tc-num" style="background:linear-gradient(135deg,${darken(t.color)},${t.color})">${String(i+1).padStart(2,'0')}</div>
@@ -746,9 +855,9 @@ function renderTopics(){
           <div class="tc-theme">${t.theme}</div>
           <div class="tc-pills">
             <span class="tc-pill ${t.painLevel==='high'?'pill-pain-high':'pill-pain-mid'}">🎯 ${t.painText}</span>
-            <span class="tc-pill pill-audience">👥 ${t.audience.split('／')[0].slice(0,14)}</span>
             <span class="tc-pill pill-score">${t.score}</span>
           </div>
+          <div class="tc-dims">${dimsHtml}</div>
         </div>
         <span class="tc-arrow">▼</span>
       </div>
@@ -758,6 +867,10 @@ function renderTopics(){
             <div class="${t.painLevel==='high'?'pain-detail-block':'detail-block'}">
               <h4>🎯 痛点匹配</h4>
               <p>${t.painText}${t.painLevel==='high'?' — 核心高频痛点，受众需求强烈，建议优先创作':' — 中频痛点，受众有明确需求'}</p>
+            </div>
+            <div class="detail-block">
+              <h4>⭕ 双维度评级</h4>
+              <p><b>同心圆人群：</b>${{core:'🔴 核心圈 · 现有馆主（付费意愿强，优先服务）',mid:'🟡 辐射圈 · 准创业教练（二次分发效果好）',outer:'🟢 潜在圈 · 投资者/观望者（破圈传播潜力）',all:'💡 三圈通吃 · 泛受众高传播'}[t.circle]||''}<br><b>三环来源：</b>${(t.rings||[]).map(r=>({hist:'🟠 历史验证（账号后台高播放）',biz:'🟢 业务交付（服务场景可拍）',ref:'🟣 对标账号（竞品验证过）'}[r]||r)).join(' + ')}<br><b>综合评级：</b>${{SS:'🏆 双S必拍 · 人群+内容双命中',S:'⭐ S级 · 强命中 · 优先创作',A:'A级 · 单维度强命中',B:'B级 · 补充验证后再拍'}[t.crossRank]||''}</p>
             </div>
             <div class="detail-block">
               <h4>👥 目标受众</h4>
@@ -783,7 +896,7 @@ function renderTopics(){
           </div>
         </div>
       </div>
-    </div>`).join('');
+    </div>`}).join('');
 }
 
 function darken(hex){
