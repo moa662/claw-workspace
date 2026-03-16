@@ -1,0 +1,103 @@
+{
+  "updatedAt": "2026-03-16T07:02:39.280Z",
+  "updatedAtCN": "2026年3月16日 07:02",
+  "summary": [
+    "1. 伊朗局势趋稳，多哈市场逐步恢复，地区冲突影响显现缓和迹象。",
+    "2. 伊朗当局加强管控，德黑兰居民称政府正采取措施防范国内抗议活动。",
+    "3. 美国反堕胎团体影响扩大，其活动模式正推动英国新一代反堕胎行动。",
+    "4. 中国优化疫情防控，各地推进复商复市，并启动疫苗第二剂次加强免疫接种。",
+    "5. 亚洲多国央行干预汇市，菲律宾比索逼近60关口，央行入市支撑本币汇率。"
+  ],
+  "categories": [
+    {
+      "category": "international",
+      "label": "🌍 国际要闻",
+      "items": [
+        {
+          "title": "'A new norm': BBC visits Doha market starting to fill up again two weeks into Iran war",
+          "link": "https://www.bbc.com/news/videos/cp32gez414yo?at_medium=RSS&amp;at_campaign=rss",
+          "desc": "The BBC's International News correspondent, Barbara Plett Usher, visits Doha's Souq Waqif market as strikes in the regio",
+          "pubDate": "Mon, 16 Mar 2026 05:14:45 GMT"
+        },
+        {
+          "title": "Iran taking steps to prevent anti-establishment protests, Tehran residents tell BBC",
+          "link": "https://www.bbc.com/news/articles/clygdwqw5dvo?at_medium=RSS&amp;at_campaign=rss",
+          "desc": "Residents describe new security checkpoints around the capital, where they say people are stopped and searched.",
+          "pubDate": "Mon, 16 Mar 2026 04:43:43 GMT"
+        },
+        {
+          "title": "How US groups are driving a new generation of anti-abortion activism in the UK",
+          "link": "https://www.bbc.com/news/articles/cx2dl5j0w23o?at_medium=RSS&amp;at_campaign=rss",
+          "desc": "The killing of Charlie Kirk galvanised a transatlantic campaign against abortion. But will it succeed in shifting Britai",
+          "pubDate": "Mon, 16 Mar 2026 00:31:48 GMT"
+        },
+        {
+          "title": "Ukraine's urgent fight on the financial frontline",
+          "link": "https://www.bbc.com/news/articles/c20jyngz7ygo?at_medium=RSS&amp;at_campaign=rss",
+          "desc": "The war-torn country is battling to secure crucial funding from the IMF and EU, as well as putting up taxes.",
+          "pubDate": "Mon, 16 Mar 2026 00:06:14 GMT"
+        }
+      ]
+    },
+    {
+      "category": "china",
+      "label": "🇨🇳 国内要闻",
+      "items": [
+        {
+          "title": "微视频｜“新”在中国",
+          "link": "http://www.news.cn/politics/2022-12/14/c_1129207254.htm",
+          "desc": "新时代的中国，日新月异。",
+          "pubDate": ""
+        },
+        {
+          "title": "疫情防控措施优化 各地复商复市进行时",
+          "link": "http://www.news.cn/politics/2022-12/14/c_1129207168.htm",
+          "desc": "近日，全国多地加大复商复市力度，有序恢复正常生产生活秩序。",
+          "pubDate": ""
+        },
+        {
+          "title": "国家卫健委发布新冠病毒疫苗第二剂次加强免疫接种实施方案",
+          "link": "http://www.news.cn/politics/2022-12/14/c_1129207117.htm",
+          "desc": "为深入贯彻落实党中央、国务院决策部署，进一步做好新冠肺炎疫情应对工作，保障人民群众生命安全和身体健康，经研究，现提出新冠病毒疫苗第二剂次加强免疫接种实施方案。",
+          "pubDate": ""
+        },
+        {
+          "title": "心血管病患者一旦感染新冠病毒，居家应该注意什么，如何避免基础病加重，何时需要去就医……【科学防疫小贴士】",
+          "link": "http://www.news.cn/politics/2022-12/14/c_1129207057.htm",
+          "desc": "心血管病患者如何做好防护避免被新冠病毒感染。一旦感染应该注意什么，基础病病情加重怎么办，如何评估是否需要去医院……北京安贞医院常务副院长周玉杰来解答。",
+          "pubDate": ""
+        }
+      ]
+    },
+    {
+      "category": "finance",
+      "label": "📈 财经动态",
+      "items": [
+        {
+          "title": "Philippine Central Bank Steps in as Peso Nears Key Level of 60",
+          "link": "https://www.bloomberg.com/news/articles/2026-03-16/philippine-central-bank-steps-in-as-peso-nears-key-level-of-60",
+          "desc": "The Philippine peso weakened toward the key psychological level of 60 pesos per dollar, prompting the central bank to in",
+          "pubDate": "Mon, 16 Mar 2026 03:39:31 GMT"
+        },
+        {
+          "title": "Currency Bears Beware, Asia Central Banks Are Drawing a Line",
+          "link": "https://www.bloomberg.com/news/articles/2026-03-15/currency-bears-beware-asia-s-central-banks-are-drawing-a-line",
+          "desc": "The worst may soon be over for Asia’s emerging-market currencies, which have come under pressure during the Iran war, as",
+          "pubDate": "Sun, 15 Mar 2026 12:00:00 GMT"
+        },
+        {
+          "title": "Stock Futures Rise With Focus on Oil, Dollar Slips: Markets Wrap",
+          "link": "https://www.bloomberg.com/news/articles/2026-03-15/oil-supplies-in-focus-ahead-of-stock-bond-open-markets-wrap",
+          "desc": "Equity markets stabilized and crude oil gave up part of its early surge as President Donald Trump raised pressure on nat",
+          "pubDate": "Sun, 15 Mar 2026 19:19:38 GMT"
+        },
+        {
+          "title": "China’s 30-Year Yields Set for Highest Close Since 2024 on Oil",
+          "link": "https://www.bloomberg.com/news/articles/2026-03-16/china-s-30-year-yields-set-for-highest-close-since-2024-on-oil",
+          "desc": "Yields on China’s 30-year bonds were headed for the highest close since September 2024 as rising oil prices fueled by th",
+          "pubDate": "Mon, 16 Mar 2026 02:28:11 GMT"
+        }
+      ]
+    }
+  ]
+}
