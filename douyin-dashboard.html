@@ -122,15 +122,19 @@ body{background:var(--bg);color:var(--t1);font-family:'PingFang SC','Microsoft Y
 
 /* ── 选题卡 ── */
 .topic-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.topic-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+@media(max-width:900px){.topic-grid-3{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:600px){.topic-grid-3{grid-template-columns:1fr;}}
 .topic-card{
   background:var(--s2);border:1px solid var(--bd);
   border-radius:10px;padding:14px 16px;
   transition:border-color .2s;cursor:default;
+  display:flex;flex-direction:column;gap:6px;
 }
 .topic-card:hover{border-color:var(--a1);}
 .topic-tag{
   font-size:10px;font-weight:600;padding:2px 8px;border-radius:8px;
-  margin-bottom:8px;display:inline-block;
+  display:inline-block;
 }
 .tag-pain{background:rgba(225,112,85,.12);color:var(--r1);}
 .tag-guide{background:rgba(0,184,148,.12);color:var(--g1);}
@@ -138,9 +142,70 @@ body{background:var(--bg);color:var(--t1);font-family:'PingFang SC','Microsoft Y
 .tag-trend{background:rgba(116,185,255,.12);color:var(--b1);}
 .tag-knowledge{background:rgba(108,92,231,.12);color:var(--a2);}
 .tag-result{background:rgba(254,44,85,.12);color:var(--dy);}
-.topic-title{font-size:13px;font-weight:600;line-height:1.5;margin-bottom:6px;}
+.tag-hot{background:rgba(254,44,85,.12);color:var(--dy);}
+.tag-compare{background:rgba(0,184,148,.12);color:var(--g1);}
+.tag-qa{background:rgba(253,203,110,.12);color:var(--y1);}
+.tag-serial{background:rgba(108,92,231,.12);color:var(--a2);}
+.topic-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:4px;}
+.topic-title{font-size:13px;font-weight:600;line-height:1.5;}
 .topic-hook{font-size:12px;color:var(--t3);line-height:1.5;}
 .topic-hook span{color:var(--a2);}
+.topic-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;}
+.topic-meta-item{font-size:11px;color:var(--t3);display:flex;align-items:center;gap:3px;}
+.topic-analysis{font-size:11px;color:var(--t2);line-height:1.6;background:rgba(108,92,231,.06);border-radius:6px;padding:8px 10px;margin-top:4px;}
+
+/* ── 标题公式库 ── */
+.formula-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+@media(max-width:700px){.formula-grid{grid-template-columns:1fr;}}
+.formula-card{
+  background:var(--s2);border:1px solid var(--bd);border-radius:10px;
+  padding:16px 18px;
+}
+.formula-name{font-size:12px;font-weight:700;color:var(--a2);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.formula-pattern{
+  font-size:13px;font-weight:600;color:var(--t1);
+  background:var(--s3);border-radius:8px;padding:8px 12px;
+  margin-bottom:10px;line-height:1.6;letter-spacing:.2px;
+}
+.formula-pattern em{color:var(--y1);font-style:normal;}
+.formula-examples{display:flex;flex-direction:column;gap:5px;}
+.formula-ex{font-size:12px;color:var(--t3);padding:4px 8px;border-left:2px solid var(--bd2);line-height:1.5;}
+.formula-ex strong{color:var(--t2);}
+.formula-tip{font-size:11px;color:var(--g1);margin-top:8px;padding:6px 10px;background:rgba(0,184,148,.06);border-radius:6px;}
+
+/* ── 创作指引 ── */
+.guide-steps{display:flex;flex-direction:column;gap:12px;}
+.guide-step{
+  display:flex;gap:14px;align-items:flex-start;
+  background:var(--s2);border:1px solid var(--bd);border-radius:10px;padding:16px 18px;
+}
+.guide-step-num{
+  width:32px;height:32px;border-radius:10px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--a1),var(--a2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:800;color:#fff;
+}
+.guide-step-body{}
+.guide-step-title{font-size:13px;font-weight:700;margin-bottom:5px;}
+.guide-step-desc{font-size:12px;color:var(--t2);line-height:1.7;}
+.guide-step-desc strong{color:var(--t1);}
+.guide-step-desc code{
+  background:var(--s3);border-radius:4px;padding:1px 6px;
+  font-size:11px;color:var(--a2);font-family:monospace;
+}
+
+/* ── 选题日历 ── */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+@media(max-width:800px){.cal-grid{grid-template-columns:repeat(4,1fr);}}
+.cal-cell{
+  background:var(--s2);border:1px solid var(--bd);border-radius:8px;
+  padding:10px 8px;text-align:center;
+}
+.cal-cell.highlight{border-color:var(--a1);background:rgba(108,92,231,.08);}
+.cal-date{font-size:10px;color:var(--t3);margin-bottom:4px;}
+.cal-type{font-size:11px;font-weight:600;color:var(--t2);margin-bottom:4px;line-height:1.4;}
+.cal-tag-sm{font-size:9px;padding:1px 6px;border-radius:5px;display:inline-block;}
+.cal-note{font-size:10px;color:var(--t3);margin-top:4px;line-height:1.4;}
 
 /* ── 爆款拆解 ── */
 .viral-card{
@@ -452,75 +517,363 @@ body{background:var(--bg);color:var(--t1);font-family:'PingFang SC','Microsoft Y
 ════════════════════════════════════════ -->
 <div class="page" id="page-topic">
 
+  <!-- ① 今日热点选题 -->
   <div class="card" style="margin-bottom:16px;">
-    <div class="card-head"><span class="ico">✨</span> 今日热点 × 普拉提 · 选题推荐</div>
-    <div style="font-size:12px;color:var(--t3);margin-bottom:16px;">基于今日平台热点，结合普拉提内容方向生成，优先使用标注「强推」的选题</div>
+    <div class="card-head"><span class="ico">🔥</span> 今日热点 × 普拉提 · 强推选题</div>
+    <div style="font-size:12px;color:var(--t3);margin-bottom:16px;">结合今日平台热点实时生成，越快用越好，热度窗口一般不超过48小时</div>
     <div class="topic-grid">
 
       <div class="topic-card">
-        <span class="topic-tag tag-pain">痛点</span>
-        <span class="topic-tag tag-trend" style="margin-left:4px;">强推</span>
-        <div class="topic-title">春天了还在拖？这3个动作，坐月子也能练</div>
-        <div class="topic-hook">开头钩子：<span>「3月了，你还没动起来吗？」</span><br/>借势春季健身热点，戳中拖延用户痛点，门槛极低</div>
+        <div class="topic-tags">
+          <span class="topic-tag tag-trend">借势</span>
+          <span class="topic-tag tag-pain">痛点</span>
+          <span class="topic-tag tag-hot" style="background:rgba(254,44,85,.2);">🔥 强推</span>
+        </div>
+        <div class="topic-title">春天了还在拖？这3个动作，零基础在家就能练</div>
+        <div class="topic-hook">开头钩子：<span>「3月了，运动这件事你还要推到几月？」</span></div>
+        <div class="topic-analysis">📊 <strong>分析：</strong>借势#这个春天我先跑一步热点，戳中"想动但没动"的拖延痛点。「零基础/在家」降低门槛，完播率更高。建议配合「被子里5分钟跟练」拍摄方式，反差感强。</div>
+        <div class="topic-meta">
+          <span class="topic-meta-item">⏱ 建议时长：30-45s</span>
+          <span class="topic-meta-item">📍 平台：抖音优先</span>
+          <span class="topic-meta-item">📈 预估互动：高</span>
+        </div>
       </div>
 
       <div class="topic-card">
-        <span class="topic-tag tag-result">效果</span>
-        <span class="topic-tag tag-trend" style="margin-left:4px;">强推</span>
-        <div class="topic-title">坚持普拉提2个月，我拍照终于不再含胸驼背了</div>
-        <div class="topic-hook">开头钩子：<span>「同一个人，同一件衣服，就是不一样」</span><br/>小红书爆款体态对比，转发率极高</div>
+        <div class="topic-tags">
+          <span class="topic-tag tag-result">效果</span>
+          <span class="topic-tag tag-compare">对比</span>
+          <span class="topic-tag tag-hot" style="background:rgba(254,44,85,.2);">🔥 强推</span>
+        </div>
+        <div class="topic-title">练了2个月普拉提后，我拍照终于不再含胸驼背了</div>
+        <div class="topic-hook">开头钩子：<span>「同一件衣服，同一个人，差距真的很大」</span></div>
+        <div class="topic-analysis">📊 <strong>分析：</strong>小红书爆款体态对比固定模板，前后对比图视觉冲击力强，收藏率&转发率双高。时长控制在60s内，前3秒直接出对比画面，不要铺垫。</div>
+        <div class="topic-meta">
+          <span class="topic-meta-item">⏱ 建议时长：45-60s</span>
+          <span class="topic-meta-item">📍 平台：小红书优先</span>
+          <span class="topic-meta-item">📈 预估互动：极高</span>
+        </div>
       </div>
 
       <div class="topic-card">
-        <span class="topic-tag tag-guide">教程</span>
-        <div class="topic-title">3分钟跟练：清明假期在家也能做的普拉提</div>
-        <div class="topic-hook">开头钩子：<span>「假期不想出门？在家练这个就够了」</span><br/>清明假期借势，无器械居家场景</div>
+        <div class="topic-tags">
+          <span class="topic-tag tag-trend">借势</span>
+          <span class="topic-tag tag-knowledge">知识</span>
+        </div>
+        <div class="topic-title">医保交了这么多年，你有没有想过主动保住身体？</div>
+        <div class="topic-hook">开头钩子：<span>「全国13.3亿人参保——但多少人在主动保养自己？」</span></div>
+        <div class="topic-analysis">📊 <strong>分析：</strong>借医保热点切入主动健康理念，引发价值观共鸣而非直接推销。适合做账号人设建立，评论区会引来认同感强的优质用户，适合发现有潜质的私信客户。</div>
+        <div class="topic-meta">
+          <span class="topic-meta-item">⏱ 建议时长：45-60s</span>
+          <span class="topic-meta-item">📍 平台：双平台</span>
+          <span class="topic-meta-item">📈 预估互动：中高</span>
+        </div>
       </div>
 
       <div class="topic-card">
-        <span class="topic-tag tag-story">故事</span>
-        <div class="topic-title">她健身的理由让我破防了——真实学员故事</div>
-        <div class="topic-hook">开头钩子：<span>「上个月来了一个学员，一开口就让我红眼眶」</span><br/>情感共鸣，转发率和评论率双高</div>
-      </div>
-
-      <div class="topic-card">
-        <span class="topic-tag tag-knowledge">科普</span>
-        <div class="topic-title">普拉提和瑜伽到底哪个适合你？一张图说清楚</div>
-        <div class="topic-hook">开头钩子：<span>「别再纠结了，看这条就够了」</span><br/>常青内容，收藏率高，适合周末发</div>
-      </div>
-
-      <div class="topic-card">
-        <span class="topic-tag tag-pain">痛点</span>
-        <div class="topic-title">医保报销了这么多年，你的身体真的在变好吗？</div>
-        <div class="topic-hook">开头钩子：<span>「医保参保超13亿人——我们交的每一分钱」</span><br/>借医保热点，引入主动健康理念，切入普拉提价值</div>
+        <div class="topic-tags">
+          <span class="topic-tag tag-trend">借势</span>
+          <span class="topic-tag tag-story">故事</span>
+        </div>
+        <div class="topic-title">健身真正改变的，从来不只是身材——学员真实故事</div>
+        <div class="topic-hook">开头钩子：<span>「她第一次来的时候，跟我说的第一句话是……」</span></div>
+        <div class="topic-analysis">📊 <strong>分析：</strong>借#努力健身捡谢征情感热点，用第三人故事结构引发强共鸣。结尾不需要硬转化，评论区自然会有人问"在哪里练"。转发率天然高，适合账号成长中期使用。</div>
+        <div class="topic-meta">
+          <span class="topic-meta-item">⏱ 建议时长：60-90s</span>
+          <span class="topic-meta-item">📍 平台：抖音优先</span>
+          <span class="topic-meta-item">📈 预估互动：极高转发</span>
+        </div>
       </div>
 
     </div>
   </div>
 
-  <!-- 本周排期建议 -->
+  <!-- ② 常青选题库（按类型分组） -->
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-head"><span class="ico">🌲</span> 常青选题库 · 随时可用</div>
+    <div style="font-size:12px;color:var(--t3);margin-bottom:6px;">不依赖热点，任何时候发都有效果，建议在排期中穿插使用</div>
+
+    <!-- 痛点/问题类 -->
+    <div class="section-title" style="margin-top:16px;">🎯 痛点问题类 · 最强涨粉</div>
+    <div class="topic-grid-3" style="margin-bottom:16px;">
+      <div class="topic-card">
+        <div class="topic-tags"><span class="topic-tag tag-pain">痛点</span><span class="topic-tag tag-qa">答疑</span></div>
+        <div class="topic-title">腰间盘突出能练普拉提吗？我来说真相</div>
+        <div class="topic-hook">钩子：<span>「告诉你真相，别被误导了」</span></div>
+        <div class="topic-analysis">📊 覆盖人群极广，评论区=私信客户入口，可批量复制：产后/肩颈/膝盖/老年人等各做一条</div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-tags"><span class="topic-tag tag-pain">痛点</span></div>
+        <div class="topic-title">为什么你练了3个月健身房，体态一点没变？</div>
+        <div class="topic-hook">钩子：<span>「不是你不努力，是方向不对」</span></div>
+        <div class="topic-analysis">📊 直接切入目标用户已有的失败经历，防御心低，接受度高，自然引出普拉提的优势</div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-tags"><span class="topic-tag tag-pain">痛点</span><span class="topic-tag tag-knowledge">科普</span></div>
+        <div class="topic-title">久坐族注意：你的骨盆已经歪了，一个动作自测</div>
+        <div class="topic-hook">钩子：<span>「上班族90%都有这个问题」</span></div>
+        <div class="topic-analysis">📊 自测互动强，评论率高，「90%」数字制造紧迫感，收藏+评论双高</div>
+      </div>
+    </div>
+
+    <!-- 教程/跟练类 -->
+    <div class="section-title">📹 教程跟练类 · 最高完播率</div>
+    <div class="topic-grid-3" style="margin-bottom:16px;">
+      <div class="topic-card">
+        <div class="topic-tags"><span class="topic-tag tag-guide">教程</span></div>
+        <div class="topic-title">5分钟肩颈放松，下班必练，坐着就能做</div>
+        <div class="topic-hook">钩子：<span>「坐在椅子上，跟我一起做」</span></div>
+        <div class="topic-analysis">📊 门槛极低，跟练即时满足感强，完播率高；「下班必练」创造使用场景，收藏率高</div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-tags"><span class="topic-tag tag-guide">教程</span></div>
+        <div class="topic-title">10分钟核心激活，不用器械，床上就能练</div>
+        <div class="topic-hook">钩子：<span>「早上起床前做完，全天精神都不一样」</span></div>
+        <div class="topic-analysis">📊 床上场景降低行动门槛，早起习惯绑定；系列化潜力强（周一到周五不同部位）</div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-tags"><span class="topic-tag tag-guide">教程</span><span class="topic-tag tag-serial">系列</span></div>
+        <div class="topic-title">普拉提入门第1课：你必须先学会这口呼吸</div>
+        <div class="topic-hook">钩子：<span>「别急着练动作，连这个都不会算白练」</span></div>
+        <div class="topic-analysis">📊 系列第1集完播率最高；「必须先学」制造权威感；引发「还有第2集」的追更欲望，涨粉效率极高</div>
+      </div>
+    </div>
+
+    <!-- 知识/科普类 -->
+    <div class="section-title">🧠 知识科普类 · 最高收藏率</div>
+    <div class="topic-grid-3" style="margin-bottom:16px;">
+      <div class="topic-card">
+        <div class="topic-tags"><span class="topic-tag tag-knowledge">科普</span><span class="topic-tag tag-compare">对比</span></div>
+        <div class="topic-title">普拉提 vs 瑜伽 vs 健身房，选哪个？一张图说清楚</div>
+        <div class="topic-hook">钩子：<span>「别再纠结了，3分钟帮你做决定」</span></div>
+        <div class="topic-analysis">📊 常青问题，搜索量持续，收藏率高；适合做「信息图」类内容，转发率强；可周期性重发</div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-tags"><span class="topic-tag tag-knowledge">科普</span></div>
+        <div class="topic-title">为什么普拉提不教你减肥，但你却瘦了？</div>
+        <div class="topic-hook">钩子：<span>「这个逻辑很多人搞反了」</span></div>
+        <div class="topic-analysis">📊 反常识标题，「但是」转折制造好奇心；解释普拉提改变代谢、体态重塑的本质，有理有据，评论质量高</div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-tags"><span class="topic-tag tag-knowledge">科普</span></div>
+        <div class="topic-title">普拉提上大器械和小器械有什么区别？别交了冤枉钱</div>
+        <div class="topic-hook">钩子：<span>「很多人花了大价钱，却选了错的课」</span></div>
+        <div class="topic-analysis">📊 消费决策类内容，收藏率高；帮用户避坑的定位天然建立信任，引发私信咨询</div>
+      </div>
+    </div>
+
+    <!-- 效果展示类 -->
+    <div class="section-title">✨ 效果展示类 · 最强转化</div>
+    <div class="topic-grid-3">
+      <div class="topic-card">
+        <div class="topic-tags"><span class="topic-tag tag-result">效果</span><span class="topic-tag tag-story">故事</span></div>
+        <div class="topic-title">38岁妈妈，产后2年腰没好，练了6周终于不疼了</div>
+        <div class="topic-hook">钩子：<span>「她没想到，让她不再疼的是这个」</span></div>
+        <div class="topic-analysis">📊 真实学员故事+具体时间节点，可信度高；「妈妈/产后/腰疼」覆盖高需求人群，私信转化率强</div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-tags"><span class="topic-tag tag-result">效果</span></div>
+        <div class="topic-title">我的学员30天体态变化记录（真实前后对比）</div>
+        <div class="topic-hook">钩子：<span>「30天，只改了一件事」</span></div>
+        <div class="topic-analysis">📊 前后对比永远有效；「只改了一件事」制造极低门槛感；适合月度更新，打造账号IP连续性</div>
+      </div>
+      <div class="topic-card">
+        <div class="topic-tags"><span class="topic-tag tag-result">效果</span><span class="topic-tag tag-serial">系列</span></div>
+        <div class="topic-title">我练普拉提第1周、第4周、第3个月，身体变化对比</div>
+        <div class="topic-hook">钩子：<span>「老实说，第1周我差点放弃」</span></div>
+        <div class="topic-analysis">📊 时间轴叙事结构，真实波折增加可信度；「第1周差点放弃」引发强共鸣；追更欲望强，关注率高</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ 标题公式库 -->
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-head"><span class="ico">📐</span> 标题公式库 · 拿来即用</div>
+    <div style="font-size:12px;color:var(--t3);margin-bottom:16px;">8套经过验证的标题结构，黄色斜体部分替换为你的具体内容即可</div>
+    <div class="formula-grid">
+
+      <div class="formula-card">
+        <div class="formula-name">① 数字+痛点+解决</div>
+        <div class="formula-pattern">这<em>N</em>类人，不适合练<em>XX</em>？大错特错</div>
+        <div class="formula-examples">
+          <div class="formula-ex"><strong>示例：</strong>这5类人，不适合练普拉提？其实正好相反</div>
+          <div class="formula-ex"><strong>示例：</strong>腰不好的人，千万别练运动？大错特错</div>
+        </div>
+        <div class="formula-tip">✓ 反常识结构，点击欲强，评论区自然涌现咨询</div>
+      </div>
+
+      <div class="formula-card">
+        <div class="formula-name">② 时间轴对比</div>
+        <div class="formula-pattern">坚持了<em>X天/月</em>，<em>身体变化</em>让我自己都没想到</div>
+        <div class="formula-examples">
+          <div class="formula-ex"><strong>示例：</strong>坚持了30天，腰围缩了5cm但我没减肥</div>
+          <div class="formula-ex"><strong>示例：</strong>练了3个月，我的颈椎拍片结果让医生意外</div>
+        </div>
+        <div class="formula-tip">✓ 最稳定的爆款结构，收藏+转发双高</div>
+      </div>
+
+      <div class="formula-card">
+        <div class="formula-name">③ 身份锁定+专属感</div>
+        <div class="formula-pattern"><em>人群身份</em>一定要学会这个，<em>具体好处</em></div>
+        <div class="formula-examples">
+          <div class="formula-ex"><strong>示例：</strong>每天久坐8小时的打工人，一定要学会这个</div>
+          <div class="formula-ex"><strong>示例：</strong>哺乳期妈妈专属：3个动作安全恢复核心</div>
+        </div>
+        <div class="formula-tip">✓ 用户看到自己身份秒停下来，精准触达</div>
+      </div>
+
+      <div class="formula-card">
+        <div class="formula-name">④ 真相揭露型</div>
+        <div class="formula-pattern"><em>错误认知</em>？<em>反常识事实</em>，很多人搞反了</div>
+        <div class="formula-examples">
+          <div class="formula-ex"><strong>示例：</strong>练普拉提不出汗就没效果？很多人搞反了</div>
+          <div class="formula-ex"><strong>示例：</strong>体重没变但裤子变松了？这才是真正在瘦</div>
+        </div>
+        <div class="formula-tip">✓ 信息差制造好奇，完播率有保障</div>
+      </div>
+
+      <div class="formula-card">
+        <div class="formula-name">⑤ 第三人故事</div>
+        <div class="formula-pattern">她说：<em>触动人心的一句话</em></div>
+        <div class="formula-examples">
+          <div class="formula-ex"><strong>示例：</strong>她说：我不是为了好看，我是为了不再疼</div>
+          <div class="formula-ex"><strong>示例：</strong>她第一次来上课，跟我说的话让我红了眼眶</div>
+        </div>
+        <div class="formula-tip">✓ 转发率最高的结构，情绪共鸣驱动传播</div>
+      </div>
+
+      <div class="formula-card">
+        <div class="formula-name">⑥ 问题式标题</div>
+        <div class="formula-pattern">为什么你<em>XX努力</em>，但<em>YY没有改变</em>？</div>
+        <div class="formula-examples">
+          <div class="formula-ex"><strong>示例：</strong>为什么你每天健身，体态却越来越差？</div>
+          <div class="formula-ex"><strong>示例：</strong>为什么普拉提不叫你减肥，你却瘦了？</div>
+        </div>
+        <div class="formula-tip">✓ 戳中已有痛点，防御性低，信息接受度高</div>
+      </div>
+
+      <div class="formula-card">
+        <div class="formula-name">⑦ 门槛极低型</div>
+        <div class="formula-pattern"><em>时间极短</em>，<em>场景极日常</em>，跟我做</div>
+        <div class="formula-examples">
+          <div class="formula-ex"><strong>示例：</strong>3分钟，在椅子上就能做的肩颈放松</div>
+          <div class="formula-ex"><strong>示例：</strong>睡前5分钟，帮你卸掉一天的腰部紧张</div>
+        </div>
+        <div class="formula-tip">✓ 即时可执行=完播率高，适合跟练类</div>
+      </div>
+
+      <div class="formula-card">
+        <div class="formula-name">⑧ 避坑/决策型</div>
+        <div class="formula-pattern">选<em>XX</em>之前，先看这条，少交<em>冤枉钱/弯路</em></div>
+        <div class="formula-examples">
+          <div class="formula-ex"><strong>示例：</strong>选普拉提工作室之前，先看这4个问题</div>
+          <div class="formula-ex"><strong>示例：</strong>报课前一定要问的3件事，少交很多冤枉钱</div>
+        </div>
+        <div class="formula-tip">✓ 收藏率极高，用户主动保存备用，转化率强</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ④ 创作流程指引 -->
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-head"><span class="ico">🎬</span> 从选题到发布 · 创作流程指引</div>
+    <div style="font-size:12px;color:var(--t3);margin-bottom:16px;">一条视频从想法到发出去，标准化执行路径，减少「不知道怎么拍」的卡顿</div>
+    <div class="guide-steps">
+
+      <div class="guide-step">
+        <div class="guide-step-num">1</div>
+        <div class="guide-step-body">
+          <div class="guide-step-title">确定选题方向（5分钟）</div>
+          <div class="guide-step-desc">
+            先问自己3个问题：<strong>这条视频解决什么具体问题？谁会停下来看？</strong>看完之后他会做什么？<br/>
+            不要同时有多个主题。一条视频只说<strong>一件事</strong>，一个场景，一个人群。
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="guide-step-num">2</div>
+        <div class="guide-step-body">
+          <div class="guide-step-title">写开头钩子（最重要的环节，10分钟）</div>
+          <div class="guide-step-desc">
+            前3秒决定是否完播。钩子公式选一个：<br/>
+            <code>「反常识陈述」</code> · <code>「直接说出痛点」</code> · <code>「引发好奇的提问」</code> · <code>「惊讶数据」</code><br/>
+            写好钩子之后，其他内容相对容易。钩子占整个拍摄准备60%的精力。
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="guide-step-num">3</div>
+        <div class="guide-step-body">
+          <div class="guide-step-title">内容结构（3段式）</div>
+          <div class="guide-step-desc">
+            <strong>①钩子（0-3秒）</strong>：直接说最有价值或最惊讶的部分，不要先自我介绍<br/>
+            <strong>②主体（中间）</strong>：3-5个要点，能删的全删，每句话都要有用<br/>
+            <strong>③结尾引导</strong>：给出行动指令——<code>「学到了双击」</code>或<code>「评论区告诉我你的情况」</code>或<code>「关注看下一期」</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="guide-step-num">4</div>
+        <div class="guide-step-body">
+          <div class="guide-step-title">视频时长控制</div>
+          <div class="guide-step-desc">
+            <strong>跟练类：</strong>30-60秒最佳，超过90秒完播率明显下降<br/>
+            <strong>科普/故事类：</strong>60-90秒，节奏要快，没用的镜头全剪掉<br/>
+            <strong>对比展示类：</strong>15-30秒，纯视觉，少说话<br/>
+            原则：宁愿短一点，不要凑时长。
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-step">
+        <div class="guide-step-num">5</div>
+        <div class="guide-step-body">
+          <div class="guide-step-title">发布后1小时行动清单</div>
+          <div class="guide-step-desc">
+            ✅ 发布后立即<strong>回复每一条评论</strong>（提升互动数据，帮助冷启动）<br/>
+            ✅ 如果有人问「在哪里」「怎么报名」，直接私信跟进<br/>
+            ✅ 1小时后看完播率：低于20%说明钩子有问题，高于40%说明可以加投<br/>
+            ✅ 第二天看涨粉：单条视频涨粉超过50人，考虑做系列内容
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ⑤ 本周排期 -->
   <div class="card">
     <div class="card-head"><span class="ico">📅</span> 本周内容排期建议</div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
-      <div style="background:var(--s2);border-radius:10px;padding:14px;">
-        <div style="font-size:11px;color:var(--t3);margin-bottom:8px;">周一 · 3/16</div>
-        <div style="font-size:12px;font-weight:600;margin-bottom:6px;">科普/知识类</div>
-        <div style="font-size:11px;color:var(--t3);line-height:1.5;">用户周一需要「有用」的内容，知识类完播率高</div>
+    <div style="font-size:12px;color:var(--t3);margin-bottom:14px;">每周4-5条节奏，内容类型搭配均衡，不要全发教程</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;">
+      <div style="background:rgba(108,92,231,.08);border:1px solid rgba(108,92,231,.25);border-radius:10px;padding:14px;">
+        <div style="font-size:11px;color:var(--a2);font-weight:600;margin-bottom:8px;">今天 周一 3/16</div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:6px;">科普/知识类</div>
+        <div style="font-size:11px;color:var(--t3);line-height:1.5;">用户周一需要「有用」内容，知识类完播率高<br/><span style="color:var(--a2);">推荐：普拉提vs瑜伽对比</span></div>
       </div>
       <div style="background:var(--s2);border-radius:10px;padding:14px;">
-        <div style="font-size:11px;color:var(--t3);margin-bottom:8px;">周三 · 3/18</div>
-        <div style="font-size:12px;font-weight:600;margin-bottom:6px;">跟练/教程类</div>
-        <div style="font-size:11px;color:var(--t3);line-height:1.5;">周中用户有执行意愿，跟练视频互动率最高</div>
-      </div>
-      <div style="background:rgba(108,92,231,.08);border:1px solid rgba(108,92,231,.2);border-radius:10px;padding:14px;">
-        <div style="font-size:11px;color:var(--a2);margin-bottom:8px;">周五 · 3/20 ⭐重点</div>
-        <div style="font-size:12px;font-weight:600;margin-bottom:6px;">效果/对比类</div>
-        <div style="font-size:11px;color:var(--t3);line-height:1.5;">周五流量最高，用体态对比或学员故事冲播放量</div>
+        <div style="font-size:11px;color:var(--t3);margin-bottom:8px;">周二 3/17</div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:6px;">热点借势</div>
+        <div style="font-size:11px;color:var(--t3);line-height:1.5;">趁热点还在，发今日强推选题<br/><span style="color:var(--g1);">推荐：春天运动切入</span></div>
       </div>
       <div style="background:var(--s2);border-radius:10px;padding:14px;">
-        <div style="font-size:11px;color:var(--t3);margin-bottom:8px;">周日 · 3/22</div>
-        <div style="font-size:12px;font-weight:600;margin-bottom:6px;">情感/故事类</div>
-        <div style="font-size:11px;color:var(--t3);line-height:1.5;">周末用户情绪价值需求高，真实故事转发率强</div>
+        <div style="font-size:11px;color:var(--t3);margin-bottom:8px;">周三 3/18</div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:6px;">跟练/教程类</div>
+        <div style="font-size:11px;color:var(--t3);line-height:1.5;">周中有执行意愿，跟练互动率最高<br/><span style="color:var(--g1);">推荐：5分钟肩颈放松</span></div>
+      </div>
+      <div style="background:rgba(0,184,148,.05);border:1px solid rgba(0,184,148,.25);border-radius:10px;padding:14px;">
+        <div style="font-size:11px;color:var(--g1);font-weight:600;margin-bottom:8px;">周五 3/20 ⭐冲量</div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:6px;">效果展示/对比</div>
+        <div style="font-size:11px;color:var(--t3);line-height:1.5;">周五流量峰值，用体态对比或前后对比冲播放<br/><span style="color:var(--g1);">推荐：学员变化故事</span></div>
+      </div>
+      <div style="background:var(--s2);border-radius:10px;padding:14px;">
+        <div style="font-size:11px;color:var(--t3);margin-bottom:8px;">周日 3/22</div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:6px;">情感/故事类</div>
+        <div style="font-size:11px;color:var(--t3);line-height:1.5;">周末情绪价值需求高，真实故事转发强<br/><span style="color:var(--y1);">推荐：学员真实动机</span></div>
       </div>
     </div>
   </div>
