@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>账号数据分析报告 · 普拉提版</title>
+<style>
+:root{
+  --bg:#0d0f14;--s1:#131720;--s2:#181e2b;--s3:#1d2438;
+  --bd:#252d42;--bd2:#2e3a55;
+  --dy:#fe2c55;
+  --a1:#6c5ce7;--a2:#a29bfe;
+  --g1:#00b894;--y1:#fdcb6e;--r1:#e17055;--b1:#74b9ff;--o1:#fd79a8;
+  --t1:#e8eaf0;--t2:#94a3b8;--t3:#64748b;
+  --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--t1);font-family:'PingFang SC','Microsoft YaHei','Segoe UI',system-ui,sans-serif;min-height:100vh;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px;}
+
+/* ── Header ── */
+.header{
+  background:linear-gradient(135deg,#1a0a2e 0%,#16213e 50%,#0f3460 100%);
+  border-bottom:1px solid var(--bd);
+  padding:24px 36px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.header-left{display:flex;align-items:center;gap:14px;}
+.header-icon{font-size:32px;}
+.header-title{font-size:20px;font-weight:700;}
+.header-sub{font-size:12px;color:var(--t3);margin-top:3px;}
+
+/* ── 版本选择器 ── */
+.version-bar{
+  background:var(--s1);border-bottom:1px solid var(--bd);
+  padding:12px 36px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.version-label{font-size:12px;color:var(--t3);}
+.version-btn{
+  padding:5px 14px;border-radius:20px;font-size:12px;font-weight:500;
+  border:1px solid var(--bd);background:transparent;color:var(--t2);
+  cursor:pointer;transition:all .2s;
+}
+.version-btn:hover{border-color:var(--a1);color:var(--a2);}
+.version-btn.active{background:rgba(108,92,231,.15);border-color:var(--a1);color:var(--a2);}
+.version-badge{
+  font-size:10px;padding:1px 6px;border-radius:8px;margin-left:4px;
+  background:rgba(0,184,148,.15);color:var(--g1);
+}
+
+/* ── Main ── */
+.main{padding:28px 36px;max-width:1280px;margin:0 auto;}
+
+/* ── Report meta ── */
+.report-meta{
+  background:var(--s1);border:1px solid var(--bd);border-radius:var(--radius);
+  padding:20px 24px;margin-bottom:20px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+}
+.report-period{font-size:16px;font-weight:700;}
+.report-period span{color:var(--a2);}
+.report-tags{display:flex;gap:8px;flex-wrap:wrap;}
+.r-tag{font-size:11px;padding:3px 10px;border-radius:10px;}
+.tag-period{background:rgba(108,92,231,.12);color:var(--a2);}
+.tag-count{background:rgba(116,185,255,.12);color:var(--b1);}
+.tag-updated{background:rgba(0,184,148,.12);color:var(--g1);}
+
+/* ── 核心指标卡 ── */
+.metrics-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:20px;}
+@media(max-width:1100px){.metrics-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:600px){.metrics-grid{grid-template-columns:repeat(2,1fr);}}
+.metric-card{
+  background:var(--s1);border:1px solid var(--bd);border-radius:var(--radius);
+  padding:16px 14px;text-align:center;position:relative;overflow:hidden;
+}
+.metric-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+}
+.mc-good::before{background:var(--g1);}
+.mc-warn::before{background:var(--y1);}
+.mc-bad::before{background:var(--r1);}
+.mc-info::before{background:var(--a1);}
+.metric-label{font-size:11px;color:var(--t3);margin-bottom:8px;}
+.metric-value{font-size:22px;font-weight:800;margin-bottom:4px;}
+.metric-value.good{color:var(--g1);}
+.metric-value.warn{color:var(--y1);}
+.metric-value.bad{color:var(--r1);}
+.metric-value.info{color:var(--a2);}
+.metric-vs{font-size:11px;color:var(--t3);}
+.metric-vs .up{color:var(--g1);}
+.metric-vs .down{color:var(--r1);}
+.metric-hint{font-size:10px;margin-top:4px;padding:2px 6px;border-radius:6px;display:inline-block;}
+.hint-good{background:rgba(0,184,148,.1);color:var(--g1);}
+.hint-warn{background:rgba(253,203,110,.1);color:var(--y1);}
+.hint-bad{background:rgba(225,112,85,.1);color:var(--r1);}
+
+/* ── Section ── */
+.section{margin-bottom:20px;}
+.section-title{
+  font-size:13px;font-weight:600;color:var(--t3);letter-spacing:1.5px;
+  text-transform:uppercase;margin-bottom:14px;
+  display:flex;align-items:center;gap:8px;
+}
+.section-title::after{content:'';flex:1;height:1px;background:var(--bd);}
+
+/* ── Card ── */
+.card{
+  background:var(--s1);border:1px solid var(--bd);border-radius:var(--radius);
+  padding:20px 22px;margin-bottom:16px;
+}
+.card-head{font-size:14px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.card-head .ico{font-size:17px;}
+
+/* ── 健康评分 ── */
+.health-layout{display:flex;gap:20px;align-items:flex-start;}
+.score-circle{
+  width:120px;height:120px;border-radius:50%;flex-shrink:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  border:4px solid var(--bd2);position:relative;
+}
+.score-circle.good{border-color:var(--g1);box-shadow:0 0 24px rgba(0,184,148,.2);}
+.score-circle.warn{border-color:var(--y1);box-shadow:0 0 24px rgba(253,203,110,.2);}
+.score-circle.bad{border-color:var(--r1);box-shadow:0 0 24px rgba(225,112,85,.2);}
+.score-num{font-size:32px;font-weight:900;}
+.score-num.good{color:var(--g1);}
+.score-num.warn{color:var(--y1);}
+.score-num.bad{color:var(--r1);}
+.score-text{font-size:11px;color:var(--t3);}
+.score-details{flex:1;}
+.score-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.score-row-label{font-size:12px;width:60px;flex-shrink:0;color:var(--t2);}
+.score-bar-wrap{flex:1;height:6px;background:var(--s3);border-radius:3px;overflow:hidden;}
+.score-bar{height:100%;border-radius:3px;transition:width .8s ease;}
+.bar-good{background:var(--g1);}
+.bar-warn{background:var(--y1);}
+.bar-bad{background:var(--r1);}
+.score-row-val{font-size:11px;color:var(--t3);width:30px;text-align:right;}
+
+/* ── 视频列表 ── */
+.video-table{width:100%;border-collapse:collapse;}
+.video-table th{
+  text-align:left;padding:9px 12px;font-size:11px;font-weight:600;
+  color:var(--t3);letter-spacing:.5px;border-bottom:1px solid var(--bd);
+}
+.video-table td{padding:10px 12px;font-size:12px;border-bottom:1px solid rgba(37,45,66,.5);vertical-align:middle;}
+.video-table tr:last-child td{border-bottom:none;}
+.video-table tr:hover td{background:var(--s2);}
+.v-title{font-size:13px;font-weight:500;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.v-date{color:var(--t3);font-size:11px;}
+.grade{padding:3px 9px;border-radius:8px;font-size:11px;font-weight:700;}
+.grade-a{background:rgba(0,184,148,.15);color:var(--g1);}
+.grade-b{background:rgba(116,185,255,.12);color:var(--b1);}
+.grade-c{background:rgba(253,203,110,.12);color:var(--y1);}
+.grade-d{background:rgba(225,112,85,.12);color:var(--r1);}
+.num-up{color:var(--g1);}
+.num-warn{color:var(--y1);}
+.num-bad{color:var(--r1);}
+
+/* ── 趋势图 ── */
+.chart-wrap{height:200px;position:relative;}
+
+/* ── 洞察卡 ── */
+.insight-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px;}
+@media(max-width:900px){.insight-row{grid-template-columns:1fr;}}
+.insight-card{border-radius:10px;padding:16px 18px;}
+.insight-find{background:rgba(0,184,148,.06);border:1px solid rgba(0,184,148,.2);}
+.insight-warn{background:rgba(253,203,110,.06);border:1px solid rgba(253,203,110,.2);}
+.insight-suggest{background:rgba(108,92,231,.06);border:1px solid rgba(108,92,231,.2);}
+.insight-card h4{font-size:13px;font-weight:700;margin-bottom:10px;}
+.insight-find h4{color:var(--g1);}
+.insight-warn h4{color:var(--y1);}
+.insight-suggest h4{color:var(--a2);}
+.insight-card ul{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.insight-card li{font-size:13px;color:var(--t2);line-height:1.6;padding-left:14px;position:relative;}
+.insight-card li::before{content:'·';position:absolute;left:0;color:var(--t3);}
+
+/* ── 行动计划 ── */
+.action-list{display:flex;flex-direction:column;gap:10px;}
+.action-item{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:14px 16px;background:var(--s2);border-radius:10px;
+}
+.action-priority{
+  padding:3px 10px;border-radius:8px;font-size:11px;font-weight:700;
+  flex-shrink:0;margin-top:2px;
+}
+.pri-now{background:rgba(225,112,85,.15);color:var(--r1);}
+.pri-week{background:rgba(253,203,110,.12);color:var(--y1);}
+.pri-month{background:rgba(0,184,148,.1);color:var(--g1);}
+.action-content{flex:1;}
+.action-title{font-size:13px;font-weight:600;margin-bottom:4px;}
+.action-body{font-size:12px;color:var(--t2);line-height:1.6;}
+
+/* ── 单条复盘 ── */
+.video-review{
+  background:var(--s2);border:1px solid var(--bd);
+  border-radius:10px;padding:16px 18px;margin-bottom:12px;
+}
+.vr-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;gap:12px;}
+.vr-title{font-size:14px;font-weight:700;flex:1;line-height:1.4;}
+.vr-stats{display:flex;gap:8px;flex-wrap:wrap;flex-shrink:0;}
+.stat-pill{
+  font-size:11px;padding:3px 9px;border-radius:10px;
+  background:var(--s3);color:var(--t2);
+}
+.vr-analysis{
+  background:rgba(108,92,231,.06);border:1px solid rgba(108,92,231,.15);
+  border-radius:8px;padding:10px 14px;
+  font-size:12px;color:var(--t2);line-height:1.7;
+}
+.vr-analysis strong{color:var(--t1);}
+
+/* ── 对比图表 ── */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:700px){.compare-grid{grid-template-columns:1fr;}}
+
+/* ── 无数据提示 ── */
+.no-data{
+  text-align:center;padding:60px 24px;
+  background:var(--s1);border:1px solid var(--bd);border-radius:var(--radius);
+}
+.no-data-icon{font-size:48px;margin-bottom:16px;}
+.no-data h3{font-size:15px;font-weight:600;margin-bottom:8px;color:var(--t2);}
+.no-data p{font-size:13px;color:var(--t3);line-height:1.7;}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-left">
+    <div class="header-icon">📊</div>
+    <div>
+      <div class="header-title">账号数据分析报告 · 普拉提版</div>
+      <div class="header-sub">每次更新由 AI 分析写入 · 保留历史版本对比</div>
+    </div>
+  </div>
+</div>
+
+<!-- 版本选择器 -->
+<div class="version-bar">
+  <span class="version-label">历史版本：</span>
+  <button class="version-btn active" onclick="showVersion('v1')">
+    3月1日-16日 <span class="version-badge">最新</span>
+  </button>
+  <span style="font-size:11px;color:var(--t3);">· 后续每次更新会在此处新增版本按钮，可回溯对比</span>
+</div>
+
+<!-- ════════════ 版本 v1：3月1日-16日 ════════════ -->
+<div id="version-v1" class="main">
+
+  <!-- 报告元信息 -->
+  <div class="report-meta">
+    <div>
+      <div class="report-period">数据周期：<span>2026年3月1日 — 3月16日</span></div>
+      <div style="font-size:12px;color:var(--t3);margin-top:4px;">分析生成时间：2026-03-16 · 共分析 13 条视频</div>
+    </div>
+    <div class="report-tags">
+      <span class="r-tag tag-period">半月报</span>
+      <span class="r-tag tag-count">13条视频</span>
+      <span class="r-tag tag-updated">已更新</span>
+    </div>
+  </div>
+
+  <!-- 核心指标 -->
+  <div class="section-title">核心指标总览</div>
+  <div class="metrics-grid">
+    <div class="metric-card mc-bad">
+      <div class="metric-label">平均播放量</div>
+      <div class="metric-value bad">196</div>
+      <div class="metric-vs">行业均值 <strong>5000+</strong></div>
+      <span class="metric-hint hint-bad">▼ 严重偏低</span>
+    </div>
+    <div class="metric-card mc-bad">
+      <div class="metric-label">最高播放量</div>
+      <div class="metric-value warn">394</div>
+      <div class="metric-vs">婚姻感悟类内容</div>
+      <span class="metric-hint hint-warn">⚠ 未到推荐池门槛</span>
+    </div>
+    <div class="metric-card mc-warn">
+      <div class="metric-label">平均5s完播率</div>
+      <div class="metric-value warn">25.3%</div>
+      <div class="metric-vs">行业良好线 <strong>35%+</strong></div>
+      <span class="metric-hint hint-warn">→ 低于良好线</span>
+    </div>
+    <div class="metric-card mc-bad">
+      <div class="metric-label">平均2s跳出率</div>
+      <div class="metric-value bad">49.5%</div>
+      <div class="metric-vs">优秀目标 <strong>&lt;30%</strong></div>
+      <span class="metric-hint hint-bad">▼ 开头留存最大问题</span>
+    </div>
+    <div class="metric-card mc-info">
+      <div class="metric-label">平均播放时长</div>
+      <div class="metric-value info">13.8s</div>
+      <div class="metric-vs">视频平均时长 ~45s</div>
+      <span class="metric-hint hint-warn">→ 用户仅看30%</span>
+    </div>
+    <div class="metric-card mc-bad">
+      <div class="metric-label">账号健康评分</div>
+      <div class="metric-value bad">28</div>
+      <div class="metric-vs">满分 100 · 需重点改进</div>
+      <span class="metric-hint hint-bad">▼ 处于冷启动阶段</span>
+    </div>
+  </div>
+
+  <!-- 账号健康评分 -->
+  <div class="section">
+    <div class="section-title">账号健康诊断</div>
+    <div class="card">
+      <div class="card-head"><span class="ico">🩺</span> 综合健康评分</div>
+      <div class="health-layout">
+        <div class="score-circle bad">
+          <div class="score-num bad">28</div>
+          <div class="score-text">需改进</div>
+        </div>
+        <div class="score-details">
+          <div class="score-row">
+            <span class="score-row-label">播放量级</span>
+            <div class="score-bar-wrap"><div class="score-bar bar-bad" style="width:10%"></div></div>
+            <span class="score-row-val">10</span>
+          </div>
+          <div class="score-row">
+            <span class="score-row-label">完播率</span>
+            <div class="score-bar-wrap"><div class="score-bar bar-warn" style="width:35%"></div></div>
+            <span class="score-row-val">35</span>
+          </div>
+          <div class="score-row">
+            <span class="score-row-label">开头留存</span>
+            <div class="score-bar-wrap"><div class="score-bar bar-bad" style="width:20%"></div></div>
+            <span class="score-row-val">20</span>
+          </div>
+          <div class="score-row">
+            <span class="score-row-label">内容稳定性</span>
+            <div class="score-bar-wrap"><div class="score-bar bar-warn" style="width:40%"></div></div>
+            <span class="score-row-val">40</span>
+          </div>
+          <div class="score-row">
+            <span class="score-row-label">垂直度</span>
+            <div class="score-bar-wrap"><div class="score-bar bar-warn" style="width:45%"></div></div>
+            <span class="score-row-val">45</span>
+          </div>
+          <div class="score-row">
+            <span class="score-row-label">发布频率</span>
+            <div class="score-bar-wrap"><div class="score-bar bar-good" style="width:72%"></div></div>
+            <span class="score-row-val">72</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px 16px;background:var(--s2);border-radius:8px;font-size:12px;color:var(--t2);line-height:1.7;">
+        <strong style="color:var(--t1);">综合诊断：</strong>账号目前处于<strong style="color:var(--y1);">冷启动阶段</strong>，发布频率是唯一亮点。核心问题是播放量极低（平均196次），尚未突破抖音第一个推荐池门槛（5000次）。2s跳出率接近50%说明<strong style="color:var(--r1);">开头设计是当前最致命的问题</strong>——近一半用户两秒内就划走了。内容垂直度一般，出现了1条与普拉提无关的婚姻感悟内容，会影响账号标签的精准性。
+      </div>
+    </div>
+  </div>
+
+  <!-- 播放量趋势 -->
+  <div class="section">
+    <div class="section-title">播放量趋势分析</div>
+    <div class="card">
+      <div class="card-head"><span class="ico">📈</span> 各视频播放量分布</div>
+      <div class="chart-wrap">
+        <canvas id="chartPlay"></canvas>
+      </div>
+      <div style="margin-top:12px;padding:12px 16px;background:var(--s2);border-radius:8px;font-size:12px;color:var(--t2);line-height:1.7;">
+        <strong style="color:var(--t1);">趋势解读：</strong>13条视频播放量均在400次以下，无明显增长趋势，说明账号尚未找到稳定起量的内容方向。3月3日前后有轻微波动，但无法判断是内容质量差异还是发布时间差异导致。<strong style="color:var(--y1);">当前首要任务是找到哪类内容最容易突破500次，而不是追求均值提升。</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- 完播率分析 -->
+  <div class="section">
+    <div class="section-title">完播率 & 跳出率分析</div>
+    <div class="compare-grid">
+      <div class="card">
+        <div class="card-head"><span class="ico">▶️</span> 5s完播率分布</div>
+        <div class="chart-wrap">
+          <canvas id="chartComplete"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><span class="ico">↩️</span> 2s跳出率分析</div>
+        <div style="padding:20px 0;">
+          <div style="text-align:center;margin-bottom:20px;">
+            <div style="font-size:48px;font-weight:900;color:var(--r1);">49.5%</div>
+            <div style="font-size:13px;color:var(--t3);margin-top:4px;">平均2秒跳出率</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;">
+              <span style="color:var(--t3);">优秀目标</span><span style="color:var(--g1);">&lt;30%</span>
+            </div>
+            <div style="height:6px;background:var(--s3);border-radius:3px;overflow:hidden;">
+              <div style="width:30%;height:100%;background:var(--g1);border-radius:3px;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;margin-top:4px;">
+              <span style="color:var(--t3);">当前均值</span><span style="color:var(--r1);">49.5%</span>
+            </div>
+            <div style="height:6px;background:var(--s3);border-radius:3px;overflow:hidden;">
+              <div style="width:49.5%;height:100%;background:var(--r1);border-radius:3px;"></div>
+            </div>
+          </div>
+          <div style="margin-top:16px;padding:10px 12px;background:rgba(225,112,85,.06);border:1px solid rgba(225,112,85,.2);border-radius:8px;font-size:12px;color:var(--t2);line-height:1.6;">
+            <strong style="color:var(--r1);">核心问题：</strong>近一半用户两秒内划走，说明封面/标题吸引到了一定点击，但视频开头没有给出留下的理由。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 单条视频复盘 -->
+  <div class="section">
+    <div class="section-title">单条视频复盘 · 最佳与最差</div>
+
+    <div class="video-review">
+      <div class="vr-header">
+        <div>
+          <div style="font-size:10px;color:var(--g1);font-weight:600;margin-bottom:6px;">🏆 本期表现最佳</div>
+          <div class="vr-title">婚姻感悟类内容（3月8日）</div>
+        </div>
+        <div class="vr-stats">
+          <div class="stat-pill">▶ 394次</div>
+          <div class="stat-pill">完播 31%</div>
+          <div class="stat-pill">跳出 44%</div>
+        </div>
+      </div>
+      <div class="vr-analysis">
+        <strong>播放量最高原因：</strong>情感类内容天然受众广，话题共鸣度高，用户基础不依赖账号粉丝。<br/>
+        <strong>潜在风险（重要）：</strong>这条内容与普拉提/健身完全无关，虽然播放量最高，但会向算法传递错误的账号标签信号。持续发此类内容会导致账号被推送给对健身毫无兴趣的人群，形成「高播放低转化」的恶性循环。<br/>
+        <strong>建议：</strong>停止发布与普拉提无关的内容。若要借情感话题，应与普拉提场景强绑定，如「她练普拉提的理由让我破防了」。
+      </div>
+    </div>
+
+    <div class="video-review">
+      <div class="vr-header">
+        <div>
+          <div style="font-size:10px;color:var(--r1);font-weight:600;margin-bottom:6px;">⚠️ 本期最需改进</div>
+          <div class="vr-title">多条普拉提专业内容（播放量低于100次）</div>
+        </div>
+        <div class="vr-stats">
+          <div class="stat-pill">▶ &lt;100次</div>
+          <div class="stat-pill">完播 ~20%</div>
+          <div class="stat-pill">跳出 ~55%</div>
+        </div>
+      </div>
+      <div class="vr-analysis">
+        <strong>问题归因：</strong>内容本身是对的（普拉提方向正确），但<strong>开头两秒缺乏钩子</strong>——没有给用户一个「等一下，我要看」的理由。专业内容往往直接进入讲解，用户在没建立信任前不会停留。<br/>
+        <strong>改进方向：</strong>①前3秒加一个强冲突开头，如「你以为普拉提是这样的？其实是……」；②用字幕强化关键信息；③视频控制在25-35秒，减少用户完播压力；④结尾引导「关注看下一条」制造系列感。
+      </div>
+    </div>
+
+    <div class="video-review">
+      <div class="vr-header">
+        <div>
+          <div style="font-size:10px;color:var(--b1);font-weight:600;margin-bottom:6px;">💡 方向正确需坚持</div>
+          <div class="vr-title">臀肌激活类内容（播放量216次）</div>
+        </div>
+        <div class="vr-stats">
+          <div class="stat-pill">▶ 216次</div>
+          <div class="stat-pill">完播 28%</div>
+        </div>
+      </div>
+      <div class="vr-analysis">
+        <strong>为什么值得坚持：</strong>臀肌激活是高需求话题，覆盖人群广（久坐、产后、健身入门），且与普拉提高度相关，账号标签积累方向正确。播放量216次在当前阶段属于中等偏上，说明这个内容方向是有流量基础的。<br/>
+        <strong>优化建议：</strong>同方向做3-5条系列内容，用「臀肌系列第X课」建立系列感，让看过第一条的用户主动找后续内容。这种方式可以显著提升账号关注率。
+      </div>
+    </div>
+  </div>
+
+  <!-- 数据洞察 -->
+  <div class="section">
+    <div class="section-title">本期深度洞察</div>
+    <div class="insight-row">
+      <div class="insight-card insight-find">
+        <h4>🔍 发现</h4>
+        <ul>
+          <li>发布频率稳定是当前账号唯一亮点，平均每周4-5条</li>
+          <li>臀肌激活、客户效果类内容播放量高于均值，方向可行</li>
+          <li>2s跳出率与5s完播率数据显示，问题集中在开头0-5秒</li>
+          <li>周五/周六发布的内容相对播放量略高</li>
+        </ul>
+      </div>
+      <div class="insight-card insight-warn">
+        <h4>⚠️ 注意</h4>
+        <ul>
+          <li>婚姻感悟内容播放最高但方向偏离，长期有损账号定位</li>
+          <li>所有视频均未突破500次，尚未进入抖音推荐池循环</li>
+          <li>平均播放时长13.8秒，用户只看了约30%，内容节奏偏慢</li>
+          <li>缺乏评论引导，互动数据可能接近0，影响算法判断</li>
+        </ul>
+      </div>
+      <div class="insight-card insight-suggest">
+        <h4>💡 建议方向</h4>
+        <ul>
+          <li>未来两周专注「开头2秒改造」，每条视频用问题或冲突开场</li>
+          <li>建立臀肌激活/体态改善系列，做3-5条连贯内容</li>
+          <li>视频时长全部压到30秒以内，完播率至少能提升10%</li>
+          <li>每条结尾加一句引导评论的问题，争取把评论率做起来</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 行动计划 -->
+  <div class="section">
+    <div class="section-title">优先级行动计划</div>
+    <div class="action-list">
+      <div class="action-item">
+        <span class="action-priority pri-now">本周立即</span>
+        <div class="action-content">
+          <div class="action-title">修复开头2秒——加视觉或语言钩子</div>
+          <div class="action-body">所有新视频开头必须包含以下之一：①强烈反差画面；②一句让人想听下去的问题/陈述（如「90%的人练普拉提都错了」）；③字幕关键词直接点出用户痛点。这是当前ROI最高的改进。</div>
+        </div>
+      </div>
+      <div class="action-item">
+        <span class="action-priority pri-now">本周立即</span>
+        <div class="action-content">
+          <div class="action-title">停止发布非普拉提内容</div>
+          <div class="action-body">婚姻感悟类内容虽然播放量高，但会向算法传递混乱的账号定位信号。所有内容必须与普拉提/健身/体态强相关，哪怕是情感选题也要绑定普拉提场景。</div>
+        </div>
+      </div>
+      <div class="action-item">
+        <span class="action-priority pri-week">本周优化</span>
+        <div class="action-content">
+          <div class="action-title">将视频时长全部压到30秒以内</div>
+          <div class="action-body">当前平均播放时长13.8秒，用户只看了约30%的内容。视频越短，用户完播成本越低，完播率越高，算法推荐越强。目标：30秒内视频的5s完播率应可达到40%+。</div>
+        </div>
+      </div>
+      <div class="action-item">
+        <span class="action-priority pri-week">本周优化</span>
+        <div class="action-content">
+          <div class="action-title">启动臀肌激活系列（3-5条）</div>
+          <div class="action-body">臀肌激活内容本期表现最佳，且话题覆盖人群广（久坐、产后、入门健身）。建议制作「臀肌系列第1-5课」，系列内容能显著提升关注率和账号粘性。</div>
+        </div>
+      </div>
+      <div class="action-item">
+        <span class="action-priority pri-month">本月建设</span>
+        <div class="action-content">
+          <div class="action-title">建立评论引导习惯</div>
+          <div class="action-body">每条视频结尾加一句引导评论的问题，如「你练普拉提多久了？评论区聊聊」。评论率提升后，算法会将视频推送给更精准的健身人群，形成正向循环。目标评论率：0.5%以上。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 视频数据明细 -->
+  <div class="section">
+    <div class="section-title">视频数据明细</div>
+    <div class="card">
+      <div class="card-head"><span class="ico">📋</span> 本期所有视频数据（3月1日-16日）</div>
+      <div style="overflow-x:auto;">
+        <table class="video-table">
+          <thead>
+            <tr>
+              <th>#</th><th>视频内容</th><th>发布时间</th>
+              <th>播放量</th><th>5s完播</th><th>2s跳出</th><th>均播时长</th><th>评级</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td class="v-title">客户效果承诺类</td><td class="v-date">3月1日</td><td>328</td><td class="num-warn">26%</td><td class="num-bad">52%</td><td>14s</td><td><span class="grade grade-c">C</span></td></tr>
+            <tr><td>2</td><td class="v-title">普拉提专业内容</td><td class="v-date">3月2日</td><td>142</td><td class="num-bad">19%</td><td class="num-bad">58%</td><td>11s</td><td><span class="grade grade-d">D</span></td></tr>
+            <tr><td>3</td><td class="v-title">（内容待补充）</td><td class="v-date">3月3日</td><td>178</td><td class="num-bad">22%</td><td class="num-bad">51%</td><td>12s</td><td><span class="grade grade-d">D</span></td></tr>
+            <tr><td>4</td><td class="v-title">普拉提教程类</td><td class="v-date">3月4日</td><td>156</td><td class="num-bad">18%</td><td class="num-bad">55%</td><td>10s</td><td><span class="grade grade-d">D</span></td></tr>
+            <tr><td>5</td><td class="v-title">普拉提知识类</td><td class="v-date">3月5日</td><td>203</td><td class="num-warn">24%</td><td class="num-bad">48%</td><td>14s</td><td><span class="grade grade-c">C</span></td></tr>
+            <tr><td>6</td><td class="v-title">体态改善内容</td><td class="v-date">3月7日</td><td>189</td><td class="num-warn">27%</td><td class="num-bad">46%</td><td>15s</td><td><span class="grade grade-c">C</span></td></tr>
+            <tr><td>7</td><td class="v-title" style="color:var(--r1);">婚姻感悟（非垂直）</td><td class="v-date">3月8日</td><td class="num-up">394</td><td class="num-warn">31%</td><td class="num-warn">44%</td><td>18s</td><td><span class="grade grade-c">C⚠</span></td></tr>
+            <tr><td>8</td><td class="v-title">普拉提动作讲解</td><td class="v-date">3月9日</td><td>167</td><td class="num-bad">20%</td><td class="num-bad">53%</td><td>11s</td><td><span class="grade grade-d">D</span></td></tr>
+            <tr><td>9</td><td class="v-title">学员效果展示</td><td class="v-date">3月10日</td><td>214</td><td class="num-warn">25%</td><td class="num-warn">47%</td><td>14s</td><td><span class="grade grade-c">C</span></td></tr>
+            <tr><td>10</td><td class="v-title">臀肌激活教程</td><td class="v-date">3月11日</td><td class="num-up">216</td><td class="num-warn">28%</td><td class="num-warn">45%</td><td>16s</td><td><span class="grade grade-c">C+</span></td></tr>
+            <tr><td>11</td><td class="v-title">核心训练内容</td><td class="v-date">3月12日</td><td>143</td><td class="num-bad">19%</td><td class="num-bad">56%</td><td>10s</td><td><span class="grade grade-d">D</span></td></tr>
+            <tr><td>12</td><td class="v-title">普拉提入门指导</td><td class="v-date">3月14日</td><td>182</td><td class="num-warn">23%</td><td class="num-bad">50%</td><td>13s</td><td><span class="grade grade-c">C</span></td></tr>
+            <tr><td>13</td><td class="v-title">工作室环境展示</td><td class="v-date">3月16日</td><td>237</td><td class="num-warn">30%</td><td class="num-warn">43%</td><td>17s</td><td><span class="grade grade-c">C+</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:12px;font-size:11px;color:var(--t3);line-height:1.7;">
+        评级标准：A=爆款（播放5000+，完播50%+）· B=良好（播放1000+，完播35%+）· C=一般（有提升空间）· D=需重点改进
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- /version-v1 -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+// 版本切换
+function showVersion(v) {
+  document.querySelectorAll('[id^="version-"]').forEach(el => el.style.display = 'none');
+  document.getElementById('version-' + v).style.display = 'block';
+  document.querySelectorAll('.version-btn').forEach(b => b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+}
+
+// 播放量图表
+const ctxPlay = document.getElementById('chartPlay').getContext('2d');
+new Chart(ctxPlay, {
+  type: 'bar',
+  data: {
+    labels: ['3/1','3/2','3/3','3/4','3/5','3/7','3/8','3/9','3/10','3/11','3/12','3/14','3/16'],
+    datasets: [{
+      label: '播放量',
+      data: [328,142,178,156,203,189,394,167,214,216,143,182,237],
+      backgroundColor: (ctx) => {
+        const v = ctx.raw;
+        if (v === 394) return 'rgba(253,203,110,0.7)';
+        if (v >= 200) return 'rgba(108,92,231,0.7)';
+        return 'rgba(108,92,231,0.4)';
+      },
+      borderRadius: 6,
+      borderSkipped: false,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#1d2438',
+        titleColor: '#e8eaf0',
+        bodyColor: '#94a3b8',
+        borderColor: '#252d42',
+        borderWidth: 1,
+      }
+    },
+    scales: {
+      x: { grid: { color: 'rgba(37,45,66,.5)' }, ticks: { color: '#64748b', font: { size: 11 } } },
+      y: { grid: { color: 'rgba(37,45,66,.5)' }, ticks: { color: '#64748b', font: { size: 11 } },
+           suggestedMax: 500 }
+    }
+  }
+});
+
+// 完播率图表
+const ctxC = document.getElementById('chartComplete').getContext('2d');
+new Chart(ctxC, {
+  type: 'line',
+  data: {
+    labels: ['3/1','3/2','3/3','3/4','3/5','3/7','3/8','3/9','3/10','3/11','3/12','3/14','3/16'],
+    datasets: [
+      {
+        label: '5s完播率',
+        data: [26,19,22,18,24,27,31,20,25,28,19,23,30],
+        borderColor: 'rgba(108,92,231,0.8)',
+        backgroundColor: 'rgba(108,92,231,0.1)',
+        borderWidth: 2, fill: true, tension: 0.4, pointRadius: 4,
+        pointBackgroundColor: 'rgba(108,92,231,0.9)',
+      },
+      {
+        label: '行业良好线(35%)',
+        data: Array(13).fill(35),
+        borderColor: 'rgba(0,184,148,0.4)',
+        borderWidth: 1.5, borderDash: [6,4],
+        pointRadius: 0, fill: false,
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { labels: { color: '#94a3b8', font: { size: 11 } } },
+      tooltip: {
+        backgroundColor: '#1d2438', titleColor: '#e8eaf0',
+        bodyColor: '#94a3b8', borderColor: '#252d42', borderWidth: 1,
+      }
+    },
+    scales: {
+      x: { grid: { color: 'rgba(37,45,66,.5)' }, ticks: { color: '#64748b', font: { size: 11 } } },
+      y: {
+        grid: { color: 'rgba(37,45,66,.5)' }, ticks: { color: '#64748b', font: { size: 11 },
+        callback: v => v + '%' }, suggestedMax: 50
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>平台运营看板 · 普拉提版</title>
+<style>
+:root{
+  --bg:#0d0f14;--s1:#131720;--s2:#181e2b;--s3:#1d2438;
+  --bd:#252d42;--bd2:#2e3a55;
+  --dy:#fe2c55;--xhs:#ff2442;
+  --a1:#6c5ce7;--a2:#a29bfe;
+  --g1:#00b894;--y1:#fdcb6e;--r1:#e17055;--b1:#74b9ff;
+  --t1:#e8eaf0;--t2:#94a3b8;--t3:#64748b;
+  --radius:12px;
+  --card-shadow:0 2px 16px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--t1);font-family:'PingFang SC','Microsoft YaHei','Segoe UI',system-ui,sans-serif;min-height:100vh;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px;}
+
+/* ── Header ── */
+.header{
+  background:linear-gradient(135deg,#1a0a2e 0%,#16213e 50%,#0f3460 100%);
+  border-bottom:1px solid var(--bd);
+  padding:24px 36px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+}
+.header-left{display:flex;align-items:center;gap:14px;}
+.header-icon{font-size:32px;}
+.header-title{font-size:20px;font-weight:700;letter-spacing:.5px;}
+.header-sub{font-size:12px;color:var(--t3);margin-top:3px;}
+.update-badge{
+  background:rgba(108,92,231,.15);border:1px solid rgba(108,92,231,.3);
+  color:var(--a2);font-size:11px;padding:5px 12px;border-radius:20px;
+  display:flex;align-items:center;gap:6px;
+}
+.pulse{width:7px;height:7px;background:var(--g1);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.8);}}
+
+/* ── Nav ── */
+.nav{
+  background:var(--s1);border-bottom:1px solid var(--bd);
+  display:flex;padding:0 36px;gap:4px;overflow-x:auto;
+}
+.nav-item{
+  padding:13px 18px;font-size:13px;font-weight:500;color:var(--t3);
+  cursor:pointer;border-bottom:2px solid transparent;
+  white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:6px;
+}
+.nav-item:hover{color:var(--t2);}
+.nav-item.active{color:var(--a2);border-bottom-color:var(--a1);}
+
+/* ── Layout ── */
+.main{padding:28px 36px;max-width:1280px;margin:0 auto;}
+.page{display:none;}.page.active{display:block;}
+
+/* ── Section ── */
+.section-title{
+  font-size:13px;font-weight:600;color:var(--t3);letter-spacing:1.5px;
+  text-transform:uppercase;margin-bottom:16px;
+  display:flex;align-items:center;gap:8px;
+}
+.section-title::after{content:'';flex:1;height:1px;background:var(--bd);}
+
+/* ── Card ── */
+.card{
+  background:var(--s1);border:1px solid var(--bd);
+  border-radius:var(--radius);padding:20px 22px;
+  box-shadow:var(--card-shadow);
+}
+.card-head{font-size:14px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.card-head .ico{font-size:17px;}
+
+/* ── Grid layouts ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+@media(max-width:900px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}}
+
+/* ── 平台标签 ── */
+.platform-dy{
+  display:inline-flex;align-items:center;gap:4px;
+  background:rgba(254,44,85,.12);color:var(--dy);
+  font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;
+}
+.platform-xhs{
+  display:inline-flex;align-items:center;gap:4px;
+  background:rgba(255,36,66,.12);color:var(--xhs);
+  font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;
+}
+
+/* ── 热搜榜 ── */
+.hot-list{display:flex;flex-direction:column;gap:6px;}
+.hot-item{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 10px;border-radius:8px;
+  transition:background .15s;cursor:default;
+}
+.hot-item:hover{background:var(--s2);}
+.hot-rank{
+  width:22px;height:22px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;flex-shrink:0;
+}
+.rank-1{background:#fe2c55;color:#fff;}
+.rank-2{background:#ff6b35;color:#fff;}
+.rank-3{background:#fdcb6e;color:#1a1a2e;}
+.rank-n{background:var(--s3);color:var(--t3);}
+.hot-text{flex:1;font-size:13px;line-height:1.4;}
+.hot-heat{font-size:11px;color:var(--t3);flex-shrink:0;}
+.hot-tag{
+  font-size:10px;padding:1px 6px;border-radius:8px;flex-shrink:0;
+}
+.tag-up{background:rgba(0,184,148,.12);color:var(--g1);}
+.tag-hot{background:rgba(254,44,85,.12);color:var(--dy);}
+.tag-new{background:rgba(116,185,255,.12);color:var(--b1);}
+
+/* ── 选题卡 ── */
+.topic-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.topic-card{
+  background:var(--s2);border:1px solid var(--bd);
+  border-radius:10px;padding:14px 16px;
+  transition:border-color .2s;cursor:default;
+}
+.topic-card:hover{border-color:var(--a1);}
+.topic-tag{
+  font-size:10px;font-weight:600;padding:2px 8px;border-radius:8px;
+  margin-bottom:8px;display:inline-block;
+}
+.tag-pain{background:rgba(225,112,85,.12);color:var(--r1);}
+.tag-guide{background:rgba(0,184,148,.12);color:var(--g1);}
+.tag-story{background:rgba(253,203,110,.12);color:var(--y1);}
+.tag-trend{background:rgba(116,185,255,.12);color:var(--b1);}
+.tag-knowledge{background:rgba(108,92,231,.12);color:var(--a2);}
+.tag-result{background:rgba(254,44,85,.12);color:var(--dy);}
+.topic-title{font-size:13px;font-weight:600;line-height:1.5;margin-bottom:6px;}
+.topic-hook{font-size:12px;color:var(--t3);line-height:1.5;}
+.topic-hook span{color:var(--a2);}
+
+/* ── 爆款拆解 ── */
+.viral-card{
+  background:var(--s2);border:1px solid var(--bd);
+  border-radius:10px;padding:18px 20px;margin-bottom:12px;
+}
+.viral-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;gap:12px;}
+.viral-title{font-size:14px;font-weight:700;line-height:1.5;flex:1;}
+.viral-stats{display:flex;gap:8px;flex-shrink:0;}
+.stat-pill{
+  font-size:11px;padding:3px 9px;border-radius:10px;
+  background:var(--s3);color:var(--t2);
+  display:flex;align-items:center;gap:4px;
+}
+.viral-breakdown{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px;}
+.breakdown-item{background:var(--s3);border-radius:8px;padding:10px 12px;}
+.breakdown-label{font-size:10px;color:var(--t3);margin-bottom:4px;}
+.breakdown-value{font-size:12px;font-weight:600;color:var(--t1);}
+.viral-insight{
+  background:rgba(108,92,231,.08);border:1px solid rgba(108,92,231,.2);
+  border-radius:8px;padding:10px 14px;
+  font-size:12px;color:var(--a2);line-height:1.6;
+}
+.viral-insight strong{color:var(--t1);}
+
+/* ── 行业基准 ── */
+.benchmark-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.bm-card{
+  background:var(--s2);border:1px solid var(--bd);
+  border-radius:10px;padding:16px;
+}
+.bm-name{font-size:13px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:6px;}
+.bm-desc{font-size:11px;color:var(--t3);margin-bottom:12px;line-height:1.5;}
+.bm-levels{display:flex;flex-direction:column;gap:4px;}
+.bm-level{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:5px 8px;border-radius:6px;font-size:11px;
+}
+.bm-bad{background:rgba(225,112,85,.1);color:var(--r1);}
+.bm-ok{background:rgba(253,203,110,.1);color:var(--y1);}
+.bm-good{background:rgba(0,184,148,.1);color:var(--g1);}
+.bm-great{background:rgba(108,92,231,.12);color:var(--a2);}
+.bm-label{font-weight:600;}
+
+/* ── 优先级矩阵 ── */
+.priority-table{width:100%;border-collapse:collapse;}
+.priority-table th{
+  text-align:left;padding:9px 14px;font-size:11px;font-weight:600;
+  color:var(--t3);letter-spacing:.5px;border-bottom:1px solid var(--bd);
+}
+.priority-table td{padding:10px 14px;font-size:13px;border-bottom:1px solid rgba(37,45,66,.5);}
+.priority-table tr:last-child td{border-bottom:none;}
+.priority-table tr:hover td{background:var(--s2);}
+.p-tag{padding:2px 10px;border-radius:8px;font-size:11px;font-weight:700;}
+.p0{background:rgba(225,112,85,.15);color:var(--r1);}
+.p1{background:rgba(253,203,110,.15);color:var(--y1);}
+.p2{background:rgba(0,184,148,.12);color:var(--g1);}
+
+/* ── 发布时间 ── */
+.time-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;}
+.time-day{
+  background:var(--s2);border:1px solid var(--bd);
+  border-radius:10px;padding:14px 10px;text-align:center;
+}
+.time-day.today{border-color:var(--a1);background:rgba(108,92,231,.08);}
+.day-name{font-size:11px;color:var(--t3);margin-bottom:8px;}
+.day-slots{display:flex;flex-direction:column;gap:5px;}
+.time-slot{
+  font-size:11px;padding:4px 6px;border-radius:6px;
+  background:var(--s3);color:var(--t2);text-align:center;
+}
+.slot-best{background:rgba(0,184,148,.15);color:var(--g1);font-weight:600;}
+.slot-good{background:rgba(253,203,110,.1);color:var(--y1);}
+
+/* ── 算法动态 ── */
+.algo-list{display:flex;flex-direction:column;gap:10px;}
+.algo-item{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:14px 16px;background:var(--s2);border-radius:10px;
+  border-left:3px solid var(--bd2);
+}
+.algo-item.important{border-left-color:var(--dy);}
+.algo-item.update{border-left-color:var(--y1);}
+.algo-item.tip{border-left-color:var(--g1);}
+.algo-date{font-size:11px;color:var(--t3);flex-shrink:0;padding-top:2px;}
+.algo-content{flex:1;}
+.algo-title{font-size:13px;font-weight:600;margin-bottom:4px;}
+.algo-body{font-size:12px;color:var(--t2);line-height:1.6;}
+
+/* ── 更新时间 ── */
+.last-updated{
+  text-align:center;padding:20px;
+  font-size:11px;color:var(--t3);
+}
+
+/* ── 空状态 ── */
+.empty{
+  text-align:center;padding:48px 24px;color:var(--t3);
+}
+.empty-icon{font-size:36px;margin-bottom:12px;}
+.empty-text{font-size:13px;line-height:1.6;}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-left">
+    <div class="header-icon">📡</div>
+    <div>
+      <div class="header-title">平台运营看板 · 普拉提版</div>
+      <div class="header-sub">抖音 · 小红书 · 每日 08:00 自动更新</div>
+    </div>
+  </div>
+  <div class="update-badge">
+    <div class="pulse"></div>
+    今日数据 · 2026-03-16 更新
+  </div>
+</div>
+
+<!-- Nav -->
+<div class="nav">
+  <div class="nav-item active" onclick="switchPage('hot')">🔥 平台热点</div>
+  <div class="nav-item" onclick="switchPage('topic')">✍️ 选题灵感</div>
+  <div class="nav-item" onclick="switchPage('viral')">📺 爆款拆解</div>
+  <div class="nav-item" onclick="switchPage('benchmark')">📏 行业基准</div>
+  <div class="nav-item" onclick="switchPage('time')">⏰ 发布时机</div>
+  <div class="nav-item" onclick="switchPage('algo')">⚙️ 算法动态</div>
+</div>
+
+<div class="main">
+
+<!-- ════════════════════════════════════════
+  PAGE 1 · 平台热点
+════════════════════════════════════════ -->
+<div class="page active" id="page-hot">
+
+  <div class="grid-2" style="margin-bottom:20px;">
+
+    <!-- 抖音热搜 -->
+    <div class="card">
+      <div class="card-head">
+        <span class="ico">🎵</span> 抖音热搜榜
+        <span class="platform-dy">抖音</span>
+        <span style="margin-left:auto;font-size:11px;color:var(--t3);">2026-03-16 实时</span>
+      </div>
+      <div class="hot-list">
+        <div class="hot-item">
+          <div class="hot-rank rank-1">1</div>
+          <div class="hot-text">特朗普威胁将取消访华 中方回应</div>
+          <div class="hot-heat">1209.8万</div>
+          <span class="hot-tag tag-hot">🔥热</span>
+        </div>
+        <div class="hot-item">
+          <div class="hot-rank rank-2">2</div>
+          <div class="hot-text">中国女足vs澳大利亚女足前瞻</div>
+          <div class="hot-heat">1199.7万</div>
+          <span class="hot-tag tag-up">↑升</span>
+        </div>
+        <div class="hot-item">
+          <div class="hot-rank rank-3">3</div>
+          <div class="hot-text">我国基本医保参保人数超13.3亿人</div>
+          <div class="hot-heat">1110.2万</div>
+          <span class="hot-tag tag-new">新</span>
+        </div>
+        <div class="hot-item">
+          <div class="hot-rank rank-n">4</div>
+          <div class="hot-text">清明假期高速公路免费</div>
+          <div class="hot-heat">1109.4万</div>
+          <span class="hot-tag tag-up">↑升</span>
+        </div>
+        <div class="hot-item">
+          <div class="hot-rank rank-n">5</div>
+          <div class="hot-text">315曝光名单</div>
+          <div class="hot-heat">1045.0万</div>
+          <span class="hot-tag tag-hot">🔥热</span>
+        </div>
+        <div class="hot-item">
+          <div class="hot-rank rank-n">6</div>
+          <div class="hot-text">漂白鸡爪企业致歉</div>
+          <div class="hot-heat">1036.4万</div>
+          <span class="hot-tag tag-hot">🔥热</span>
+        </div>
+        <div class="hot-item">
+          <div class="hot-rank rank-n">7</div>
+          <div class="hot-text">如何看待315问题车展变拦车大赛</div>
+          <div class="hot-heat">917.2万</div>
+          <span class="hot-tag tag-new">新</span>
+        </div>
+        <div class="hot-item">
+          <div class="hot-rank rank-n">8</div>
+          <div class="hot-text">这个春天我先跑一步</div>
+          <div class="hot-heat">783.3万</div>
+          <span class="hot-tag tag-up">↑升</span>
+        </div>
+        <div class="hot-item">
+          <div class="hot-rank rank-n">9</div>
+          <div class="hot-text">努力健身捡谢征</div>
+          <div class="hot-heat">774.1万</div>
+          <span class="hot-tag tag-hot">🔥热</span>
+        </div>
+        <div class="hot-item">
+          <div class="hot-rank rank-n">10</div>
+          <div class="hot-text">李连杰再出手助力武侠精神传承</div>
+          <div class="hot-heat">771.2万</div>
+          <span class="hot-tag tag-new">新</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 小红书热榜 -->
+    <div class="card">
+      <div class="card-head">
+        <span class="ico">📕</span> 小红书热榜
+        <span class="platform-xhs">小红书</span>
+        <span style="margin-left:auto;font-size:11px;color:var(--t3);">2026-03-16 实时</span>
+      </div>
+      <div class="hot-list">
+        <div class="hot-item">
+          <div class="hot-rank rank-1">1</div>
+          <div class="hot-text">用万能旅行拍照姿势美美出片</div>
+          <div class="hot-heat">935.8万</div>
+          <span class="hot-tag tag-hot">🔥热</span>
+        </div>
+        <div class="hot-item">
+          <div class="hot-rank rank-2">2</div>
+          <div class="hot-text">耗时三年拍下古诗词里的中国</div>
+          <div class="hot-heat">925.8万</div>
+          <span class="hot-tag tag-up">↑升</span>
+        </div>
+        <div class="hot-item">
+          <div class="hot-rank rank-3">3</div>
+          <div class="hot-text">我拍到了海鸥雨</div>
+          <div class="hot-heat">913.8万</div>
+          <span class="hot-tag tag-new">新</span>
+        </div>
+        <div class="hot-item">
+          <div class="hot-rank rank-n">4</div>
+          <div class="hot-text">超日常美食教程速来get</div>
+          <div class="hot-heat">886.1万</div>
+          <span class="hot-tag tag-up">↑升</span>
+        </div>
+        <div class="hot-item">
+          <div class="hot-rank rank-n">5</div>
+          <div class="hot-text">定格这一刻的日照金山</div>
+          <div class="hot-heat">873.4万</div>
+          <span class="hot-tag tag-hot">🔥热</span>
+        </div>
+        <div class="hot-item">
+          <div class="hot-rank rank-n">6</div>
+          <div class="hot-text">你可以永远相信赛里木湖的美景</div>
+          <div class="hot-heat">857.5万</div>
+          <span class="hot-tag tag-up">↑升</span>
+        </div>
+        <div class="hot-item">
+          <div class="hot-rank rank-n">7</div>
+          <div class="hot-text">我的家庭旅行更像是打副本</div>
+          <div class="hot-heat">821.4万</div>
+          <span class="hot-tag tag-new">新</span>
+        </div>
+        <div class="hot-item">
+          <div class="hot-rank rank-n">8</div>
+          <div class="hot-text">原来古诗词里的河南真的存在</div>
+          <div class="hot-heat">807.5万</div>
+          <span class="hot-tag tag-hot">🔥热</span>
+        </div>
+        <div class="hot-item">
+          <div class="hot-rank rank-n">9</div>
+          <div class="hot-text">蒸出了奶香爆米花馒头</div>
+          <div class="hot-heat">794.8万</div>
+          <span class="hot-tag tag-up">↑升</span>
+        </div>
+        <div class="hot-item">
+          <div class="hot-rank rank-n">10</div>
+          <div class="hot-text">这可能是江西最被低估的一座山</div>
+          <div class="hot-heat">784.7万</div>
+          <span class="hot-tag tag-new">新</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 普拉提可借势话题 -->
+  <div class="card">
+    <div class="card-head"><span class="ico">🎯</span> 今日可借势话题 · 普拉提视角</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+      <div style="background:var(--s2);border-radius:10px;padding:14px 16px;border-left:3px solid var(--g1);">
+        <div style="font-size:11px;color:var(--g1);font-weight:600;margin-bottom:6px;">🏃 强关联 · 抖音#这个春天我先跑一步</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:6px;">春天动起来，普拉提比跑步更适合入门</div>
+        <div style="font-size:12px;color:var(--t3);line-height:1.5;">春季健身热潮来了，用对比角度切入，解释为什么普拉提对零基础更友好</div>
+      </div>
+      <div style="background:var(--s2);border-radius:10px;padding:14px 16px;border-left:3px solid var(--y1);">
+        <div style="font-size:11px;color:var(--y1);font-weight:600;margin-bottom:6px;">💪 中关联 · 抖音#努力健身捡谢征</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:6px;">健身真正改变的不只是身材</div>
+        <div style="font-size:12px;color:var(--t3);line-height:1.5;">借热点情感共鸣，分享学员坚持普拉提后生活态度的变化，引发转发</div>
+      </div>
+      <div style="background:var(--s2);border-radius:10px;padding:14px 16px;border-left:3px solid var(--b1);">
+        <div style="font-size:11px;color:var(--b1);font-weight:600;margin-bottom:6px;">📷 弱关联 · 小红书#拍照姿势</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:6px;">练了3个月普拉提后的体态，拍照都不一样了</div>
+        <div style="font-size:12px;color:var(--t3);line-height:1.5;">视觉化展示普拉提带来的体态改变，用对比图吸引小红书用户</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════════
+  PAGE 2 · 选题灵感
+════════════════════════════════════════ -->
+<div class="page" id="page-topic">
+
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-head"><span class="ico">✨</span> 今日热点 × 普拉提 · 选题推荐</div>
+    <div style="font-size:12px;color:var(--t3);margin-bottom:16px;">基于今日平台热点，结合普拉提内容方向生成，优先使用标注「强推」的选题</div>
+    <div class="topic-grid">
+
+      <div class="topic-card">
+        <span class="topic-tag tag-pain">痛点</span>
+        <span class="topic-tag tag-trend" style="margin-left:4px;">强推</span>
+        <div class="topic-title">春天了还在拖？这3个动作，坐月子也能练</div>
+        <div class="topic-hook">开头钩子：<span>「3月了，你还没动起来吗？」</span><br/>借势春季健身热点，戳中拖延用户痛点，门槛极低</div>
+      </div>
+
+      <div class="topic-card">
+        <span class="topic-tag tag-result">效果</span>
+        <span class="topic-tag tag-trend" style="margin-left:4px;">强推</span>
+        <div class="topic-title">坚持普拉提2个月，我拍照终于不再含胸驼背了</div>
+        <div class="topic-hook">开头钩子：<span>「同一个人，同一件衣服，就是不一样」</span><br/>小红书爆款体态对比，转发率极高</div>
+      </div>
+
+      <div class="topic-card">
+        <span class="topic-tag tag-guide">教程</span>
+        <div class="topic-title">3分钟跟练：清明假期在家也能做的普拉提</div>
+        <div class="topic-hook">开头钩子：<span>「假期不想出门？在家练这个就够了」</span><br/>清明假期借势，无器械居家场景</div>
+      </div>
+
+      <div class="topic-card">
+        <span class="topic-tag tag-story">故事</span>
+        <div class="topic-title">她健身的理由让我破防了——真实学员故事</div>
+        <div class="topic-hook">开头钩子：<span>「上个月来了一个学员，一开口就让我红眼眶」</span><br/>情感共鸣，转发率和评论率双高</div>
+      </div>
+
+      <div class="topic-card">
+        <span class="topic-tag tag-knowledge">科普</span>
+        <div class="topic-title">普拉提和瑜伽到底哪个适合你？一张图说清楚</div>
+        <div class="topic-hook">开头钩子：<span>「别再纠结了，看这条就够了」</span><br/>常青内容，收藏率高，适合周末发</div>
+      </div>
+
+      <div class="topic-card">
+        <span class="topic-tag tag-pain">痛点</span>
+        <div class="topic-title">医保报销了这么多年，你的身体真的在变好吗？</div>
+        <div class="topic-hook">开头钩子：<span>「医保参保超13亿人——我们交的每一分钱」</span><br/>借医保热点，引入主动健康理念，切入普拉提价值</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 本周排期建议 -->
+  <div class="card">
+    <div class="card-head"><span class="ico">📅</span> 本周内容排期建议</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+      <div style="background:var(--s2);border-radius:10px;padding:14px;">
+        <div style="font-size:11px;color:var(--t3);margin-bottom:8px;">周一 · 3/16</div>
+        <div style="font-size:12px;font-weight:600;margin-bottom:6px;">科普/知识类</div>
+        <div style="font-size:11px;color:var(--t3);line-height:1.5;">用户周一需要「有用」的内容，知识类完播率高</div>
+      </div>
+      <div style="background:var(--s2);border-radius:10px;padding:14px;">
+        <div style="font-size:11px;color:var(--t3);margin-bottom:8px;">周三 · 3/18</div>
+        <div style="font-size:12px;font-weight:600;margin-bottom:6px;">跟练/教程类</div>
+        <div style="font-size:11px;color:var(--t3);line-height:1.5;">周中用户有执行意愿，跟练视频互动率最高</div>
+      </div>
+      <div style="background:rgba(108,92,231,.08);border:1px solid rgba(108,92,231,.2);border-radius:10px;padding:14px;">
+        <div style="font-size:11px;color:var(--a2);margin-bottom:8px;">周五 · 3/20 ⭐重点</div>
+        <div style="font-size:12px;font-weight:600;margin-bottom:6px;">效果/对比类</div>
+        <div style="font-size:11px;color:var(--t3);line-height:1.5;">周五流量最高，用体态对比或学员故事冲播放量</div>
+      </div>
+      <div style="background:var(--s2);border-radius:10px;padding:14px;">
+        <div style="font-size:11px;color:var(--t3);margin-bottom:8px;">周日 · 3/22</div>
+        <div style="font-size:12px;font-weight:600;margin-bottom:6px;">情感/故事类</div>
+        <div style="font-size:11px;color:var(--t3);line-height:1.5;">周末用户情绪价值需求高，真实故事转发率强</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════════
+  PAGE 3 · 爆款拆解
+════════════════════════════════════════ -->
+<div class="page" id="page-viral">
+
+  <div class="section-title">同类目爆款 · 健身/普拉提</div>
+
+  <div class="viral-card">
+    <div class="viral-header">
+      <div>
+        <span class="platform-dy" style="margin-bottom:6px;display:inline-flex;">抖音</span>
+        <span class="platform-dy" style="margin-left:6px;background:rgba(0,184,148,.12);color:var(--g1);">同类目</span>
+        <div class="viral-title" style="margin-top:8px;">「普拉提大器械体验，4.9分工作室团购推荐」</div>
+      </div>
+      <div class="viral-stats">
+        <div class="stat-pill">👍 21.1万</div>
+        <div class="stat-pill">📅 2024-11</div>
+      </div>
+    </div>
+    <div class="viral-breakdown">
+      <div class="breakdown-item">
+        <div class="breakdown-label">内容类型</div>
+        <div class="breakdown-value">探店·团购</div>
+      </div>
+      <div class="breakdown-item">
+        <div class="breakdown-label">视频时长</div>
+        <div class="breakdown-value">90-120秒</div>
+      </div>
+      <div class="breakdown-item">
+        <div class="breakdown-label">开头设计</div>
+        <div class="breakdown-value">场景展示</div>
+      </div>
+      <div class="breakdown-item">
+        <div class="breakdown-label">核心钩子</div>
+        <div class="breakdown-value">高分工作室</div>
+      </div>
+    </div>
+    <div class="viral-insight">
+      <strong>为什么能跑量：</strong>「4.9分」是信任锚点，立刻建立可信度；团购价格引发收藏行为；大器械画面有视觉冲击力，让没接触过的人产生好奇心。<br/>
+      <strong>可借鉴：</strong>展示工作室环境+设备，加上真实客户评价数字，适合账号早期建立信任感。
+    </div>
+  </div>
+
+  <div class="viral-card">
+    <div class="viral-header">
+      <div>
+        <span class="platform-dy" style="margin-bottom:6px;display:inline-flex;">抖音</span>
+        <span class="platform-dy" style="margin-left:6px;background:rgba(0,184,148,.12);color:var(--g1);">同类目</span>
+        <div class="viral-title" style="margin-top:8px;">「腰间盘突出能练普拉提吗？我来告诉你真相」</div>
+      </div>
+      <div class="viral-stats">
+        <div class="stat-pill">👍 8.3万</div>
+        <div class="stat-pill">💬 2100+</div>
+      </div>
+    </div>
+    <div class="viral-breakdown">
+      <div class="breakdown-item">
+        <div class="breakdown-label">内容类型</div>
+        <div class="breakdown-value">答疑·科普</div>
+      </div>
+      <div class="breakdown-item">
+        <div class="breakdown-label">视频时长</div>
+        <div class="breakdown-value">45-60秒</div>
+      </div>
+      <div class="breakdown-item">
+        <div class="breakdown-label">开头设计</div>
+        <div class="breakdown-value">反问式提问</div>
+      </div>
+      <div class="breakdown-item">
+        <div class="breakdown-label">核心钩子</div>
+        <div class="breakdown-value">打破误解</div>
+      </div>
+    </div>
+    <div class="viral-insight">
+      <strong>为什么能跑量：</strong>腰间盘问题覆盖人群极广，「能不能练」是真实痛点疑问；「告诉你真相」制造信息差，强迫完播；评论区大量潜在客户主动咨询。<br/>
+      <strong>可借鉴：</strong>用「XX人群能不能练普拉提」句式批量复制，每类人群都是一条视频，且评论区会成为私信转化入口。
+    </div>
+  </div>
+
+  <div class="section-title" style="margin-top:24px;">跨类目爆款 · 结构借鉴</div>
+
+  <div class="viral-card">
+    <div class="viral-header">
+      <div>
+        <span class="platform-xhs" style="margin-bottom:6px;display:inline-flex;">小红书</span>
+        <span class="platform-xhs" style="margin-left:6px;background:rgba(116,185,255,.12);color:var(--b1);">跨类目·美食</span>
+        <div class="viral-title" style="margin-top:8px;">「我用1个月，把厨艺从0练到能开饭局」（前后对比型）</div>
+      </div>
+      <div class="viral-stats">
+        <div class="stat-pill">❤️ 12.8万</div>
+        <div class="stat-pill">🔖 3.4万收藏</div>
+      </div>
+    </div>
+    <div class="viral-breakdown">
+      <div class="breakdown-item">
+        <div class="breakdown-label">内容结构</div>
+        <div class="breakdown-value">时间轴对比</div>
+      </div>
+      <div class="breakdown-item">
+        <div class="breakdown-label">核心公式</div>
+        <div class="breakdown-value">0→1变化</div>
+      </div>
+      <div class="breakdown-item">
+        <div class="breakdown-label">情绪价值</div>
+        <div class="breakdown-value">成就感共鸣</div>
+      </div>
+      <div class="breakdown-item">
+        <div class="breakdown-label">行动引导</div>
+        <div class="breakdown-value">保存打卡</div>
+      </div>
+    </div>
+    <div class="viral-insight">
+      <strong>结构公式：</strong>「我XX之前 → 做了什么 → XX之后的变化」，是全平台最稳定的爆款结构之一。<br/>
+      <strong>套用到普拉提：</strong>「我练普拉提前 → 坚持了30天 → 腰围/体态/状态的具体变化」，用数据+对比图，收藏率会非常高。
+    </div>
+  </div>
+
+  <div class="viral-card">
+    <div class="viral-header">
+      <div>
+        <span class="platform-dy" style="margin-bottom:6px;display:inline-flex;">抖音</span>
+        <span class="platform-dy" style="margin-left:6px;background:rgba(253,203,110,.12);color:var(--y1);">跨类目·情感</span>
+        <div class="viral-title" style="margin-top:8px;">「她说：我不是为了好看，我是为了不再疼」（真实故事型）</div>
+      </div>
+      <div class="viral-stats">
+        <div class="stat-pill">👍 45万</div>
+        <div class="stat-pill">🔁 2.1万转发</div>
+      </div>
+    </div>
+    <div class="viral-breakdown">
+      <div class="breakdown-item">
+        <div class="breakdown-label">内容结构</div>
+        <div class="breakdown-value">第三人故事</div>
+      </div>
+      <div class="breakdown-item">
+        <div class="breakdown-label">核心公式</div>
+        <div class="breakdown-value">情绪反转</div>
+      </div>
+      <div class="breakdown-item">
+        <div class="breakdown-label">情绪价值</div>
+        <div class="breakdown-value">共鸣+破防</div>
+      </div>
+      <div class="breakdown-item">
+        <div class="breakdown-label">行动引导</div>
+        <div class="breakdown-value">转发给朋友</div>
+      </div>
+    </div>
+    <div class="viral-insight">
+      <strong>结构公式：</strong>开头一句话引发情绪 → 展开真实细节 → 结尾反转升华 → 引导转发。完播率和转发率双高。<br/>
+      <strong>套用到普拉提：</strong>「她来上课的原因让我没想到」→ 讲学员因慢性疼痛/产后恢复/焦虑等真实原因来练习的故事 → 结尾强调运动的价值不只是外形。
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════════
+  PAGE 4 · 行业基准
+════════════════════════════════════════ -->
+<div class="page" id="page-benchmark">
+
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-head"><span class="ico">📏</span> 普拉提/健身类目 · 核心指标基准</div>
+    <div style="font-size:12px;color:var(--t3);margin-bottom:16px;">数据来源：抖音运营圈行业报告 + 健身垂类账号实测统计（2024-2025）</div>
+    <div class="benchmark-grid">
+      <div class="bm-card">
+        <div class="bm-name">▶️ 完播率</div>
+        <div class="bm-desc">看完整个视频的用户比例，算法权重最高的核心指标</div>
+        <div class="bm-levels">
+          <div class="bm-level bm-bad"><span class="bm-label">偏低</span><span>&lt;20%</span></div>
+          <div class="bm-level bm-ok"><span class="bm-label">一般</span><span>20%-35%</span></div>
+          <div class="bm-level bm-good"><span class="bm-label">良好</span><span>35%-55%</span></div>
+          <div class="bm-level bm-great"><span class="bm-label">优秀</span><span>&gt;55%</span></div>
+        </div>
+      </div>
+      <div class="bm-card">
+        <div class="bm-name">❤️ 点赞率</div>
+        <div class="bm-desc">点赞数÷播放量，反映内容对用户的触动程度</div>
+        <div class="bm-levels">
+          <div class="bm-level bm-bad"><span class="bm-label">偏低</span><span>&lt;2%</span></div>
+          <div class="bm-level bm-ok"><span class="bm-label">一般</span><span>2%-5%</span></div>
+          <div class="bm-level bm-good"><span class="bm-label">良好</span><span>5%-10%</span></div>
+          <div class="bm-level bm-great"><span class="bm-label">优秀</span><span>&gt;10%</span></div>
+        </div>
+      </div>
+      <div class="bm-card">
+        <div class="bm-name">💬 评论率</div>
+        <div class="bm-desc">评论数÷播放量，衡量内容能否引发讨论与共鸣</div>
+        <div class="bm-levels">
+          <div class="bm-level bm-bad"><span class="bm-label">偏低</span><span>&lt;0.3%</span></div>
+          <div class="bm-level bm-ok"><span class="bm-label">一般</span><span>0.3%-1%</span></div>
+          <div class="bm-level bm-good"><span class="bm-label">良好</span><span>1%-3%</span></div>
+          <div class="bm-level bm-great"><span class="bm-label">优秀</span><span>&gt;3%</span></div>
+        </div>
+      </div>
+      <div class="bm-card">
+        <div class="bm-name">🔁 转发率</div>
+        <div class="bm-desc">分享数÷播放量，内容传播力的核心体现</div>
+        <div class="bm-levels">
+          <div class="bm-level bm-bad"><span class="bm-label">偏低</span><span>&lt;0.2%</span></div>
+          <div class="bm-level bm-ok"><span class="bm-label">一般</span><span>0.2%-0.5%</span></div>
+          <div class="bm-level bm-good"><span class="bm-label">良好</span><span>0.5%-1%</span></div>
+          <div class="bm-level bm-great"><span class="bm-label">优秀</span><span>&gt;1%</span></div>
+        </div>
+      </div>
+      <div class="bm-card">
+        <div class="bm-name">➕ 吸粉率</div>
+        <div class="bm-desc">新增粉丝÷播放量，账号增长效率的核心指标</div>
+        <div class="bm-levels">
+          <div class="bm-level bm-bad"><span class="bm-label">偏低</span><span>&lt;0.3%</span></div>
+          <div class="bm-level bm-ok"><span class="bm-label">一般</span><span>0.3%-1%</span></div>
+          <div class="bm-level bm-good"><span class="bm-label">良好</span><span>1%-3%</span></div>
+          <div class="bm-level bm-great"><span class="bm-label">优秀</span><span>&gt;3%</span></div>
+        </div>
+      </div>
+      <div class="bm-card">
+        <div class="bm-name">📈 播放量级</div>
+        <div class="bm-desc">单条视频播放次数，决定是否进入更大推荐池</div>
+        <div class="bm-levels">
+          <div class="bm-level bm-bad"><span class="bm-label">冷启动</span><span>&lt;500</span></div>
+          <div class="bm-level bm-ok"><span class="bm-label">小池</span><span>500-5000</span></div>
+          <div class="bm-level bm-good"><span class="bm-label">中池</span><span>5000-5万</span></div>
+          <div class="bm-level bm-great"><span class="bm-label">大池</span><span>&gt;5万</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 指标优先级 -->
+  <div class="card">
+    <div class="card-head"><span class="ico">⚖️</span> 指标优先级矩阵 · 先优化哪个</div>
+    <table class="priority-table">
+      <thead>
+        <tr>
+          <th>指标</th><th>优先级</th><th>影响什么</th><th>如何提升</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>完播率</strong></td>
+          <td><span class="p-tag p0">P0 最优先</span></td>
+          <td>决定算法是否推荐给更多人</td>
+          <td>缩短视频至30秒内；前3秒加视觉/语言钩子；快节奏剪辑去掉废话</td>
+        </tr>
+        <tr>
+          <td><strong>点赞率</strong></td>
+          <td><span class="p-tag p0">P0 最优先</span></td>
+          <td>算法判断内容质量的第二权重</td>
+          <td>结尾引导「学到了双击屏幕」；内容有具体实用价值；触动情感</td>
+        </tr>
+        <tr>
+          <td><strong>评论率</strong></td>
+          <td><span class="p-tag p1">P1 重要</span></td>
+          <td>提升推荐持续性，带来私信咨询</td>
+          <td>结尾提一个问题；制造争议或共鸣点；回复评论带动互动</td>
+        </tr>
+        <tr>
+          <td><strong>吸粉率</strong></td>
+          <td><span class="p-tag p1">P1 重要</span></td>
+          <td>账号成长速度，粉丝是长期资产</td>
+          <td>清晰表达「关注我能得到什么」；做系列内容让用户追更</td>
+        </tr>
+        <tr>
+          <td><strong>转发率</strong></td>
+          <td><span class="p-tag p1">P1 重要</span></td>
+          <td>内容破圈，带来被动曝光</td>
+          <td>做「值得转给朋友」的实用型内容；真实故事类转发率天然高</td>
+        </tr>
+        <tr>
+          <td><strong>播放量</strong></td>
+          <td><span class="p-tag p2">P2 结果</span></td>
+          <td>是以上所有指标的结果，不是原因</td>
+          <td>优化以上5项，播放量自然提升；不要买流量</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════════
+  PAGE 5 · 发布时机
+════════════════════════════════════════ -->
+<div class="page" id="page-time">
+
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-head"><span class="ico">⏰</span> 本周发布时间窗口推荐</div>
+    <div style="font-size:12px;color:var(--t3);margin-bottom:16px;">健身/普拉提类目用户活跃规律，绿色=最佳，黄色=次佳</div>
+    <div class="time-grid">
+      <div class="time-day today">
+        <div class="day-name">周一<br/>今天</div>
+        <div class="day-slots">
+          <div class="time-slot">07:00</div>
+          <div class="time-slot slot-good">12:00</div>
+          <div class="time-slot slot-best">19:00</div>
+          <div class="time-slot slot-best">21:00</div>
+        </div>
+      </div>
+      <div class="time-day">
+        <div class="day-name">周二</div>
+        <div class="day-slots">
+          <div class="time-slot">07:00</div>
+          <div class="time-slot slot-good">12:30</div>
+          <div class="time-slot slot-best">20:00</div>
+          <div class="time-slot slot-good">22:00</div>
+        </div>
+      </div>
+      <div class="time-day">
+        <div class="day-name">周三</div>
+        <div class="day-slots">
+          <div class="time-slot slot-good">07:30</div>
+          <div class="time-slot slot-good">12:00</div>
+          <div class="time-slot slot-best">19:30</div>
+          <div class="time-slot slot-best">21:00</div>
+        </div>
+      </div>
+      <div class="time-day">
+        <div class="day-name">周四</div>
+        <div class="day-slots">
+          <div class="time-slot">07:00</div>
+          <div class="time-slot slot-good">12:30</div>
+          <div class="time-slot slot-best">20:00</div>
+          <div class="time-slot slot-good">22:00</div>
+        </div>
+      </div>
+      <div class="time-day" style="border-color:var(--g1);background:rgba(0,184,148,.05);">
+        <div class="day-name" style="color:var(--g1);">周五⭐</div>
+        <div class="day-slots">
+          <div class="time-slot slot-good">07:00</div>
+          <div class="time-slot slot-good">12:00</div>
+          <div class="time-slot slot-best">18:30</div>
+          <div class="time-slot slot-best">21:00</div>
+        </div>
+      </div>
+      <div class="time-day">
+        <div class="day-name">周六</div>
+        <div class="day-slots">
+          <div class="time-slot slot-good">09:00</div>
+          <div class="time-slot slot-best">11:00</div>
+          <div class="time-slot slot-good">15:00</div>
+          <div class="time-slot slot-best">20:00</div>
+        </div>
+      </div>
+      <div class="time-day">
+        <div class="day-name">周日</div>
+        <div class="day-slots">
+          <div class="time-slot slot-good">09:30</div>
+          <div class="time-slot slot-best">11:00</div>
+          <div class="time-slot slot-good">16:00</div>
+          <div class="time-slot slot-best">21:00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><span class="ico">💡</span> 发布策略说明</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+      <div style="background:var(--s2);border-radius:10px;padding:14px 16px;">
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--g1);">最优发布频率</div>
+        <div style="font-size:12px;color:var(--t2);line-height:1.7;">每周4-5条，保持稳定节奏比突击发布更重要。账号发布规律会被算法识别，断更后复播效果变差。</div>
+      </div>
+      <div style="background:var(--s2);border-radius:10px;padding:14px 16px;">
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--y1);">发布后黄金1小时</div>
+        <div style="font-size:12px;color:var(--t2);line-height:1.7;">发布后1小时是冷启动关键期，立即回复每一条评论，提升互动数据，帮助算法判断质量进入推荐池。</div>
+      </div>
+      <div style="background:var(--s2);border-radius:10px;padding:14px 16px;">
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--b1);">内容类型配比</div>
+        <div style="font-size:12px;color:var(--t2);line-height:1.7;">建议：知识科普40% · 跟练教程30% · 真实故事20% · 热点借势10%。不要全是教程，情感类内容是吸粉核心。</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════════
+  PAGE 6 · 算法动态
+════════════════════════════════════════ -->
+<div class="page" id="page-algo">
+
+  <div class="card">
+    <div class="card-head"><span class="ico">⚙️</span> 平台算法动态 · 低频更新</div>
+    <div style="font-size:12px;color:var(--t3);margin-bottom:16px;">算法规则变化较慢，每周同步一次，重大变化会标注「重要」</div>
+    <div class="algo-list">
+
+      <div class="algo-item important">
+        <div class="algo-date">2026-03<br/>重要</div>
+        <div class="algo-content">
+          <div class="algo-title">抖音加强「利他型」内容权重</div>
+          <div class="algo-body">平台持续压制纯引流、过度营销内容，「真实使用体验」「干货教程」「用户故事」类视频获得更高自然推荐权重。建议减少硬广表达，增加内容价值密度。</div>
+        </div>
+      </div>
+
+      <div class="algo-item update">
+        <div class="algo-date">2026-02<br/>更新</div>
+        <div class="algo-content">
+          <div class="algo-title">完播率计算方式调整：≥80%完播才算有效</div>
+          <div class="algo-body">旧逻辑：看完50%以上算完播。新逻辑：需要看完80%以上才作为高质量信号。对时长超过1分钟的视频影响较大，短视频（≤30秒）完播率数据更准确。</div>
+        </div>
+      </div>
+
+      <div class="algo-item tip">
+        <div class="algo-date">持续有效<br/>规律</div>
+        <div class="algo-content">
+          <div class="algo-title">冷启动推荐池机制（稳定规律）</div>
+          <div class="algo-body">新视频发布后进入初始池（200-500次曝光）→ 完播率+点赞率达标后进入中级池（5000次）→ 继续达标进入大池（5万-50万）。每个推荐池停留约6-12小时，未达标不再推送。所以前2小时互动数据最关键。</div>
+        </div>
+      </div>
+
+      <div class="algo-item tip">
+        <div class="algo-date">持续有效<br/>规律</div>
+        <div class="algo-content">
+          <div class="algo-title">小红书：收藏>点赞，「搜索入口」权重提升</div>
+          <div class="algo-body">小红书算法近年持续强化搜索功能，内容标题和正文中含有精准关键词的帖子搜索排名更高。建议每条内容的标题包含1-2个用户会主动搜索的词，如「普拉提入门」「产后修复」「驼背改善」。</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</div><!-- /main -->
+
+<div class="last-updated">数据更新时间：2026-03-16 08:00 · 下次更新：2026-03-17 08:00</div>
+
+<script>
+function switchPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+</script>
+</body>
+</html>
