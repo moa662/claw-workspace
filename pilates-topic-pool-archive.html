@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>选题池历史存档 · V3</title>
+<style>
+:root{
+  --bg:#0a0c10;--s1:#111318;--s2:#181c24;--s3:#1e2330;
+  --bd:#252b3b;--bd2:#2e3650;
+  --a1:#c8a96e;--a2:#e8c98a;--a3:#8b6c3e;
+  --g1:#4ade80;--b1:#60a5fa;--p1:#c084fc;--r1:#f87171;--o1:#fb923c;
+  --t1:#e2e8f0;--t2:#94a3b8;--t3:#64748b;
+  --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--t1);font-family:'PingFang SC','Microsoft YaHei','Segoe UI',system-ui,sans-serif;min-height:100vh;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px;}
+
+.archive-header{background:linear-gradient(160deg,#0a0c10 0%,#0f1018 50%,#0a0c10 100%);border-bottom:1px solid var(--bd);padding:40px 24px 32px;text-align:center;position:relative;}
+.archive-tag{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(251,191,36,.3);border-radius:20px;padding:4px 14px;font-size:12px;color:#fbbf24;background:rgba(251,191,36,.07);margin-bottom:16px;}
+.archive-header h1{font-size:clamp(20px,3.5vw,30px);font-weight:800;margin-bottom:8px;color:var(--t1);}
+.archive-header h1 span{color:#fbbf24;}
+.archive-header p{font-size:13px;color:var(--t3);max-width:480px;margin:0 auto 20px;line-height:1.7;}
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border:1px solid rgba(96,165,250,.3);border-radius:20px;font-size:12px;color:#60a5fa;background:rgba(96,165,250,.06);text-decoration:none;transition:all .2s;}
+.back-btn:hover{background:rgba(96,165,250,.12);}
+.archive-notice{max-width:960px;margin:24px auto 0;padding:0 24px;}
+.notice-box{background:rgba(251,191,36,.05);border:1px dashed rgba(251,191,36,.2);border-radius:10px;padding:14px 18px;font-size:12px;color:var(--t3);line-height:1.9;}
+
+.sticky-nav{position:sticky;top:0;z-index:50;background:rgba(10,12,16,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);padding:0 24px;}
+.nav-inner{max-width:960px;margin:0 auto;display:flex;gap:4px;overflow-x:auto;padding:8px 0;}
+.nav-inner::-webkit-scrollbar{height:0;}
+.nav-btn{white-space:nowrap;padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer;border:none;background:none;color:var(--t2);transition:all .2s;}
+.nav-btn:hover{color:var(--t1);background:var(--s2);}
+.nav-btn.active{background:rgba(251,191,36,.12);color:#fbbf24;}
+
+.page{max-width:960px;margin:0 auto;padding:36px 24px 80px;}
+
+.method-banner{background:linear-gradient(135deg,rgba(96,165,250,.08),rgba(167,139,250,.05));border:1px solid rgba(96,165,250,.2);border-radius:var(--radius);padding:20px 24px;margin-bottom:32px;display:flex;align-items:flex-start;gap:16px;}
+.mb-icon{font-size:36px;flex-shrink:0;}
+.mb-body h2{font-size:15px;font-weight:700;color:#60a5fa;margin-bottom:8px;}
+.mb-body p{font-size:13px;color:var(--t2);line-height:1.8;margin-bottom:12px;}
+.mb-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.mb-tag{display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:600;}
+
+.sec-divider{display:flex;align-items:center;gap:10px;margin:32px 0 16px;}
+.sd-bar{width:4px;height:20px;border-radius:2px;flex-shrink:0;}
+.sd-label{font-size:13px;font-weight:700;}
+.sd-line{flex:1;height:1px;margin-left:4px;}
+.sd-count{font-size:11px;padding:2px 8px;border-radius:10px;font-weight:600;}
+
+.pool-list{display:flex;flex-direction:column;gap:10px;margin-bottom:8px;}
+.pool-card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:border-color .2s,background .2s;}
+.pool-card:hover{background:var(--s2);}
+.pool-card.open .pc-body{grid-template-rows:1fr;}
+.pool-card.open .pc-chevron{transform:rotate(180deg);}
+.pc-head{display:flex;align-items:center;gap:12px;padding:14px 18px;}
+.pc-idx{width:30px;height:30px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;}
+.pc-main{flex:1;min-width:0;}
+.pc-theme{font-size:14px;font-weight:600;line-height:1.4;margin-bottom:5px;}
+.pc-pills{display:flex;flex-wrap:wrap;gap:4px;align-items:center;}
+.pc-tag{font-size:10px;padding:2px 7px;border-radius:3px;background:rgba(96,165,250,.1);color:#60a5fa;}
+.pc-rank{font-size:10px;padding:2px 8px;border-radius:3px;font-weight:700;}
+.pc-chevron{font-size:11px;color:var(--t3);transition:transform .25s;flex-shrink:0;}
+.pc-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s;}
+.pc-inner{overflow:hidden;}
+.pc-detail{padding:0 18px 16px;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.pc-block{background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:13px;}
+.pc-block h4{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--t3);margin-bottom:7px;}
+.pc-block p{font-size:12px;color:var(--t2);line-height:1.7;}
+.pc-full{grid-column:1/-1;}
+.pc-rings{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px;}
+.ring-tag{font-size:10px;padding:2px 7px;border-radius:3px;font-weight:600;}
+.ring-hist{background:rgba(251,146,60,.12);color:#fb923c;border:1px solid rgba(251,146,60,.25);}
+.ring-biz{background:rgba(52,211,153,.12);color:#34d399;border:1px solid rgba(52,211,153,.25);}
+.ring-ref{background:rgba(167,139,250,.12);color:#a78bfa;border:1px solid rgba(167,139,250,.25);}
+.cross-badge{font-size:10px;padding:2px 8px;border-radius:3px;font-weight:700;background:rgba(251,191,36,.15);color:#fbbf24;border:1px solid rgba(251,191,36,.3);}
+.matrix-wrap{overflow-x:auto;margin:16px 0 4px;}
+.matrix{width:100%;border-collapse:collapse;font-size:12px;}
+.matrix th,.matrix td{padding:8px 12px;text-align:center;border:1px solid var(--bd);}
+.matrix thead th{background:var(--s2);color:var(--t3);font-size:11px;font-weight:600;letter-spacing:.5px;}
+.matrix tbody th{text-align:left;background:var(--s2);color:var(--t2);font-weight:600;white-space:nowrap;}
+.matrix td.ms{background:rgba(248,113,113,.12);color:#f87171;font-weight:700;}
+.matrix td.ma{background:rgba(200,169,110,.12);color:#c8a96e;font-weight:700;}
+.matrix td.mb{background:rgba(100,116,139,.1);color:#94a3b8;}
+.matrix-note{font-size:11px;color:var(--t3);line-height:1.7;margin-top:8px;}
+footer{border-top:1px solid var(--bd);padding:24px;text-align:center;font-size:12px;color:var(--t3);}
+footer a{color:var(--a1);text-decoration:none;}
+@media(max-width:640px){
+  .method-banner{flex-direction:column;}
+  .pc-detail{grid-template-columns:1fr;}
+  .pc-full{grid-column:auto;}
+}
+</style>
+</head>
+<body>
+
+<div class="archive-header">
+  <div class="archive-tag">📦 历史存档 · V3选题池 · 已归档</div>
+  <h1>选题池 <span>历史存档</span></h1>
+  <p>V3版本选题池存档，归档时间：2026年3月。此版本已被V4替代，仅供参考回顾。</p>
+  <a href="pilates-topic-pool.html" class="back-btn">→ 前往V4最新选题池</a>
+</div>
+
+<div class="archive-notice">
+  <div class="notice-box">
+    📌 <b style="color:#fbbf24">存档说明</b>：本页面为V3选题池完整存档，共36个选题，按核心圈/辐射圈/潜在圈/反常识系列/三环法分组排列。所有内容保持原始状态，不再更新。若需查看最新选题，请前往 <a href="pilates-topic-pool.html" style="color:#60a5fa;">V4选题池</a>。
+  </div>
+</div>
+
+<nav class="sticky-nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="goTo('g1',this)">🔴 核心圈·馆主</button>
+    <button class="nav-btn" onclick="goTo('g2',this)">🟡 辐射圈·教练</button>
+    <button class="nav-btn" onclick="goTo('g3',this)">🟢 潜在圈·投资者</button>
+    <button class="nav-btn" onclick="goTo('g4',this)">💡 反常识系列</button>
+    <button class="nav-btn" onclick="goTo('g5',this)">🟠 三环法分组</button>
+    <button class="nav-btn" onclick="goTo('method',this)">📐 交叉验证矩阵</button>
+  </div>
+</nav>
+
+<div class="page">
+
+<div class="method-banner" id="method">
+  <div class="mb-icon">⭕</div>
+  <div class="mb-body">
+    <h2>双维度选题评级系统 · 两套方法论交叉验证（V3存档版）</h2>
+    <p>
+      本选题池同时运行两套方法论，互相印证：<br><br>
+      <b style="color:#60a5fa">① 于困困三层同心圆（人群维度）</b> — 判断这个选题给谁看、优先级多高：<b style="color:#f87171">核心圈</b>（现有馆主，付费意愿强，内容占6-7成）→ <b style="color:#c8a96e">辐射圈</b>（准创业教练，内容占2-3成）→ <b style="color:#4ade80">潜在圈</b>（投资者/观望者，约1成）。<br><br>
+      <b style="color:#fb923c">② 三环选题法（内容来源维度）</b> — 判断这个选题有没有内容支撑：<span class="ring-tag ring-hist">历史验证</span> <span class="ring-tag ring-biz">业务交付</span> <span class="ring-tag ring-ref">对标账号</span>
+    </p>
+    <div class="matrix-wrap">
+      <table class="matrix">
+        <thead><tr><th>人群 ↓ / 内容来源 →</th><th>🟠 历史验证</th><th>🟢 业务交付</th><th>🟣 对标账号</th><th>三池全中</th></tr></thead>
+        <tbody>
+          <tr><th>🔴 核心圈（馆主）</th><td class="ms">S级</td><td class="ms">S级</td><td class="ma">A级</td><td class="ms">🏆 必拍</td></tr>
+          <tr><th>🟡 辐射圈（准创业教练）</th><td class="ma">A级</td><td class="ms">S级</td><td class="ma">A级</td><td class="ms">S级</td></tr>
+          <tr><th>🟢 潜在圈（投资者）</th><td class="mb">B级</td><td class="ma">A级</td><td class="mb">B级</td><td class="ma">A级</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="sec-divider" id="g1">
+  <div class="sd-bar" style="background:#f87171;"></div>
+  <span class="sd-label" style="color:#f87171;">🔴 核心圈 · 现有馆主</span>
+  <div class="sd-line" style="background:rgba(248,113,113,.2);"></div>
+  <span class="sd-count" style="background:rgba(248,113,113,.12);color:#f87171;">12个选题</span>
+</div>
+<div class="pool-list" id="poolG1"></div>
+
+<div class="sec-divider" id="g2">
+  <div class="sd-bar" style="background:#c8a96e;"></div>
+  <span class="sd-label" style="color:#c8a96e;">🟡 辐射圈 · 准创业教练</span>
+  <div class="sd-line" style="background:rgba(200,169,110,.2);"></div>
+  <span class="sd-count" style="background:rgba(200,169,110,.12);color:#c8a96e;">10个选题</span>
+</div>
+<div class="pool-list" id="poolG2"></div>
+
+<div class="sec-divider" id="g3">
+  <div class="sd-bar" style="background:#4ade80;"></div>
+  <span class="sd-label" style="color:#4ade80;">🟢 潜在圈 · 投资者/观望者</span>
+  <div class="sd-line" style="background:rgba(74,222,128,.2);"></div>
+  <span class="sd-count" style="background:rgba(74,222,128,.12);color:#4ade80;">8个选题</span>
+</div>
+<div class="pool-list" id="poolG3"></div>
+
+<div class="sec-divider" id="g4">
+  <div class="sd-bar" style="background:#a78bfa;"></div>
+  <span class="sd-label" style="color:#a78bfa;">💡 反常识系列</span>
+  <div class="sd-line" style="background:rgba(167,139,250,.2);"></div>
+  <span class="sd-count" style="background:rgba(167,139,250,.12);color:#a78bfa;">6个选题</span>
+</div>
+<div class="pool-list" id="poolG4"></div>
+
+<div class="sec-divider" id="g5">
+  <div class="sd-bar" style="background:#fb923c;"></div>
+  <span class="sd-label" style="color:#fb923c;">🟠 三环选题法分组</span>
+  <div class="sd-line" style="background:rgba(251,146,60,.2);"></div>
+  <span class="sd-count" style="background:rgba(251,146,60,.12);color:#fb923c;">15个选题</span>
+</div>
+<div class="pool-list" id="poolG5"></div>
+
+</div>
+
+<footer>📦 V3历史存档 · 归档于2026年3月 · <a href="pilates-topic-pool.html">→ 前往V4最新选题池</a> · <a href="pilates-topic-research.html">← 选题研究报告</a></footer>
+
+<script>
+const GROUPS=[
+  {id:'poolG1',color:'#f87171',bg:'rgba(248,113,113,.12)',border:'rgba(248,113,113,.25)',items:[
+    {theme:'教练离职带走客户，我是怎么把这个风险降到0的',rank:'S',tags:['教练管理','客户归属','恐惧：单干风险'],rings:['biz','hist'],crossRank:'SS',why:'教练单干是核心圈馆主的P1恐惧，命中"客户资产被带走"的深层焦虑，私信咨询量极高。',hook:'"不是教练不好，是你把客户关系全建在教练身上，而不是建在馆里"。',angle:'拆解三个让客户归属于馆而非教练的具体机制：服务标准化、馆主与学员的直接连接节点、客户档案系统。附可套用的操作流程。'},
+    {theme:'我的馆月销50万，但现金账上只有8万——预售陷阱的真相',rank:'S',tags:['现金流','预售模型','反常识：预售≠健康现金流'],rings:['biz','ref'],crossRank:'SS',why:'命中三大反常识第一条，预售虚高是行业普遍暗伤，馆主看到会立刻对号入座并转发。',hook:'"业绩漂亮，账上没钱，原因只有一个：你在用未来的服务抵押现在的安全感"。',angle:'用真实数字展示预售业绩和实际可用现金的剪刀差，拆解健康现金流的3个判断指标，给出预售和即时收款的合理比例建议。'},
+    {theme:'全年经营节奏规划：我用这张12个月日历让馆里不再有淡旺季焦虑',rank:'S',tags:['经营节奏','营销日历','障碍：缺乏规划'],rings:['biz'],crossRank:'S',why:'缺乏全年经营节奏规划是确认的核心痛点，营销日历工具直接对应于困困方法论，实用性极高。',hook:'"淡季不是市场的问题，是你没有提前三个月做好规划"。',angle:'展示一张完整的普拉提馆12个月营销日历，每季度的主推产品节奏。私信领取完整版日历模板。'},
+    {theme:'3公里内新开了5家竞品，我做了这3件事反而续费率提高了',rank:'S',tags:['本地竞争','差异化','恐惧：竞争压力'],rings:['hist','biz'],crossRank:'SS',why:'本地3公里竞争是确认的核心痛点，逆势增长的反直觉结论天然高点击，真实经历背书极强。',hook:'"竞争越激烈，越要停止打价格战，越要让对的人找到你"。',angle:'拆解三个差异化动作：精准定位细分人群、强化口碑转介绍机制、构建社群而非单纯课程销售。'},
+    {theme:'优秀教练为什么会让你的馆越来越危险？',rank:'S',tags:['教练管理','团队风险','反常识：优秀教练≠留存能力'],rings:['ref','biz'],crossRank:'SS',why:'命中三大反常识第二条，颠覆馆主对"好教练"的认知，标题制造强认知冲突，必然高点击。',hook:'"你雇了一个课上得很好的教练，恭喜你，你也雇了一个随时可以带走客户的风险"。',angle:'区分两种教练能力：授课能力 vs 客户留存能力。给出馆主评估教练留存能力的4个维度。'},
+    {theme:'私教馆续课率从60%做到85%：靠的不是课程质量，是这套服务流程',rank:'S',tags:['续课率','服务SOP','欲望：提升留存'],rings:['biz','hist'],crossRank:'SS',why:'续课率直接影响收入，85%是行业极高水平，服务流程可复用，触发大量同行"求分享"。',hook:'"续不续课，是学员在第3节课就决定了——但大部分馆主要到第10节才开始挽留"。',angle:'拆解影响续课决策的三个关键节点：第一次上课的仪式感、第3节课的体验复盘、课程结束前两周的主动触达。'},
+    {theme:'我是如何建立教练供应链，让馆里不再"靠天吃饭"等教练',rank:'A',tags:['教练供应链','团队自主化','深层需求'],rings:['biz'],crossRank:'A',why:'教练供应链自主化是确认的深层需求，是从"缺教练焦虑"走向"主动造血"的跨越。',hook:'"不是找不到好教练，是你没有建立一套让普通教练变成好教练的机制"。',angle:'分享建立内部教练培养体系的三个阶段：引入标准、培训体系、晋升路径。'},
+    {theme:'我花了6个月建立标准化管理体系，现在新教练3天就能上手',rank:'A',tags:['标准化','SOP体系','深层需求'],rings:['biz'],crossRank:'A',why:'标准化管理体系是深层需求，SOP落地的具体成果（3天上手）有强说服力。',hook:'"标准化不是把人变成机器，是把经验变成可传承的资产"。',angle:'展示标准化体系的5个核心模块：接待流程、课程交付标准、学员档案、投诉处理、日常运营checklist。'},
+    {theme:'小红书涨了8000粉但一个新学员都没来——内容运营的最大误区',rank:'A',tags:['内容运营','流量转化','障碍：过度依赖流量'],rings:['hist','ref'],crossRank:'A',why:'过度依赖流量获客是确认痛点，且这种无效感是馆主高频挫败体验，痛点精准。',hook:'"内容运营的目标不是涨粉，是让3公里内的对的人找到你"。',angle:'区分"虚荣流量"和"有效用户"，拆解内容不转化的三个原因：人群错配、无转化路径、内容没有本地化。'},
+    {theme:'普拉提馆课程卡从6种精简到2种，月营收反而涨了30%',rank:'A',tags:['产品设计','卡项优化','欲望：提升营收'],rings:['hist','biz'],crossRank:'A',why:'精简反而增收的反直觉结论高点击，方案可直接复用，命中馆主"卡项太多卖不动"的真实困境。',hook:'"你给客户的选择越多，他越不买——这是心理学定论，也是我交了学费才懂的道理"。',angle:'展示精简前后卡项结构对比，用选择悖论解释机制，重点讲"两种卡"的设计逻辑。'},
+    {theme:'我们馆的口碑获客占比做到了70%，这套转介绍机制值得你抄',rank:'A',tags:['口碑营销','转介绍','反常识：营销=口碑交付'],rings:['biz','hist'],crossRank:'A',why:'命中三大反常识第三条，转介绍是成本最低的获客方式，具体机制可复用性极强。',hook:'"最好的广告是学员主动帮你说话——但这不会自然发生，需要你设计一套机制"。',angle:'拆解转介绍机制的三个设计要素：触发时机、激励设计、跟进闭环。'},
+    {theme:'教练提成4种方案对比：试错3年后我选择了这一种',rank:'A',tags:['薪酬体系','教练激励','障碍：管理难题'],rings:['biz','ref'],crossRank:'A',why:'薪酬体系是馆主和教练矛盾的核心来源，4种方案对比内容稀缺。',hook:'"提成方案设计错了，好教练留不住；设计对了，平庸教练也能做出好结果"。',angle:'逐一对比4种方案：纯底薪、纯提成、底薪+提成、合伙人制。给出适合不同阶段馆的组合建议，附设计模板。'}
+  ]},
+  {id:'poolG2',color:'#c8a96e',bg:'rgba(200,169,110,.12)',border:'rgba(200,169,110,.25)',items:[
+    {theme:'代课8年，我是如何在两个月内决定开馆的（附决策清单）',rank:'S',tags:['创业决策','心理建设','恐惧：不敢迈出那步'],rings:['hist','biz'],crossRank:'SS',why:'想开馆的教练的核心焦虑是"敢不敢"，IP本人的真实经历极具示范力，决策清单工具降低门槛。',hook:'"我没有等到感觉对了才开始，我等的是这三个条件同时成立"。',angle:'分享决策框架的三个维度：资金安全线、种子客户数量、心理风险承受能力。'},
+    {theme:'教练开馆最容易死在哪？我访谈了20位关馆教练后的总结',rank:'S',tags:['失败案例','创业避坑','恐惧：开馆失败'],rings:['biz','ref'],crossRank:'SS',why:'失败案例对准创业教练决策影响力极大，20人访谈的背书建立权威感。',hook:'"关馆的人不是不努力，是用力的方向全错了"。',angle:'逐一讲解7个失败原因，涵盖高估客源、低估房租、缺乏标准化等。'},
+    {theme:'从教练到馆主：你需要补的10个技术之外的能力',rank:'S',tags:['能力升级','创业准备','障碍：技术≠经营'],rings:['biz'],crossRank:'S',why:'教练技术能力不等于经营能力，这个认知差是大量教练开馆失败的根本原因。',hook:'"你教了10年普拉提，但你从来没管过一分钱的财务——这是最危险的盲区"。',angle:'用10张能力卡片展示教练→馆主需要补的核心技能：财务基础、合同谈判、定价策略等。'},
+    {theme:'启动资金只有10万，我开出了月营收3万的工作室（详细复盘）',rank:'S',tags:['低成本开馆','启动资金','障碍：资金不足'],rings:['hist','biz'],crossRank:'SS',why:'大部分想开馆的教练被"资金不够"卡住，10万启动的真实案例极具示范价值，传播力极强。',hook:'"这个数字很多教练都有，差的只是那套方法"。',angle:'详细拆解10万启动资金的分配，展示第1-3个月真实收入曲线和关键决策节点。'},
+    {theme:'单间工作室、独立门店、共享空间：第一次开馆选哪种？',rank:'A',tags:['场地选择','启动路径','障碍：选择困难'],rings:['biz','ref'],crossRank:'A',why:'三种起步模式各有优劣，目标人群明确，决策支持内容稀缺。',hook:'"存活率最高的反而是从共享空间起步的那批人"——反直觉结论必然高点击。',angle:'从启动资金、风险敞口、客户体验、扩张难度四维对比三种模式。'},
+    {theme:'工作室选址5个死穴：我花了20万才学到的教训',rank:'A',tags:['选址避坑','开馆准备','恐惧：选错位置'],rings:['hist'],crossRank:'A',why:'选址是教练开馆最容易踩的坑，20万代价建立极强信任感。',hook:'"选址选错了，你前两年的利润全交给房东了"。',angle:'展示5个死穴：商场高租金陷阱、地铁口人流≠目标客群等。每条附规避方法。'},
+    {theme:'开馆前60天行动时间线：我当初最希望有人告诉我这些',rank:'A',tags:['开馆SOP','执行清单','障碍：不知道怎么做'],rings:['biz'],crossRank:'A',why:'准开馆教练最缺具体行动指导，时间线+清单组合实用价值极高。',hook:'"很多馆主开业前把时间全花在装修上，结果开业当天只来了2个人——因为没有做预热"。',angle:'以倒计时形式展示开馆前60天到开业当天的具体行动清单。'},
+    {theme:'没有资源、没有流量，普拉提教练怎么找到第一批种子客户',rank:'A',tags:['冷启动获客','种子用户','障碍：零基础起步'],rings:['biz','hist'],crossRank:'A',why:'冷启动阶段的获客是准创业教练的P1障碍，真实方法稀缺。',hook:'"第一批客户不是从网上来的，是从你已有的关系圈里来的——但你需要一套具体的方法"。',angle:'拆解冷启动获客的三个来源：熟人圈激活、教练圈转介绍、本地社群渗透。'},
+    {theme:'我为什么从程序员转型做普拉提馆主——跨界思维如何成为竞争优势',rank:'A',tags:['IP人设','跨界思维','欲望：找到差异化'],rings:['hist'],crossRank:'A',why:'程序员转型是IP核心人设，真实经历建立稀缺感。',hook:'"我没有行业背景，但我带来了一套他们没有的思维方式"。',angle:'讲述转型决策过程，重点展示跨界思维带来的具体经营优势。'},
+    {theme:'普拉提教练的收入天花板在哪？三条路帮你突破月入3万瓶颈',rank:'A',tags:['收入突破','职业规划','欲望：提升收入'],rings:['ref','hist'],crossRank:'A',why:'收入天花板是在职教练的核心焦虑，三条路径清晰可操作。',hook:'"代课是用时间换钱，开馆是用系统换钱——但开馆不是唯一出路"。',angle:'展示三条突破路径：开独立工作室、做教练培训、构建创始人IP做内容变现。'}
+  ]},
+  {id:'poolG3',color:'#4ade80',bg:'rgba(74,222,128,.12)',border:'rgba(74,222,128,.25)',items:[
+    {theme:'2026年还值得投普拉提行业吗？一个从业者的真实判断',rank:'S',tags:['行业判断','投资决策','欲望：找准赛道'],rings:['ref','hist'],crossRank:'S',why:'潜在投资者的核心问题，创始人视角的非广告性判断稀缺性极高。',hook:'"我自己还在开馆，所以我的答案有利益冲突——但我会尽量客观说"。反向建立信任。',angle:'不是简单说值不值，而是给判断框架：什么样的人适合投、什么城市适合、什么阶段进场。'},
+    {theme:'普拉提馆4种商业模式的真实投资回报数据',rank:'S',tags:['投资回报','商业模式','欲望：看清数字'],rings:['biz','ref'],crossRank:'S',why:'投资者最关心回报数字，行业内极少有人公开真实数据，稀缺性和传播性极强。',hook:'"行业里没人愿意把这个数字说清楚，因为说清楚了就知道为什么那么多馆倒了"。',angle:'逐一拆解4种模式（精品小馆/商场店/连锁加盟/独立工作室）的启动资金、月成本、盈亏平衡点、回收周期。'},
+    {theme:'普拉提馆的5种死法：我们亲历了其中3种，最终活了下来',rank:'S',tags:['失败案例','风险判断','恐惧：投资打水漂'],rings:['hist','biz'],crossRank:'S',why:'投资者更需要看风险，批判性视角天然高互动。',hook:'"存活率不足40%不是数据，是我认识的那6家馆里4家关了门"。',angle:'逐一讲5种死法：选址失误/定价崩溃/教练流失/资金断裂/价格战。'},
+    {theme:'加盟还是自营？我见过100家馆之后的判断',rank:'A',tags:['加盟vs自营','创业路径','障碍：选择困难'],rings:['ref','biz'],crossRank:'A',why:'加盟or自营是投资者第一个决策节点，有明确判断框架的内容极度稀缺。',hook:'"加盟费买的不是品牌，是试错成本——但前提是那个品牌真的踩过坑"。',angle:'从品牌溢价、运营支持、利润分配、退出机制四维对比，给出清单。'},
+    {theme:'普拉提行业有没有护城河？只有一种馆主能建起来',rank:'A',tags:['竞争壁垒','差异化','欲望：建立壁垒'],rings:['ref'],crossRank:'B',why:'投资者关心护城河，这个问题在行业内几乎没有系统性回答。',hook:'"普拉提馆本身没有护城河，但你这个人可以成为护城河"。',angle:'给出结论：创始人IP+精准社群+细分赛道绑定的馆有护城河。重点讲如何建立。'},
+    {theme:'女性创业开健身馆：真实的辛苦与回报（没有滤镜的版本）',rank:'A',tags:['女性创业','真实记录','人设：真实经验'],rings:['hist'],crossRank:'A',why:'目标用户是30-55岁女性创业者，真实记录建立强情感连接。',hook:'"我不会告诉你开馆很容易，但我可以告诉你它值不值得"。',angle:'真实分享创业过程中最难的三个阶段，以及支撑走下来的核心原因。'},
+    {theme:'健身行业创业的黄金3年：什么时候进场，什么时候退出',rank:'B',tags:['行业周期','入场时机','欲望：抓住时机'],rings:['ref'],crossRank:'B',why:'时机判断是投资者关心的宏观问题，观点型内容适合潜在圈传播。',hook:'"不是行业不好，是你在错误的时间做了正确的事"。',angle:'从行业发展阶段、本地竞争饱和度、自身资源匹配度三个维度，给出判断入场时机的框架。'},
+    {theme:'普拉提馆主如何用视频号替代付费广告，获客成本降了60%',rank:'A',tags:['私域获客','内容营销','欲望：降低获客成本'],rings:['hist','biz'],crossRank:'A',why:'付费广告ROI下降是行业趋势，视频号生态是本账号主战场，自带示范效应。',hook:'"我们现在每新增一个学员的成本是58元，之前是400元"——数字说话。',angle:'用6个月广告费支出和私域转化数据对比，拆解视频号+朋友圈+社群+私信的完整低成本获客链路。'}
+  ]},
+  {id:'poolG4',color:'#a78bfa',bg:'rgba(167,139,250,.12)',border:'rgba(167,139,250,.25)',items:[
+    {theme:'【反常识01】月销50万的馆为什么会资金断裂？预售业绩≠健康现金流',rank:'S',tags:['反常识系列','现金流','三圈通吃'],rings:['biz','hist'],crossRank:'SS',why:'三大反常识之首，颠覆馆主对"高销售=安全"的认知，适合三层用户，传播天然。',hook:'"你以为预售越多越好——实际上，预售太多是馆倒闭的前奏"。',angle:'用真实数字案例展示预售陷阱的形成机制，给出健康现金流的三个判断指标。'},
+    {theme:'【反常识02】为什么最受学员喜欢的教练，反而是你最大的经营风险？',rank:'S',tags:['反常识系列','教练管理','三圈通吃'],rings:['biz','ref'],crossRank:'SS',why:'颠覆馆主对"好教练"的认知，标题制造强认知冲突，核心圈强命中。',hook:'"教练越优秀，客户越依赖他个人，你馆的风险就越高"。',angle:'区分授课能力和客户留存能力，给出建立"馆留客"而非"教练留客"机制的具体方法。'},
+    {theme:'【反常识03】为什么花钱做广告的馆，比不过不做广告只做口碑的馆？',rank:'S',tags:['反常识系列','口碑营销','三圈通吃'],rings:['hist','biz'],crossRank:'SS',why:'命中三大反常识第三条，营销=口碑交付，适合三层用户，反直觉高点击。',hook:'"投放广告的馆在买流量，做口碑的馆在复利增长——两者的成本曲线方向完全相反"。',angle:'对比两种获客方式的长期成本曲线，拆解口碑转介绍的复利机制。'},
+    {theme:'【反常识04】为什么你的馆越努力涨粉，学员越少？',rank:'A',tags:['反常识系列','内容运营','虚荣流量'],rings:['hist','ref'],crossRank:'A',why:'于困困"虚荣流量"概念直接应用，揭示内容运营的最常见误区。',hook:'"涨的粉越多，和你目标学员越没关系——因为你在吸引错的人"。',angle:'用于困困虚荣流量vs有效用户的框架，分析普拉提馆内容运营的典型人群错配案例。'},
+    {theme:'【反常识05】开第二家店为什么反而亏得更快？规模化陷阱的真相',rank:'A',tags:['反常识系列','规模化','扩张风险'],rings:['hist','biz'],crossRank:'A',why:'想扩张是馆主的普遍欲望，但扩张死的案例极多，反直觉内容有强吸引力。',hook:'"第一家店亏损的问题，开了第二家会亏两倍"。',angle:'拆解规模化陷阱的核心原因：复制的是面积而非系统，扩张前必须先建立标准化。'},
+    {theme:'【反常识06】为什么降价促销反而让你的学员越来越难留住？',rank:'A',tags:['反常识系列','定价策略','促销陷阱'],rings:['ref','biz'],crossRank:'A',why:'促销活动亏损是馆主高频困惑，价格战越打越难看的真相需要有人说清楚。',hook:'"你以为在拉新，实际上在培养薅羊毛的用户，他们不是你的目标学员"。',angle:'解释价格信号的心理机制：低价吸引的是价格敏感用户而非价值用户。给出正确的促销设计逻辑。'}
+  ]},
+  {id:'poolG5',color:'#fb923c',bg:'rgba(251,146,60,.12)',border:'rgba(251,146,60,.25)',items:[
+    {theme:'【历史验证①】教练离职带走客户，我是怎么把这个风险降到0的',rank:'S',tags:['历史验证','核心圈·馆主','恐惧命中'],rings:['hist'],crossRank:'SS',why:'极可能是账号高播放选题——馆主对教练单干的恐惧是普遍心理，这类选题历来播放高。',hook:'同心圆定位：核心圈馆主 × 恐惧维度 = S级优先。历史验证命中 = 有把握能拍好。',angle:'这条选题是"历史验证+业务交付"双池命中，交叉矩阵评级为必拍。内容角度参见核心圈对应选题卡片。'},
+    {theme:'【历史验证②】私教馆续课率从60%做到85%：靠的不是课程质量，是这套服务流程',rank:'S',tags:['历史验证','核心圈·馆主','欲望命中'],rings:['hist'],crossRank:'SS',why:'续课率提升是馆主的核心欲望，具体数字（60%→85%）有强说服力，历史类似数据帖播放量通常极高。',hook:'同心圆定位：核心圈 × 欲望维度 = S级。与业务交付双池命中 = 必拍。',angle:'内容结构：先抛反常识（不是课程质量），再拆三个服务节点，最后给可操作清单。'},
+    {theme:'【历史验证③】我为什么从程序员转型做普拉提馆主',rank:'A',tags:['历史验证','辐射圈·教练','IP人设'],rings:['hist'],crossRank:'A',why:'转型故事类内容在账号早期播放通常较高，是建立IP差异化人设的核心母话题。',hook:'同心圆定位：辐射圈教练 × 欲望维度。历史播放验证后决定是否扩展成系列。',angle:'从单条故事衍生出系列：①为什么转型 ②转型第1年最难的事 ③跨界思维给我带来了什么。'},
+    {theme:'【历史验证④】3公里内新开了5家竞品，我做了这3件事反而续费率提高了',rank:'S',tags:['历史验证','核心圈·馆主','恐惧+欲望'],rings:['hist'],crossRank:'SS',why:'竞争压力+逆势增长是高传播公式，同时命中馆主的恐惧（竞争）和欲望（留存提升）。',hook:'同心圆：核心圈 × 双维度命中。历史验证：反直觉结果类内容播放普遍高于行业均值。',angle:'重点是"做了这3件事"的可操作性，每件事配具体动作，不能只讲思路。'},
+    {theme:'【历史验证⑤】小红书涨了8000粉但一个新学员都没来',rank:'A',tags:['历史验证','核心圈·馆主','障碍命中'],rings:['hist'],crossRank:'A',why:'"努力没有回报"的挫败感是极强的共鸣钩，历史上痛点类选题在馆主群体中传播广。',hook:'同心圆：核心圈 × 障碍维度。验证方向：账号中"内容运营误区"类选题的播放数据。',angle:'于困困"虚荣流量"概念在这里直接落地，是两套方法论交汇最明显的一个选题。'},
+    {theme:'【业务交付①】第一节课结束后，我是怎么跟新学员沟通的（完整话术）',rank:'S',tags:['业务交付','核心圈·馆主','服务SOP'],rings:['biz'],crossRank:'S',why:'直接从服务交付场景中取材，最真实、最难被复制，是"业务交付"内容的典型范式。',hook:'"第一节课是续课的起点，不是结束——学员在这节课结束后10分钟内就决定要不要买下一阶段"。',angle:'用真实话术+场景拍摄，展示建立信任的具体动作。这类内容竞品几乎无法复制。'},
+    {theme:'【业务交付②】学员快到期了，我们内部怎么做续费提醒的（完整流程）',rank:'S',tags:['业务交付','核心圈·馆主','续费机制'],rings:['biz'],crossRank:'S',why:'续费流程是纯业务交付内容，只有真实在做的馆主才能拍，极强的真实性背书。',hook:'"不是学员不想续，是你没有在对的时间用对的方式提醒他们"。',angle:'展示内部续费提醒SOP的三个节点：课程剩余3次时触发、结课前2周主动约谈、结课当天的仪式感设计。'},
+    {theme:'【业务交付③】教练每周例会我们都讲什么？（真实内部会议记录）',rank:'A',tags:['业务交付','核心圈·馆主','团队管理'],rings:['biz'],crossRank:'A',why:'内部会议记录是极稀缺的真实内容，展示馆主"后台"的管理细节，建立专业度。',hook:'"教练例会不是走过场，是让团队朝一个方向用力的核心机制"。',angle:'可以是录制会议片段（脱敏）或还原会议内容：议题结构/数据复盘/问题解决方式。'},
+    {theme:'【业务交付④】一个新学员从进门到签单，我们的完整接待流程',rank:'S',tags:['业务交付','核心圈·馆主','转化SOP'],rings:['biz'],crossRank:'S',why:'接待转化流程是馆主最想偷学的核心业务能力，只有真实做到的人才能讲，权威性极强。',hook:'"体验课转化率低，90%不是课不好，是接待流程设计有问题"。',angle:'拆解5个接待节点：进门迎接/需求了解/体验课设计/课后沟通/产品介绍顺序。每个节点给出具体话术。'},
+    {theme:'【业务交付⑤】我在陪跑服务中发现的馆主最高频的3个误区',rank:'A',tags:['业务交付','三圈通吃','咨询洞察'],rings:['biz'],crossRank:'A',why:'来自60天陪跑服务中的真实观察，是业务交付的直接产物，同时为298元社区会员产品做内容铺垫。',hook:'"我在陪跑了20多家馆之后，发现大家都在犯同一个错误"。',angle:'内容来源于陪跑笔记，提炼最高频的3个误区，每个误区配解决方案。'},
+    {theme:'【对标账号①】为什么普拉提教练要不要培养，这是个战略问题',rank:'S',tags:['对标账号','核心圈·馆主','战略决策'],rings:['ref'],crossRank:'S',why:'从竞品高传播内容中提炼的选题方向，"培不培养教练"是馆主的高频决策困惑，传播力已被市场验证。',hook:'"培养了教练最后被挖走，不培养招不到合适的——这个死局真的有解"。',angle:'这是正在剪辑的视频选题！对标账号验证 + 正在制作 = 双重命中。拆解培养和不培养的成本对比。'},
+    {theme:'【对标账号②】卡项有效期设多久最合理？这个数字背后的逻辑',rank:'A',tags:['对标账号','核心圈·馆主','产品设计'],rings:['ref'],crossRank:'A',why:'卡项有效期是馆主设计产品时的高频困惑，对标账号中此类选题传播稳定。',hook:'"有效期设短了学员有压力不买，设长了馆主资金压力大——正确答案是两者都不选"。',angle:'从用户心理+现金流+续费率三个维度分析有效期设置逻辑。'},
+    {theme:'【对标账号③】健身行业的薪酬改革：为什么固定工资+提成模式正在失效',rank:'A',tags:['对标账号','核心圈·馆主','薪酬体系'],rings:['ref'],crossRank:'A',why:'薪酬系列是正在做的内容，对标账号验证了这个话题的市场需求，三环法和实际创作计划完全吻合。',hook:'"提成越给越高，教练的行为却越来越短期——是时候换一套激励逻辑了"。',angle:'批判传统提成制的根本缺陷，引出新的激励模型设计方向。'}
+  ]}
+];
+
+let cardIdx=0;
+function rankLabel(r){return r==='S'?'⭐⭐⭐ S级':r==='A'?'⭐⭐ A级':'⭐ B级';}
+function rankBg(r){return r==='S'?'rgba(248,113,113,.15)':r==='A'?'rgba(200,169,110,.15)':'rgba(100,116,139,.15)';}
+function rankColor(r){return r==='S'?'#f87171':r==='A'?'#c8a96e':'#94a3b8';}
+function ringLabel(r){
+  if(r==='hist')return'<span class="ring-tag ring-hist">🟠 历史验证</span>';
+  if(r==='biz')return'<span class="ring-tag ring-biz">🟢 业务交付</span>';
+  if(r==='ref')return'<span class="ring-tag ring-ref">🟣 对标账号</span>';
+  return'';
+}
+function crossBadge(cr){return cr==='SS'?'<span class="cross-badge">🏆 双S·必拍</span>':'';}
+
+GROUPS.forEach(g=>{
+  const el=document.getElementById(g.id);
+  if(!el)return;
+  el.innerHTML=g.items.map(t=>{
+    const idx=++cardIdx;
+    const ringsHtml=(t.rings||[]).map(ringLabel).join('');
+    const crossHtml=crossBadge(t.crossRank||'');
+    return`<div class="pool-card" id="pc${idx}" onclick="toggle(${idx})">
+      <div class="pc-head">
+        <div class="pc-idx" style="background:${g.bg};color:${g.color};border:1px solid ${g.border};">${String(idx).padStart(2,'0')}</div>
+        <div class="pc-main">
+          <div class="pc-theme">${t.theme}</div>
+          <div class="pc-pills">${t.tags.map(tag=>`<span class="pc-tag">${tag}</span>`).join('')}<span class="pc-rank" style="background:${rankBg(t.rank)};color:${rankColor(t.rank)};">${rankLabel(t.rank)}</span>${crossHtml}</div>
+          <div class="pc-rings">${ringsHtml}</div>
+        </div>
+        <span class="pc-chevron">▼</span>
+      </div>
+      <div class="pc-body"><div class="pc-inner"><div class="pc-detail">
+        <div class="pc-block" style="background:${rankBg(t.rank)};border-color:${rankColor(t.rank)}33;"><h4 style="color:${rankColor(t.rank)};">🎯 同心圆维度 · 人群 & 入池理由</h4><p>${t.why}</p></div>
+        <div class="pc-block"><h4>🪝 核心钩子</h4><p>${t.hook}</p></div>
+        <div class="pc-block pc-full" style="background:rgba(200,169,110,.04);border-color:rgba(200,169,110,.15);"><h4 style="color:#c8a96e;">📐 三环法验证 & 内容角度</h4><p>${t.angle}</p></div>
+      </div></div></div>
+    </div>`;
+  }).join('');
+});
+
+function toggle(i){document.getElementById('pc'+i).classList.toggle('open');}
+function goTo(id,btn){
+  document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+const sections=['g1','g2','g3','g4','g5','method'];
+const navBtns=document.querySelectorAll('.nav-btn');
+window.addEventListener('scroll',()=>{
+  let cur=0;
+  sections.forEach((id,i)=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-120)cur=i;});
+  navBtns.forEach((b,i)=>b.classList.toggle('active',i===cur));
+},{passive:true});
+</script>
+</body>
+</html>

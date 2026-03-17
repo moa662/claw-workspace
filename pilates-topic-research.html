@@ -232,8 +232,20 @@ footer{border-top:1px solid var(--bd);padding:24px;text-align:center;font-size:1
   .value-block,.pain-detail-block{grid-column:auto;}
   .channel-hero{flex-direction:column;}
 }
+/* 返回主页按钮 */
+.back-home-btn {
+  position: fixed; top: 16px; left: 16px; z-index: 999;
+  background: rgba(30,35,48,0.85); backdrop-filter: blur(8px);
+  border: 1px solid rgba(200,169,110,0.3); color: #c8a96e;
+  padding: 7px 14px; border-radius: 20px; font-size: 13px;
+  font-weight: 600; text-decoration: none;
+  transition: background 0.2s, border-color 0.2s; letter-spacing: 0.3px;
+}
+.back-home-btn:hover { background: rgba(200,169,110,0.15); border-color: rgba(200,169,110,0.6); }
 </style>
 <body>
+
+<a href="index.html" class="back-home-btn" title="返回主页">← 主页</a>
 
 <!-- HERO -->
 <div class="hero">
@@ -257,6 +269,7 @@ footer{border-top:1px solid var(--bd);padding:24px;text-align:center;font-size:1
     <button class="nav-btn" onclick="goTo('s4',this)">04 十大选题</button>
     <button class="nav-btn" onclick="goTo('s5',this)">05 追踪渠道</button>
     <button class="nav-btn" onclick="goTo('s6',this)">06 策略总结</button>
+    <button class="nav-btn" style="color:#a78bfa" onclick="goTo('s7',this)">🔥 社会热点</button>
   </div>
 </nav>
 
@@ -637,6 +650,47 @@ footer{border-top:1px solid var(--bd);padding:24px;text-align:center;font-size:1
   </div>
 </section>
 
+
+<!-- ══ S7 社会热点板块 ══ -->
+<section class="section" id="s7">
+  <div class="sec-head">
+    <div class="sec-num" style="background:linear-gradient(135deg,#7c3aed,#a78bfa);">07</div>
+    <div class="sec-title">
+      <h2>社会热点 × 选题创作</h2>
+      <p>从当下社会热点中挖掘普拉提B端选题灵感，借势传播，抢占内容先机</p>
+    </div>
+  </div>
+
+  <div style="background:rgba(167,139,250,.06);border:1px solid rgba(167,139,250,.2);border-radius:var(--radius);padding:16px 20px;margin-bottom:24px;font-size:13px;color:var(--t2);line-height:1.8;">
+    💡 <b style="color:#a78bfa">使用方法：</b>当社会上出现某个热点话题时，用"热点 × 行业"的思路找到切入角度。不是蹭热点，而是借热点让更多人看到你的专业视角。普拉提B端内容的优势是：行业视角稀缺，切入热点时有天然的差异化。
+  </div>
+
+  <!-- 热点分类 -->
+  <div id="hotTopicsGrid"></div>
+
+  <!-- 借势方法论 -->
+  <div style="margin-top:28px;">
+    <div style="font-size:13px;font-weight:700;color:#a78bfa;margin-bottom:14px;">📐 借势热点的3种方法</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;">
+      <div style="background:var(--s1);border:1px solid rgba(167,139,250,.2);border-radius:var(--radius);padding:16px;">
+        <div style="font-size:20px;margin-bottom:8px;">🎯</div>
+        <h4 style="font-size:14px;font-weight:600;margin-bottom:6px;">直接映射</h4>
+        <p style="font-size:12px;color:var(--t2);line-height:1.7;">热点话题本身就是你的选题。例如：降薪裁员潮热议 → "行业降薪潮来袭，普拉提教练的收入会受影响吗"。直接借用热点关键词，提升搜索可见度。</p>
+      </div>
+      <div style="background:var(--s1);border:1px solid rgba(167,139,250,.2);border-radius:var(--radius);padding:16px;">
+        <div style="font-size:20px;margin-bottom:8px;">🔄</div>
+        <h4 style="font-size:14px;font-weight:600;margin-bottom:6px;">行业迁移</h4>
+        <p style="font-size:12px;color:var(--t2);line-height:1.7;">其他行业的热点话题在普拉提行业的对应版本。例如：咖啡行业"卷价格"讨论 → "普拉提馆的价格战为什么比咖啡行业更伤人"。借助热点框架，降低认知门槛。</p>
+      </div>
+      <div style="background:var(--s1);border:1px solid rgba(167,139,250,.2);border-radius:var(--radius);padding:16px;">
+        <div style="font-size:20px;margin-bottom:8px;">💬</div>
+        <h4 style="font-size:14px;font-weight:600;margin-bottom:6px;">反向解读</h4>
+        <p style="font-size:12px;color:var(--t2);line-height:1.7;">对热点事件给出专业领域的反直觉解读。例如：经济下行讨论 → "经济不好的时候，为什么普拉提馆反而更容易留住客户"。反常识角度 + 热点话题 = 双倍传播力。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 </div>
 <footer>普拉提B端内容选题研究报告 v3 · 双维度选题评级（同心圆 × 三环法）· 数据更新至2026年3月 · 以微信视频号为核心平台</footer>
 
@@ -917,7 +971,7 @@ function goTo(id,btn){
 }
 
 // scroll spy
-const secs=['s1','s2','s3','s4','s5','s6'];
+const secs=['s1','s2','s3','s4','s5','s6','s7'];
 const navBtns=document.querySelectorAll('.nav-btn');
 window.addEventListener('scroll',()=>{
   let cur=0;
@@ -928,8 +982,161 @@ window.addEventListener('scroll',()=>{
   navBtns.forEach((b,i)=>b.classList.toggle('active',i===cur));
 },{passive:true});
 
+// ── 社会热点数据 ──
+const HOT_TOPICS = [
+  {
+    category:'💼 就业与职场',
+    color:'#f87171',
+    heat:'🔥🔥🔥🔥🔥',
+    topics:[
+      {
+        title:'裁员潮 & 职场降薪',
+        heat:'极热',
+        desc:'大厂降薪、裁员潮持续讨论，职场焦虑情绪高涨。',
+        angle:'借势角度：职场人寻求副业/转型 → "从大厂离职后，我为什么选择做普拉提创业"；或"职场降薪潮下，普拉提教练的收入稳定性如何"',
+        type:'直接映射'
+      },
+      {
+        title:'副业热 & 斜杠青年',
+        heat:'持续热',
+        desc:'越来越多人在主业之外探索副业，副业讨论持续活跃。',
+        angle:'借势角度："我用普拉提做了什么副业，每月多收入XX元"；或"哪类普拉提教练最适合兼职创业"',
+        type:'直接映射'
+      }
+    ]
+  },
+  {
+    category:'💪 健康养生',
+    color:'#4ade80',
+    heat:'🔥🔥🔥🔥🔥',
+    topics:[
+      {
+        title:'女性健康 & 体态管理',
+        heat:'持续热',
+        desc:'女性健康意识提升，骨盆底、产后修复、体态纠正持续是热议话题。',
+        angle:'借势角度：从C端内容借力 → "作为馆主，我见过最多女性体态问题是这个"，顺势引出B端服务能力的专业背书。',
+        type:'行业迁移'
+      },
+      {
+        title:'反内卷 & 慢生活',
+        heat:'上升中',
+        desc:'"反内卷"、"松弛感"成为社会热词，慢节奏生活方式受追捧。',
+        angle:'借势角度："开一家普拉提馆，是我脱离内卷最好的决定"；或"为什么高压职场人越来越多选择普拉提"。',
+        type:'直接映射'
+      },
+      {
+        title:'中老年健康市场崛起',
+        heat:'上升中',
+        desc:'老龄化加深，50+人群健康消费意愿强，银发经济备受关注。',
+        angle:'借势角度："银发经济来了，普拉提馆如何抓住50岁以上客群"；或"我们馆学员平均年龄45岁，这是我做对了的事"。',
+        type:'行业迁移'
+      }
+    ]
+  },
+  {
+    category:'💰 消费与经济',
+    color:'#fbbf24',
+    heat:'🔥🔥🔥🔥',
+    topics:[
+      {
+        title:'消费降级 & 理性消费',
+        heat:'持续热',
+        desc:'消费降级讨论持续，用户越来越理性，"花钱要值得"成主流心态。',
+        angle:'借势角度：反向切入 → "消费降级下，为什么高端普拉提馆的续费率反而更高"；或"你的客户不是没钱，是觉得不值——问题在这里"。',
+        type:'反向解读'
+      },
+      {
+        title:'实体店寒冬 & 存活率',
+        heat:'持续热',
+        desc:'实体店倒闭潮讨论不断，创业风险讨论热度居高不下。',
+        angle:'借势角度："实体店倒闭潮里，普拉提馆为什么存活率比餐饮更高/更低"；或"2026年实体创业，我给你3个真实的预警信号"。',
+        type:'直接映射'
+      },
+      {
+        title:'价格战 & 同质化竞争',
+        heat:'持续热',
+        desc:'各行业价格战加剧，消费品、服务业都在内卷降价。',
+        angle:'借势角度："为什么我的普拉提馆不降价，续费率反而提高了"——借助全行业价格战背景，让你的反常识内容更有说服力。',
+        type:'反向解读'
+      }
+    ]
+  },
+  {
+    category:'🤖 AI与数字化',
+    color:'#60a5fa',
+    heat:'🔥🔥🔥🔥',
+    topics:[
+      {
+        title:'AI工具普及 & 效率革命',
+        heat:'极热',
+        desc:'ChatGPT、AI绘图等工具普及，各行业数字化转型加速讨论。',
+        angle:'借势角度："我用AI帮我做了这3件事，每周省了6小时"——结合普拉提馆经营场景讲AI工具的实际用法，接地气，传播力强。',
+        type:'行业迁移'
+      },
+      {
+        title:'小程序 & 数字化运营',
+        heat:'上升中',
+        desc:'私域运营、小程序预约、会员管理系统成为实体店数字化标配话题。',
+        angle:'借势角度："用了约课小程序6个月，我发现最有价值的不是预约功能"——用真实体验切入数字化话题，制造行业稀缺内容。',
+        type:'直接映射'
+      }
+    ]
+  },
+  {
+    category:'🧠 创业与女性',
+    color:'#a78bfa',
+    heat:'🔥🔥🔥',
+    topics:[
+      {
+        title:'女性创业浪潮',
+        heat:'持续热',
+        desc:'女性独立创业、财务自由讨论持续活跃，30-45岁女性创业意愿提升。',
+        angle:'借势角度："35岁女性创业开普拉提馆，3年后我的真实感受"；或"女性创业为什么更适合做服务型生意"。强IP人设与热点完美契合。',
+        type:'直接映射'
+      },
+      {
+        title:'中年危机 & 人生转型',
+        heat:'上升中',
+        desc:'40岁转行、人到中年的职场危机讨论，情绪价值内容受关注。',
+        angle:'借势角度："40岁辞职开馆，我最想对5年前的自己说什么"——情感+创业复盘双线，天然高互动。',
+        type:'直接映射'
+      }
+    ]
+  }
+];
+
+function renderHotTopics(){
+  const el = document.getElementById('hotTopicsGrid');
+  if(!el) return;
+  el.innerHTML = HOT_TOPICS.map(cat=>`
+    <div style="margin-bottom:24px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <div style="width:4px;height:20px;background:${cat.color};border-radius:2px;flex-shrink:0;"></div>
+        <span style="font-size:14px;font-weight:700;color:${cat.color};">${cat.category}</span>
+        <span style="font-size:13px;">${cat.heat}</span>
+        <div style="flex:1;height:1px;background:${cat.color}22;"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;">
+        ${cat.topics.map(t=>`
+          <div style="background:var(--s1);border:1px solid var(--bd);border-radius:var(--radius);padding:15px 17px;border-left:3px solid ${cat.color};">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+              <span style="font-size:14px;font-weight:600;">${t.title}</span>
+              <span style="font-size:10px;padding:2px 7px;border-radius:3px;background:${cat.color}18;color:${cat.color};border:1px solid ${cat.color}33;">${t.type}</span>
+            </div>
+            <p style="font-size:12px;color:var(--t3);margin-bottom:10px;line-height:1.6;">${t.desc}</p>
+            <div style="background:rgba(167,139,250,.07);border:1px solid rgba(167,139,250,.15);border-radius:8px;padding:10px 12px;">
+              <div style="font-size:10px;font-weight:600;color:#a78bfa;margin-bottom:5px;">💡 创作角度建议</div>
+              <p style="font-size:12px;color:var(--t2);line-height:1.7;">${t.angle}</p>
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
 renderPains();
 renderTopics();
+renderHotTopics();
 </script>
 </body>
 </html>

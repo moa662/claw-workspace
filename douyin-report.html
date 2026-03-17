@@ -115,42 +115,58 @@ body{background:var(--bg);color:var(--t1);font-family:'PingFang SC','Microsoft Y
 .card-head .ico{font-size:17px;}
 
 /* ── 健康评分 ── */
-.health-layout{display:flex;gap:20px;align-items:flex-start;}
+.health-layout{display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:start;}
+@media(max-width:700px){.health-layout{grid-template-columns:1fr;}}
 .score-circle{
-  width:120px;height:120px;border-radius:50%;flex-shrink:0;
+  width:160px;height:160px;border-radius:50%;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  border:4px solid var(--bd2);position:relative;
+  border:5px solid var(--bd2);position:relative;margin:0 auto;
 }
-.score-circle.good{border-color:var(--g1);box-shadow:0 0 24px rgba(0,184,148,.2);}
-.score-circle.warn{border-color:var(--y1);box-shadow:0 0 24px rgba(253,203,110,.2);}
-.score-circle.bad{border-color:var(--r1);box-shadow:0 0 24px rgba(225,112,85,.2);}
-.score-num{font-size:32px;font-weight:900;}
+.score-circle.good{border-color:var(--g1);box-shadow:0 0 32px rgba(0,184,148,.25);}
+.score-circle.warn{border-color:var(--y1);box-shadow:0 0 32px rgba(253,203,110,.25);}
+.score-circle.bad{border-color:var(--r1);box-shadow:0 0 32px rgba(225,112,85,.25);}
+.score-num{font-size:48px;font-weight:900;line-height:1;}
 .score-num.good{color:var(--g1);}
 .score-num.warn{color:var(--y1);}
 .score-num.bad{color:var(--r1);}
-.score-text{font-size:11px;color:var(--t3);}
-.score-details{flex:1;}
-.score-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
-.score-row-label{font-size:12px;width:60px;flex-shrink:0;color:var(--t2);}
-.score-bar-wrap{flex:1;height:6px;background:var(--s3);border-radius:3px;overflow:hidden;}
-.score-bar{height:100%;border-radius:3px;transition:width .8s ease;}
-.bar-good{background:var(--g1);}
-.bar-warn{background:var(--y1);}
-.bar-bad{background:var(--r1);}
-.score-row-val{font-size:11px;color:var(--t3);width:30px;text-align:right;}
+.score-label{font-size:14px;font-weight:600;margin-top:4px;}
+.score-label.bad{color:var(--r1);}
+.score-label.warn{color:var(--y1);}
+.score-label.good{color:var(--g1);}
+.score-sub{font-size:11px;color:var(--t3);margin-top:2px;}
+
+/* 指标卡片网格 */
+.health-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+@media(max-width:900px){.health-cards{grid-template-columns:repeat(2,1fr);}}
+.hc{border-radius:10px;padding:12px 14px;background:var(--s2);}
+.hc-label{font-size:12px;color:var(--t3);margin-bottom:6px;}
+.hc-score-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.hc-val{font-size:22px;font-weight:800;}
+.hc-val.good{color:var(--g1);}
+.hc-val.warn{color:var(--y1);}
+.hc-val.bad{color:var(--r1);}
+.hc-tag{font-size:11px;padding:2px 8px;border-radius:6px;}
+.hc-tag.good{background:rgba(0,184,148,.12);color:var(--g1);}
+.hc-tag.warn{background:rgba(253,203,110,.12);color:var(--y1);}
+.hc-tag.bad{background:rgba(225,112,85,.12);color:var(--r1);}
+.hc-track{height:6px;background:var(--s3);border-radius:3px;overflow:hidden;}
+.hc-bar{height:100%;border-radius:3px;}
+.hc-bar.good{background:var(--g1);}
+.hc-bar.warn{background:var(--y1);}
+.hc-bar.bad{background:var(--r1);}
 
 /* ── 视频列表 ── */
 .video-table{width:100%;border-collapse:collapse;}
 .video-table th{
-  text-align:left;padding:9px 12px;font-size:11px;font-weight:600;
+  text-align:left;padding:11px 14px;font-size:13px;font-weight:600;
   color:var(--t3);letter-spacing:.5px;border-bottom:1px solid var(--bd);
 }
-.video-table td{padding:10px 12px;font-size:12px;border-bottom:1px solid rgba(37,45,66,.5);vertical-align:middle;}
+.video-table td{padding:12px 14px;font-size:14px;border-bottom:1px solid rgba(37,45,66,.5);vertical-align:middle;}
 .video-table tr:last-child td{border-bottom:none;}
 .video-table tr:hover td{background:var(--s2);}
-.v-title{font-size:13px;font-weight:500;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.v-date{color:var(--t3);font-size:11px;}
-.grade{padding:3px 9px;border-radius:8px;font-size:11px;font-weight:700;}
+.v-title{font-size:14px;font-weight:500;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.v-date{color:var(--t3);font-size:12px;}
+.grade{padding:4px 10px;border-radius:8px;font-size:13px;font-weight:700;}
 .grade-a{background:rgba(0,184,148,.15);color:var(--g1);}
 .grade-b{background:rgba(116,185,255,.12);color:var(--b1);}
 .grade-c{background:rgba(253,203,110,.12);color:var(--y1);}
@@ -158,6 +174,15 @@ body{background:var(--bg);color:var(--t1);font-family:'PingFang SC','Microsoft Y
 .num-up{color:var(--g1);}
 .num-warn{color:var(--y1);}
 .num-bad{color:var(--r1);}
+
+/* ── 指标进度条（数据明细用）── */
+.bar-cell{display:flex;align-items:center;gap:8px;min-width:120px;}
+.bar-cell .val{font-size:14px;font-weight:600;width:38px;flex-shrink:0;}
+.bar-track{flex:1;height:8px;background:var(--s3);border-radius:4px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:4px;transition:width .6s ease;}
+.fill-good{background:var(--g1);}
+.fill-warn{background:var(--y1);}
+.fill-bad{background:var(--r1);}
 
 /* ── 趋势图 ── */
 .chart-wrap{height:200px;position:relative;}
@@ -225,10 +250,22 @@ body{background:var(--bg);color:var(--t1);font-family:'PingFang SC','Microsoft Y
 .no-data-icon{font-size:48px;margin-bottom:16px;}
 .no-data h3{font-size:15px;font-weight:600;margin-bottom:8px;color:var(--t2);}
 .no-data p{font-size:13px;color:var(--t3);line-height:1.7;}
+/* 返回主页按钮 */
+.back-home-btn {
+  position: fixed; top: 16px; left: 16px; z-index: 999;
+  background: rgba(30,35,48,0.85); backdrop-filter: blur(8px);
+  border: 1px solid rgba(200,169,110,0.3); color: #c8a96e;
+  padding: 7px 14px; border-radius: 20px; font-size: 13px;
+  font-weight: 600; text-decoration: none;
+  transition: background 0.2s, border-color 0.2s; letter-spacing: 0.3px;
+}
+.back-home-btn:hover { background: rgba(200,169,110,0.15); border-color: rgba(200,169,110,0.6); }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
+
+<a href="index.html" class="back-home-btn" title="返回主页">← 主页</a>
 
 <!-- Header -->
 <div class="header">

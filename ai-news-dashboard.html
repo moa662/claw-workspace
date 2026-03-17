@@ -784,9 +784,21 @@
       border-radius: 3px;
       font-weight: 500;
     }
+  /* 返回主页按钮 */
+  .back-home-btn {
+    position: fixed; top: 16px; left: 16px; z-index: 999;
+    background: rgba(30,35,48,0.85); backdrop-filter: blur(8px);
+    border: 1px solid rgba(200,169,110,0.3); color: #c8a96e;
+    padding: 7px 14px; border-radius: 20px; font-size: 13px;
+    font-weight: 600; text-decoration: none;
+    transition: background 0.2s, border-color 0.2s; letter-spacing: 0.3px;
+  }
+  .back-home-btn:hover { background: rgba(200,169,110,0.15); border-color: rgba(200,169,110,0.6); }
   </style>
 </head>
 <body>
+
+<a href="index.html" class="back-home-btn" title="返回主页">← 主页</a>
 
 <!-- HEADER -->
 <header>
