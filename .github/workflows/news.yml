@@ -8,6 +8,7 @@ on:
     # 允许手动触发（测试用）
 
 jobs:
+  # ── 每日要闻（daily-news.html 用）──────────────────────────
   fetch-news:
     runs-on: ubuntu-latest
     permissions:
@@ -22,7 +23,7 @@ jobs:
         with:
           node-version: "20"
 
-      - name: 运行新闻抓取脚本
+      - name: 运行每日要闻抓取脚本
         env:
           DSAPIKEY: ${{ secrets.DSAPIKEY }}
         run: node scripts/fetch-news.js
@@ -32,5 +33,38 @@ jobs:
           git config user.name "Claw NewsBot"
           git config user.email "bot@claw-workspace"
           git add news-data.json
-          git diff --cached --quiet || git commit -m "📰 每日新闻更新 $(date +'%Y-%m-%d %H:%M')"
+          git diff --cached --quiet || git commit -m "📰 每日要闻更新 $(date +'%Y-%m-%d %H:%M')"
+          git push
+
+  # ── AI 简报（ai-news-dashboard.html 用）────────────────────
+  fetch-ai-news:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    # 等 fetch-news 跑完再跑，避免 git push 冲突
+    needs: fetch-news
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          # 拉最新，包含 fetch-news 刚推的提交
+          ref: main
+
+      - name: 配置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: 运行 AI 简报抓取脚本
+        env:
+          DSAPIKEY: ${{ secrets.DSAPIKEY }}
+        run: node scripts/fetch-ai-news.js
+
+      - name: 提交并推送 ai-news-data.json
+        run: |
+          git config user.name "Claw NewsBot"
+          git config user.email "bot@claw-workspace"
+          git add ai-news-data.json
+          git diff --cached --quiet || git commit -m "🤖 AI简报更新 $(date +'%Y-%m-%d %H:%M')"
           git push

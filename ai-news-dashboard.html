@@ -1183,9 +1183,28 @@ const ARCHIVE = {
 };
 
 // ─────────────────────────────────────────
-//  INIT
+//  INIT（优先从 ai-news-data.json 加载数据）
 // ─────────────────────────────────────────
-function init() {
+async function init() {
+  // 尝试加载远程 JSON 数据
+  try {
+    const res = await fetch('ai-news-data.json?t=' + Date.now());
+    if (res.ok) {
+      const json = await res.json();
+      if (Array.isArray(json.news) && json.news.length > 0) {
+        // 替换全局 NEWS_DATA
+        NEWS_DATA.length = 0;
+        json.news.forEach(n => NEWS_DATA.push(n));
+        console.log(`✅ 已从 ai-news-data.json 加载 ${NEWS_DATA.length} 条新闻（更新于 ${json.updatedAtCN || json.updatedAt}）`);
+        // 更新 live dot 旁的时间提示
+        const liveEl = document.querySelector('.live-dot');
+        if (liveEl && json.updatedAtCN) liveEl.title = `最后更新：${json.updatedAtCN}`;
+      }
+    }
+  } catch(e) {
+    console.warn('⚠️ ai-news-data.json 加载失败，使用内置数据:', e.message);
+  }
+
   // 每日一语
   const q = getTodayQuote();
   document.getElementById('quoteText').textContent = q.text;
