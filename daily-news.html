@@ -162,8 +162,8 @@
 
   /* ── 新闻列表 ── */
   .news-grid {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
   }
   .news-card {
@@ -738,7 +738,7 @@
     <div class="section-header">
       <span class="section-icon">🌍</span>
       <span class="section-title">国际局势</span>
-      <span class="section-count">4 条</span>
+      <span class="section-count">5 条</span>
     </div>
     <div class="news-grid">
       <div class="news-card">
@@ -749,7 +749,7 @@
       <div class="news-card">
         <div class="card-top"><span class="news-tag tag-blue">中美关系</span><span class="card-date">3月14–17日</span></div>
         <div class="news-title">中美经贸磋商在巴黎取得初步共识，同意建立双边合作机制</div>
-        <div class="news-desc">3月14日至17日，中美经贸团队在法国巴黎举行磋商，就关税水平、可能的关税延期等议题取得初步共识，双方同意探讨建立"促进双边贸易投资合作的工作机制"。中方对美方301调查表示强烈反对。</div>
+        <div class="news-desc">中美经贸团队在法国巴黎举行磋商，就关税水平、可能的关税延期等议题取得初步共识，双方同意探讨建立"促进双边贸易投资合作的工作机制"。中方对美方301调查表示强烈反对。</div>
       </div>
       <div class="news-card">
         <div class="card-top"><span class="news-tag tag-orange">中东冲突</span><span class="card-date">3月15日</span></div>
@@ -761,6 +761,11 @@
         <div class="news-title">外交部：中美就特朗普总统访华保持沟通，元首外交发挥战略引领作用</div>
         <div class="news-desc">外交部发言人林剑在例行记者会上表示，中美双方就特朗普总统访华事保持沟通，元首外交对中美关系发挥不可替代的战略引领作用，推动双边关系稳定发展。</div>
       </div>
+      <div class="news-card">
+        <div class="card-top"><span class="news-tag tag-yellow">欧洲防务</span><span class="card-date">3月17日</span></div>
+        <div class="news-title">欧盟峰会通过"重新武装欧洲"计划，未来4年军费增支8000亿欧元</div>
+        <div class="news-desc">欧盟27国领导人在布鲁塞尔峰会就"欧洲防务白皮书"达成一致，计划在2026–2030年额外增加8000亿欧元防务开支，同步激活《里斯本条约》第42.7条共同防御条款，标志欧洲战略自主进入实质推进阶段。</div>
+      </div>
     </div>
   </div>
 
@@ -769,7 +774,7 @@
     <div class="section-header">
       <span class="section-icon">🏛️</span>
       <span class="section-title">国内要闻</span>
-      <span class="section-count">4 条</span>
+      <span class="section-count">5 条</span>
     </div>
     <div class="news-grid">
       <div class="news-card">
@@ -792,6 +797,11 @@
         <div class="news-title">市场监管总局启动网络食品安全专项整治，严查直播带货乱象</div>
         <div class="news-desc">响应央视3·15曝光，市场监管总局即日部署"网络食品安全合规提质系列行动"，重点整治直播带货乱象、入网食品资质造假、虚假宣传等违法行为。同步落实《直播电商经营者食品安全责任规定》。</div>
       </div>
+      <div class="news-card">
+        <div class="card-top"><span class="news-tag tag-green">消费促进</span><span class="card-date">3月17日</span></div>
+        <div class="news-title">商务部：以旧换新补贴扩围至文娱电子，一季度家电销售同比增22%</div>
+        <div class="news-desc">商务部公布数据，2026年以旧换新政策覆盖品类扩围至平板、影音设备等文娱电子，一季度纳入补贴范围的家电销售额同比增长22%，全年预计拉动消费超5000亿元，政策乘数效应持续显现。</div>
+      </div>
     </div>
   </div>
 
@@ -800,13 +810,13 @@
     <div class="section-header">
       <span class="section-icon">💻</span>
       <span class="section-title">科技产业</span>
-      <span class="section-count">3 条</span>
+      <span class="section-count">5 条</span>
     </div>
     <div class="news-grid">
       <div class="news-card">
         <div class="card-top"><span class="news-tag tag-purple">AI芯片</span><span class="card-date">3月17日</span></div>
         <div class="news-title">黄仁勋GTC演讲：发布Vera Rubin平台，Token速率2年提升350倍</div>
-        <div class="news-desc">黄仁勋在GTC 2026发表主题演讲，正式发布Vera Rubin全液冷AI计算平台，安装时间从2天缩至2小时，在1GW功耗下Token生成速率较前代提升350倍；同步预告下一代Feynman架构及太空数据中心方案，预测2027年营收至少万亿美元。</div>
+        <div class="news-desc">黄仁勋在GTC 2026发表主题演讲，正式发布Vera Rubin全液冷AI计算平台，安装时间从2天缩至2小时，在1GW功耗下Token生成速率较前代提升350倍；同步预告下一代Feynman架构及太空数据中心方案。</div>
       </div>
       <div class="news-card">
         <div class="card-top"><span class="news-tag tag-purple">AI软件</span><span class="card-date">3月17日</span></div>
@@ -818,6 +828,16 @@
         <div class="news-title">工信部启动氢能多场景规模化应用试点，目标2030年终端用氢≤25元/公斤</div>
         <div class="news-desc">工信部等三部门联合印发通知，以城市群为主体开展氢能多场景规模化应用试点，目标到2030年终端用氢价格降至25元/公斤以下，覆盖交通、工业、储能等场景，新能源产业链再获政策加码。</div>
       </div>
+      <div class="news-card">
+        <div class="card-top"><span class="news-tag tag-blue">国产替代</span><span class="card-date">3月17日</span></div>
+        <div class="news-title">华为昇腾910C量产出货，单季交付量突破50万片</div>
+        <div class="news-desc">受英伟达对华出口管制持续收紧影响，华为昇腾910C本季交付量首次突破50万片，腾讯、字节、百度等头部厂商均已签订大规模采购协议，国产算力替代进入加速落地阶段。</div>
+      </div>
+      <div class="news-card">
+        <div class="card-top"><span class="news-tag tag-purple">大模型</span><span class="card-date">3月16日</span></div>
+        <div class="news-title">DeepSeek V4发布，多模态推理评测超越GPT-5基础版</div>
+        <div class="news-desc">DeepSeek发布V4多模态大模型，在数学推理、代码生成、图表理解三项主流评测中超越GPT-5基础版，API价格较主流对手低80%，再度引发国内外科技界广泛关注。</div>
+      </div>
     </div>
   </div>
 
@@ -826,23 +846,33 @@
     <div class="section-header">
       <span class="section-icon">📊</span>
       <span class="section-title">金融市场</span>
-      <span class="section-count">3 条</span>
+      <span class="section-count">5 条</span>
     </div>
     <div class="news-grid">
       <div class="news-card">
         <div class="card-top"><span class="news-tag tag-green">A股</span><span class="card-date">3月16日</span></div>
         <div class="news-title">A股收评：创业板涨1.41%，存储芯片爆发，全天成交2.34万亿</div>
-        <div class="news-desc">3月16日A股三大指数分化，上证微跌0.26%，深证涨0.19%，创业板大涨1.41%；存储芯片概念集体爆发，白酒板块逆势拉升，PCB概念活跃，全天超2800只个股上涨，成交额2.34万亿元。</div>
+        <div class="news-desc">A股三大指数分化，上证微跌0.26%，深证涨0.19%，创业板大涨1.41%；存储芯片概念集体爆发，白酒板块逆势拉升，PCB概念活跃，全天超2800只个股上涨，成交额2.34万亿元。</div>
       </div>
       <div class="news-card">
         <div class="card-top"><span class="news-tag tag-yellow">加密货币</span><span class="card-date">3月17日</span></div>
         <div class="news-title">比特币升破73000美元，以太坊涨近5%，避险+投机双轮驱动</div>
-        <div class="news-desc">比特币日内涨2.09%突破73000美元，以太坊涨3.8%升破2200美元，加密市场受中东局势避险情绪和风险偏好双重推动。VIX指数报27.19，美元指数维持100.35附近，美国10年期国债收益率微升至4.285%。</div>
+        <div class="news-desc">比特币日内涨2.09%突破73000美元，以太坊涨3.8%升破2200美元，加密市场受中东局势避险情绪和风险偏好双重推动。VIX指数报27.19，美元指数维持100.35附近。</div>
       </div>
       <div class="news-card">
         <div class="card-top"><span class="news-tag tag-blue">企业动态</span><span class="card-date">3月16日</span></div>
         <div class="news-title">摩根士丹利上调陕西煤业评级，海洋经济板块迎政策催化</div>
-        <div class="news-desc">摩根士丹利上调陕西煤业评级，油价高企利好能源链；《求是》杂志刊文推动海洋经济高质量发展，海工装备、海上风电、港口航运板块获政策加持；上海商业用房贷款首付比降至30%，楼市定向支持持续。</div>
+        <div class="news-desc">摩根士丹利上调陕西煤业评级，油价高企利好能源链；《求是》杂志刊文推动海洋经济高质量发展，海工装备、海上风电、港口航运板块获政策加持；上海商业用房贷款首付比降至30%。</div>
+      </div>
+      <div class="news-card">
+        <div class="card-top"><span class="news-tag tag-orange">大宗商品</span><span class="card-date">3月17日</span></div>
+        <div class="news-title">黄金现货突破3180美元创历史新高，避险需求持续推升贵金属</div>
+        <div class="news-desc">受中东局势升温及美元走弱影响，现货黄金盘中突破3180美元/盎司再创历史新高，白银同步涨超3%，COMEX黄金期货持仓量攀升至近两年峰值，机构资金持续涌入贵金属避险资产。</div>
+      </div>
+      <div class="news-card">
+        <div class="card-top"><span class="news-tag tag-blue">美联储</span><span class="card-date">3月17日</span></div>
+        <div class="news-title">美联储官员暗示年内降息窗口或推迟至9月，市场预期重新定价</div>
+        <div class="news-desc">美联储理事沃勒表示，在通胀尚未稳定回落至2%目标前，不宜过早启动降息；联邦基金期货显示市场对6月降息概率已由55%降至32%，10年期美债收益率随之回升至4.31%。</div>
       </div>
     </div>
   </div>
