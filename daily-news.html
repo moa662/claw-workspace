@@ -181,6 +181,19 @@
     border-color: rgba(255,255,255,0.12);
     transform: translateY(-1px);
   }
+  /* 卡片顶行：tag + 日期 */
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .card-date {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
   .news-tag {
     font-size: 10px;
     font-weight: 700;
@@ -188,7 +201,7 @@
     padding: 4px 9px;
     border-radius: 5px;
     white-space: nowrap;
-    align-self: flex-start;
+    flex-shrink: 0;
   }
   .tag-green  { color: var(--accent); background: var(--accent-dim); }
   .tag-orange { color: var(--warn); background: var(--warn-dim); }
@@ -343,6 +356,36 @@
     transition: color 0.2s;
   }
   .footer a:hover { color: var(--accent); }
+
+  /* ── 固定更新徽章 ── */
+  .update-badge {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--surface);
+    border: 1px solid var(--accent-border);
+    border-radius: 10px;
+    padding: 9px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    z-index: 999;
+    backdrop-filter: blur(8px);
+  }
+  .update-badge .badge-dot {
+    width: 7px; height: 7px;
+    background: var(--accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: pulse 2s infinite;
+  }
+  .update-badge .badge-time {
+    color: var(--accent);
+    font-weight: 600;
+  }
 </style>
 </head>
 <body>
@@ -548,24 +591,24 @@
     </div>
     <div class="news-grid">
       <div class="news-card">
-        <span class="news-tag tag-orange">能源危机</span>
+        <div class="card-top"><span class="news-tag tag-orange">能源危机</span><span class="card-date">3月17日</span></div>
         <div class="news-title">WTI盘中突破100美元，特朗普暗示打击伊朗哈尔克岛</div>
         <div class="news-desc">受伊朗战事持续影响，WTI原油盘中触及100美元/桶关口，布伦特高位震荡。特朗普在社交媒体暗示考虑打击伊朗主要石油出口港哈尔克岛，德国拒绝参与霍尔木兹护航，俄罗斯呼吁立即停火。</div>
       </div>
       <div class="news-card">
-        <span class="news-tag tag-blue">中美关系</span>
+        <div class="card-top"><span class="news-tag tag-blue">中美关系</span><span class="card-date">3月14–17日</span></div>
         <div class="news-title">中美经贸磋商在巴黎取得初步共识，同意建立双边合作机制</div>
         <div class="news-desc">3月14日至17日，中美经贸团队在法国巴黎举行磋商，就关税水平、可能的关税延期等议题取得初步共识，双方同意探讨建立"促进双边贸易投资合作的工作机制"。中方对美方301调查表示强烈反对。</div>
       </div>
       <div class="news-card">
-        <span class="news-tag tag-orange">中东冲突</span>
+        <div class="card-top"><span class="news-tag tag-orange">中东冲突</span><span class="card-date">3月15日</span></div>
         <div class="news-title">伊朗重申不停火，冲突已导致美以部队伤亡约5000人</div>
         <div class="news-desc">伊朗伊斯兰革命卫队声称已累计发射约700枚导弹和3600架无人机，打击美军基地及以色列目标，美以部队死伤约5000人。伊朗新任最高领袖穆杰塔巴重申将向敌方索赔，拒绝停火。</div>
       </div>
       <div class="news-card">
-        <span class="news-tag tag-blue">国际外交</span>
+        <div class="card-top"><span class="news-tag tag-blue">国际外交</span><span class="card-date">3月16日</span></div>
         <div class="news-title">外交部：中美就特朗普总统访华保持沟通，元首外交发挥战略引领作用</div>
-        <div class="news-desc">3月16日，外交部发言人林剑在例行记者会上表示，中美双方就特朗普总统访华事保持沟通，元首外交对中美关系发挥不可替代的战略引领作用，推动双边关系稳定发展。</div>
+        <div class="news-desc">外交部发言人林剑在例行记者会上表示，中美双方就特朗普总统访华事保持沟通，元首外交对中美关系发挥不可替代的战略引领作用，推动双边关系稳定发展。</div>
       </div>
     </div>
   </div>
@@ -579,22 +622,22 @@
     </div>
     <div class="news-grid">
       <div class="news-card">
-        <span class="news-tag tag-green">政策部署</span>
+        <div class="card-top"><span class="news-tag tag-green">政策部署</span><span class="card-date">3月16日</span></div>
         <div class="news-title">国务院部署2026年六大重点任务，智能制造首入核心工作</div>
         <div class="news-desc">国务院总理李强主持召开国务院第十一次全体会议，部署六大重点任务：统一大市场建设、服务业扩能提质、加快发展新一代智能制造、重大基础设施建设、投资于人和民生、应对外部冲击挑战。</div>
       </div>
       <div class="news-card">
-        <span class="news-tag tag-blue">货币政策</span>
+        <div class="card-top"><span class="news-tag tag-blue">货币政策</span><span class="card-date">3月16日</span></div>
         <div class="news-title">央行开展5000亿元买断式逆回购，为2025年6月来首次缩量</div>
-        <div class="news-desc">3月16日央行开展5000亿元、182天买断式逆回购，当月有6000亿元到期，净回笼1000亿元，为2025年6月以来首次缩量续作。1-2月新增社融9.6万亿元，2月末M2同比增长9%。</div>
+        <div class="news-desc">央行开展5000亿元、182天买断式逆回购，当月有6000亿元到期，净回笼1000亿元，为2025年6月以来首次缩量续作。1-2月新增社融9.6万亿元，2月末M2同比增长9%。</div>
       </div>
       <div class="news-card">
-        <span class="news-tag tag-green">金融监管</span>
+        <div class="card-top"><span class="news-tag tag-green">金融监管</span><span class="card-date">3月16日</span></div>
         <div class="news-title">金融监管总局：加快建立与房地产新模式相适应的融资制度</div>
         <div class="news-desc">国家金融监管总局召开扩大会议，强调稳妥化解重点领域风险，守住中小金融机构不"爆雷"底线，发挥"保交房"白名单制度作用，加快建立与房地产发展新模式相适应的融资制度。</div>
       </div>
       <div class="news-card">
-        <span class="news-tag tag-orange">消费监管</span>
+        <div class="card-top"><span class="news-tag tag-orange">消费监管</span><span class="card-date">3月16日</span></div>
         <div class="news-title">市场监管总局启动网络食品安全专项整治，严查直播带货乱象</div>
         <div class="news-desc">响应央视3·15曝光，市场监管总局即日部署"网络食品安全合规提质系列行动"，重点整治直播带货乱象、入网食品资质造假、虚假宣传等违法行为。同步落实《直播电商经营者食品安全责任规定》。</div>
       </div>
@@ -610,17 +653,17 @@
     </div>
     <div class="news-grid">
       <div class="news-card">
-        <span class="news-tag tag-purple">AI芯片</span>
+        <div class="card-top"><span class="news-tag tag-purple">AI芯片</span><span class="card-date">3月17日</span></div>
         <div class="news-title">黄仁勋GTC演讲：发布Vera Rubin平台，Token速率2年提升350倍</div>
         <div class="news-desc">黄仁勋在GTC 2026发表主题演讲，正式发布Vera Rubin全液冷AI计算平台，安装时间从2天缩至2小时，在1GW功耗下Token生成速率较前代提升350倍；同步预告下一代Feynman架构及太空数据中心方案，预测2027年营收至少万亿美元。</div>
       </div>
       <div class="news-card">
-        <span class="news-tag tag-purple">AI软件</span>
+        <div class="card-top"><span class="news-tag tag-purple">AI软件</span><span class="card-date">3月17日</span></div>
         <div class="news-title">英伟达发布OpenClaw："智能体时代的操作系统"，推出Token经济定价</div>
         <div class="news-desc">黄仁勋发布OpenClaw，定位为企业构建AI智能体服务（AaaS）的基础平台，支持多模态输入和任务分解。同步推出分层Token定价（3美元至150美元/百万Token），宣称未来企业将为员工配置"Token预算"。</div>
       </div>
       <div class="news-card">
-        <span class="news-tag tag-green">产业政策</span>
+        <div class="card-top"><span class="news-tag tag-green">产业政策</span><span class="card-date">3月16日</span></div>
         <div class="news-title">工信部启动氢能多场景规模化应用试点，目标2030年终端用氢≤25元/公斤</div>
         <div class="news-desc">工信部等三部门联合印发通知，以城市群为主体开展氢能多场景规模化应用试点，目标到2030年终端用氢价格降至25元/公斤以下，覆盖交通、工业、储能等场景，新能源产业链再获政策加码。</div>
       </div>
@@ -636,17 +679,17 @@
     </div>
     <div class="news-grid">
       <div class="news-card">
-        <span class="news-tag tag-green">A股</span>
+        <div class="card-top"><span class="news-tag tag-green">A股</span><span class="card-date">3月16日</span></div>
         <div class="news-title">A股收评：创业板涨1.41%，存储芯片爆发，全天成交2.34万亿</div>
         <div class="news-desc">3月16日A股三大指数分化，上证微跌0.26%，深证涨0.19%，创业板大涨1.41%；存储芯片概念集体爆发，白酒板块逆势拉升，PCB概念活跃，全天超2800只个股上涨，成交额2.34万亿元。</div>
       </div>
       <div class="news-card">
-        <span class="news-tag tag-yellow">加密货币</span>
+        <div class="card-top"><span class="news-tag tag-yellow">加密货币</span><span class="card-date">3月17日</span></div>
         <div class="news-title">比特币升破73000美元，以太坊涨近5%，避险+投机双轮驱动</div>
         <div class="news-desc">比特币日内涨2.09%突破73000美元，以太坊涨3.8%升破2200美元，加密市场受中东局势避险情绪和风险偏好双重推动。VIX指数报27.19，美元指数维持100.35附近，美国10年期国债收益率微升至4.285%。</div>
       </div>
       <div class="news-card">
-        <span class="news-tag tag-blue">企业动态</span>
+        <div class="card-top"><span class="news-tag tag-blue">企业动态</span><span class="card-date">3月16日</span></div>
         <div class="news-title">摩根士丹利上调陕西煤业评级，海洋经济板块迎政策催化</div>
         <div class="news-desc">摩根士丹利上调陕西煤业评级，油价高企利好能源链；《求是》杂志刊文推动海洋经济高质量发展，海工装备、海上风电、港口航运板块获政策加持；上海商业用房贷款首付比降至30%，楼市定向支持持续。</div>
       </div>
@@ -658,5 +701,27 @@
   </div>
 
 </div>
+
+<!-- 固定更新徽章 -->
+<div class="update-badge" id="updateBadge">
+  <span class="badge-dot"></span>
+  <span>最后更新</span>
+  <span class="badge-time" id="badgeTime">--</span>
+</div>
+
+<script>
+  // 写死的最后更新时间（每次更新内容时同步改这一行）
+  const LAST_UPDATED = '2026-03-17 08:00';
+  document.getElementById('badgeTime').textContent = LAST_UPDATED;
+
+  // Header 日期也动态读取
+  const headerDate = document.querySelector('.header-date');
+  if (headerDate) {
+    const d = new Date(LAST_UPDATED);
+    const weekdays = ['周日','周一','周二','周三','周四','周五','周六'];
+    const label = `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日 · ${weekdays[d.getDay()]} · 更新于 ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+    headerDate.innerHTML = `<span class="live-dot"></span>${label}`;
+  }
+</script>
 </body>
 </html>
