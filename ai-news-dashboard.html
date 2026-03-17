@@ -33,7 +33,7 @@
 
     /* ─── HEADER ─── */
     header {
-      background: linear-gradient(135deg, #0d0f14 0%, #13182a 100%);
+      background: linear-gradient(135deg, #0a0d16 0%, #111827 60%, #0d1420 100%);
       border-bottom: 1px solid var(--border);
       padding: 0 24px;
       position: sticky;
@@ -44,27 +44,79 @@
     .header-inner {
       max-width: 1400px;
       margin: 0 auto;
-      height: 64px;
+      padding: 16px 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
     }
-    .logo {
+    /* 左侧品牌区 */
+    .header-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .brand-top {
       display: flex;
       align-items: center;
       gap: 10px;
-      flex-shrink: 0;
     }
     .logo-icon {
-      width: 36px; height: 36px;
+      width: 38px; height: 38px;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
-      border-radius: 8px;
+      border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
+      font-size: 20px;
+      box-shadow: 0 0 16px rgba(79,142,247,0.3);
     }
-    .logo h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
-    .logo span { color: var(--accent); }
+    .brand-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text);
+    }
+    .brand-title span { color: var(--accent); }
+    .brand-subtitle {
+      font-size: 11px;
+      color: var(--text3);
+      letter-spacing: 0.3px;
+      padding-left: 48px;
+    }
+    /* 中间每日一语 */
+    .header-quote {
+      flex: 1;
+      margin: 0 32px;
+      padding: 10px 18px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      border-left: 3px solid var(--accent);
+      min-width: 0;
+    }
+    .quote-label {
+      font-size: 10px;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .quote-text {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.5;
+      font-style: italic;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .quote-author {
+      font-size: 11px;
+      color: var(--text3);
+      margin-top: 3px;
+    }
+    .logo { display: none; } /* 兼容旧类名 */
 
     .header-meta {
       display: flex; align-items: center; gap: 16px;
@@ -77,6 +129,40 @@
       font-size: 12px;
       color: var(--text2);
     }
+    .today-count {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 12px;
+      color: var(--text2);
+    }
+    .today-count strong {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    /* 视图切换 */
+    .view-toggle {
+      display: flex;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .view-btn {
+      padding: 6px 10px;
+      border: none;
+      background: none;
+      color: var(--text3);
+      cursor: pointer;
+      font-size: 15px;
+      transition: all 0.2s;
+      line-height: 1;
+    }
+    .view-btn:hover { color: var(--text); background: var(--surface); }
+    .view-btn.active { color: var(--accent); background: rgba(79,142,247,0.12); }
     .live-dot {
       display: flex; align-items: center; gap: 6px;
       font-size: 12px; color: var(--green);
@@ -289,6 +375,17 @@
 
     /* News cards */
     .news-grid { display: flex; flex-direction: column; gap: 14px; }
+    .news-grid.grid-view {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .news-grid.grid-view .card-summary {
+      -webkit-line-clamp: 3;
+    }
+    @media (max-width: 1200px) {
+      .news-grid.grid-view { grid-template-columns: repeat(2, 1fr); }
+    }
 
     .news-card {
       background: var(--surface);
@@ -542,6 +639,151 @@
     }
     .empty-state .icon { font-size: 40px; margin-bottom: 12px; }
     .empty-state p { font-size: 14px; }
+
+    /* ─── 日期分组 ─── */
+    .date-group { margin-bottom: 8px; }
+    .date-group-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0 8px;
+      margin-bottom: 4px;
+    }
+    .date-group-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text3);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .date-group-label.today { color: var(--accent); }
+    .date-group-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .date-group-count {
+      font-size: 11px;
+      color: var(--text3);
+      background: var(--surface2);
+      padding: 2px 8px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+
+    /* ─── 榜单模块 ─── */
+    .charts-section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px 24px 0;
+    }
+    .charts-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text3);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .charts-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    @media (max-width: 1100px) {
+      .charts-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .chart-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .chart-panel-head {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .chart-panel-icon { font-size: 15px; }
+    .chart-panel-title {
+      font-size: 13px;
+      font-weight: 700;
+      flex: 1;
+    }
+    .chart-panel-count {
+      font-size: 11px;
+      color: var(--text3);
+      background: var(--surface2);
+      padding: 2px 7px;
+      border-radius: 8px;
+    }
+    .chart-list {
+      padding: 6px 0;
+      height: 340px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+    .chart-list::-webkit-scrollbar { width: 4px; }
+    .chart-list::-webkit-scrollbar-track { background: transparent; }
+    .chart-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+    .chart-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 14px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .chart-item:hover { background: var(--surface2); }
+    .chart-rank {
+      font-size: 12px;
+      font-weight: 700;
+      min-width: 18px;
+      text-align: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .chart-rank.rank-1 { color: #fbbf24; }
+    .chart-rank.rank-2 { color: #94a3b8; }
+    .chart-rank.rank-3 { color: #cd7c3a; }
+    .chart-rank.rank-other { color: var(--text3); }
+    .chart-item-body { flex: 1; min-width: 0; }
+    .chart-item-title {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--text);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .chart-item-meta {
+      font-size: 10px;
+      color: var(--text3);
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .chart-item-tag {
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-weight: 500;
+    }
   </style>
 </head>
 <body>
@@ -549,17 +791,38 @@
 <!-- HEADER -->
 <header>
   <div class="header-inner">
-    <div class="logo">
-      <div class="logo-icon">🤖</div>
-      <h1>AI <span>动态</span> 简报</h1>
+    <!-- 左：品牌 -->
+    <div class="header-brand">
+      <div class="brand-top">
+        <div class="logo-icon">🤖</div>
+        <div class="brand-title">AI<span>动态</span>简报</div>
+      </div>
+      <div class="brand-subtitle">全球科技AI资讯 · 实时更新</div>
     </div>
+    <!-- 中：每日一语 -->
+    <div class="header-quote">
+      <div class="quote-label">每日一语</div>
+      <div class="quote-text" id="quoteText"></div>
+      <div class="quote-author" id="quoteAuthor"></div>
+    </div>
+    <!-- 右：操作区 -->
     <div class="header-meta">
-      <div class="date-badge" id="headerDate"></div>
+      <div class="today-count">今日 <strong id="todayCount">—</strong> 条</div>
       <div class="live-dot">实时更新</div>
+      <div class="view-toggle">
+        <button class="view-btn active" id="viewList" onclick="setView('list')" title="列表视图">☰</button>
+        <button class="view-btn" id="viewGrid" onclick="setView('grid')" title="宫格视图">⊞</button>
+      </div>
       <button class="btn-load" style="padding:6px 14px;font-size:12px;border-radius:8px;" onclick="openArchive()">📂 历史存档</button>
     </div>
   </div>
 </header>
+
+<!-- 今日榜单（主内容上方） -->
+<div class="charts-section">
+  <div class="charts-title">今日榜单</div>
+  <div class="charts-grid" id="chartsGrid"></div>
+</div>
 
 <!-- LAYOUT -->
 <div class="layout">
@@ -647,22 +910,30 @@
 //  DATA
 // ─────────────────────────────────────────
 const COMPANIES = [
-  { id: 'all',       name: '全部',     color: '#4f8ef7', emoji: '🌐' },
-  { id: 'google',    name: 'Google',   color: '#ea4335', emoji: '🔵' },
-  { id: 'microsoft', name: 'Microsoft',color: '#00bcf2', emoji: '🪟' },
-  { id: 'meta',      name: 'Meta',     color: '#0668e1', emoji: '🦋' },
-  { id: 'openai',    name: 'OpenAI',   color: '#10a37f', emoji: '🧠' },
-  { id: 'anthropic', name: 'Anthropic',color: '#d97706', emoji: '🌊' },
-  { id: 'baidu',     name: '百度',     color: '#2932e1', emoji: '🔴' },
-  { id: 'alibaba',   name: '阿里巴巴', color: '#ff6a00', emoji: '🟠' },
-  { id: 'tencent',   name: '腾讯',     color: '#07c160', emoji: '🟢' },
-  { id: 'apple',     name: 'Apple',    color: '#a8a8a8', emoji: '🍎' },
+  { id: 'all',        name: '全部',          color: '#4f8ef7', emoji: '🌐' },
+  // 国际
+  { id: 'openai',     name: 'OpenAI',        color: '#10a37f', emoji: '🧠' },
+  { id: 'anthropic',  name: 'Anthropic',     color: '#d97706', emoji: '🌊' },
+  { id: 'google',     name: 'Google DeepMind',color: '#ea4335', emoji: '🔵' },
+  { id: 'meta',       name: 'Meta AI',       color: '#0668e1', emoji: '🦋' },
+  { id: 'microsoft',  name: 'Microsoft',     color: '#00bcf2', emoji: '🪟' },
+  { id: 'apple',      name: 'Apple',         color: '#a8a8a8', emoji: '🍎' },
+  { id: 'nvidia',     name: 'NVIDIA',        color: '#76b900', emoji: '⚡' },
+  { id: 'xai',        name: 'xAI',           color: '#ffffff', emoji: '🚀' },
+  // 国内
+  { id: 'deepseek',   name: 'DeepSeek',      color: '#4f8ef7', emoji: '🔷' },
+  { id: 'minimax',    name: 'MiniMax',       color: '#a855f7', emoji: '🟣' },
+  { id: 'zhipu',      name: '智谱AI',        color: '#06b6d4', emoji: '💎' },
+  { id: 'moonshot',   name: '月之暗面(Kimi)', color: '#f59e0b', emoji: '🌙' },
+  { id: 'bytedance',  name: '字节跳动',      color: '#fe2c55', emoji: '🎵' },
+  { id: 'alibaba',    name: '阿里(通义)',    color: '#ff6a00', emoji: '🟠' },
+  { id: 'huawei',     name: '华为',          color: '#cf0a2c', emoji: '🔴' },
 ];
 
 const NEWS_DATA = [
   {
     id: 1,
-    company: 'google',
+    company: 'nvidia',
     title: '黄仁勋GTC 2026主题演讲：英伟达宣布算力需求上调至万亿美元，发布Feynman 1.6nm架构与太空计算平台',
     tag: '技术突破',
     time: '2026-03-17',
@@ -698,7 +969,7 @@ const NEWS_DATA = [
   },
   {
     id: 4,
-    company: 'tencent',
+    company: 'zhipu',
     title: '智谱发布 GLM-5-Turbo：国产首款"Agent原生"模型，自研基准居国产第一',
     tag: '技术突破',
     time: '2026-03-16',
@@ -710,7 +981,7 @@ const NEWS_DATA = [
   },
   {
     id: 5,
-    company: 'tencent',
+    company: 'bytedance',
     title: '腾讯发布"龙虾管家"：为本地 AI Agent 打造企业级安全沙箱，率先适配微信生态',
     tag: '产品发布',
     time: '2026-03-16',
@@ -746,7 +1017,7 @@ const NEWS_DATA = [
   },
   {
     id: 8,
-    company: 'microsoft',
+    company: 'bytedance',
     title: '字节跳动暂停 Seedance 2.0 全球发布：法律合规挑战阻击旗下视频生成工具出海',
     tag: '战略合作',
     time: '2026-03-16',
@@ -758,7 +1029,7 @@ const NEWS_DATA = [
   },
   {
     id: 9,
-    company: 'baidu',
+    company: 'deepseek',
     title: '消息称 DeepSeek V4 与腾讯混元新模型将于4月同期发布，国产大模型迎来"双雄竞速"',
     tag: '技术突破',
     time: '2026-03-14',
@@ -794,7 +1065,7 @@ const NEWS_DATA = [
   },
   {
     id: 12,
-    company: 'tencent',
+    company: 'alibaba',
     title: '清华开源 OpenMAIC 多智能体虚拟课堂平台：一键生成沉浸式AI互动教室',
     tag: '产品发布',
     time: '2026-03-16',
@@ -818,7 +1089,7 @@ const NEWS_DATA = [
   },
   {
     id: 14,
-    company: 'baidu',
+    company: 'bytedance',
     title: '抖音 2026 年已处置1.4万个 AI 生成违规账号，AI 内容平台治理进入常态化严管阶段',
     tag: '技术突破',
     time: '2026-03-16',
@@ -831,14 +1102,53 @@ const NEWS_DATA = [
 ];
 
 // ─────────────────────────────────────────
-//  STATE
+//  QUOTES 每日一语（混合型）
 // ─────────────────────────────────────────
+const QUOTES = [
+  { text: '我们正处于一个拐点，AI将在未来10年内改变每一个行业。', author: '— 黄仁勋，英伟达CEO' },
+  { text: '如果你不能向一个6岁的孩子解释清楚，那你自己也没有真正理解。', author: '— 爱因斯坦' },
+  { text: 'AGI不是终点，是人类智慧新的起点。', author: '— Sam Altman，OpenAI CEO' },
+  { text: '最危险的想法，是认为现在已经足够好了。', author: '— 马斯克' },
+  { text: '技术的进步不会停下来等待道德和法律的跟上。', author: '— Nicholas Carr，《浅薄》作者' },
+  { text: '我们建造工具，然后工具塑造我们。', author: '— 马歇尔·麦克卢汉' },
+  { text: '开源是信任的基础设施。你看不见的东西，你无法真正信任。', author: '— 李开复' },
+  { text: '真正的智能不是存储信息，而是知道何时不使用它。', author: '— 纳西姆·塔勒布' },
+  { text: '每一家公司都将成为AI公司，或者消亡。', author: '— Jensen Huang，英伟达GTC 2026' },
+  { text: '简单是复杂的终极形式。', author: '— 达·芬奇' },
+  { text: '模型不会偷走你的工作，会用模型的人会。', author: '— AI行业共识，2025' },
+  { text: '预测未来最好的方式，是把它创造出来。', author: '— 艾伦·凯，计算机科学家' },
+  { text: '数据是新的石油，但未提炼的石油没有价值。', author: '— Clive Humby' },
+  { text: '一切能被自动化的，终将被自动化。唯有人的判断力例外。', author: '— 未知，AI时代流传' },
+  { text: '我们不是在建造更快的马车，我们在重新定义出行本身。', author: '— 硅谷创业精神' },
+  { text: '所有模型都是错的，但有些是有用的。', author: '— 乔治·博克斯，统计学家' },
+  { text: '在信息过剩的时代，注意力才是稀缺资源。', author: '— 赫伯特·西蒙' },
+  { text: '思考是困难的，这就是为什么大多数人只是形成观点。', author: '— 卡尔·荣格' },
+  { text: '未来已来，只是分布不均。', author: '— 威廉·吉布森' },
+  { text: '真正的突破往往来自于对"不可能"的蔑视。', author: '— Demis Hassabis，Google DeepMind CEO' },
+  { text: '合作不是竞争的对立面，而是竞争的更高形式。', author: '— Anthropic创始人理念' },
+  { text: '你的直觉是所有你曾经学过的东西的总和。', author: '— 未知' },
+  { text: '慢就是顺，顺就是快。', author: '— 海豹突击队格言' },
+  { text: '世界上最强大的力量，是复利——无论是金钱、知识还是信任。', author: '— 查理·芒格' },
+  { text: '做难而正确的事，因为容易的事情别人早就做了。', author: '— 硅谷创业哲学' },
+  { text: '有时候你必须先运行，才能知道该往哪里走。', author: '— 雷德·霍夫曼，LinkedIn创始人' },
+  { text: '语言是思维的外衣，而大模型正在为思维本身换一件外衣。', author: '— AI观察者，2026' },
+  { text: '别把忙碌当成高效的证明。', author: '— 蒂姆·费里斯' },
+  { text: '信息不等于知识，知识不等于智慧。', author: '— T.S.艾略特' },
+  { text: '机器正在学会思考，而人类还没学会如何与它共存。', author: '— 凯文·凯利' },
+  { text: '第一性原理思维：不接受任何前提，只接受逻辑。', author: '— 亚里士多德（马斯克诠释）' },
+];
+
+function getTodayQuote() {
+  const day = new Date().getDate();
+  return QUOTES[day % QUOTES.length];
+}
 let activeCompany = 'all';
 let activeFilter = 'all';
 let activeTags = new Set(['大模型', 'AI Agent', '产品发布']);
 let searchQuery = '';
 let sortMode = 'time';
 let visibleCount = 8;
+let viewMode = 'list'; // 'list' | 'grid'
 
 const DEFAULT_TAGS = ['大模型','AI Agent','产品发布','技术突破','医疗AI','编程工具','多模态','AGI','智能体','开源模型'];
 
@@ -876,10 +1186,15 @@ const ARCHIVE = {
 //  INIT
 // ─────────────────────────────────────────
 function init() {
-  // Header date
-  const now = new Date();
-  document.getElementById('headerDate').textContent =
-    `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 · 每日简报`;
+  // 每日一语
+  const q = getTodayQuote();
+  document.getElementById('quoteText').textContent = q.text;
+  document.getElementById('quoteAuthor').textContent = q.author;
+
+  // 今日条数
+  const todayStr = new Date().toISOString().slice(0,10);
+  const todayCount = NEWS_DATA.filter(n => n.time === todayStr).length;
+  document.getElementById('todayCount').textContent = todayCount || NEWS_DATA.length;
 
   // Category nav
   renderCatList();
@@ -891,6 +1206,8 @@ function init() {
   renderNews();
   // Archive
   renderArchive();
+  // Charts
+  renderCharts();
 }
 
 // ─────────────────────────────────────────
@@ -991,20 +1308,59 @@ function getFiltered() {
 }
 
 // ─────────────────────────────────────────
-//  RENDER NEWS
+//  RENDER NEWS（支持日期分组）
 // ─────────────────────────────────────────
 const TAG_CLASS = {
   '产品发布': 'tag-product',
   '技术突破': 'tag-tech',
   '战略合作': 'tag-strategy',
   '人事变动': 'tag-personnel',
-  '战略合作': 'tag-partnership',
+  '行业动态': 'tag-partnership',
 };
+
+function getDateLabel(dateStr) {
+  const today = new Date().toISOString().slice(0,10);
+  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0,10);
+  if (dateStr === today) return { label: '今天', isToday: true };
+  if (dateStr === yesterday) return { label: '昨天', isToday: false };
+  // 计算天数差
+  const diff = Math.round((new Date(today) - new Date(dateStr)) / 86400000);
+  if (diff <= 7) return { label: `${diff} 天前`, isToday: false };
+  return { label: dateStr, isToday: false };
+}
+
+function renderCardHTML(n) {
+  const co = COMPANIES.find(c => c.id === n.company) || COMPANIES[0];
+  const tagCls = TAG_CLASS[n.tag] || 'tag-product';
+  return `
+    <div class="news-card" id="card-${n.id}" style="--card-accent:${co.color}" onclick="toggleCard(${n.id})">
+      <div class="card-top">
+        <div class="company-badge" style="color:${co.color};border-color:${co.color}">
+          <span class="company-logo">${co.emoji}</span>${co.name}
+        </div>
+        <span class="tag-badge ${tagCls}">${n.tag}</span>
+        ${n.hot ? '<span class="hot-badge">🔥 热点</span>' : ''}
+        <span class="card-time">${n.source}</span>
+      </div>
+      <div class="card-title">${n.title}</div>
+      <div class="card-summary">${n.summary}</div>
+      <div class="card-bottom">
+        <a class="source-link" href="${n.sourceUrl}" target="_blank" onclick="event.stopPropagation()">
+          🔗 ${n.source}
+        </a>
+        <span style="font-size:11px;color:var(--text3)">📅 ${n.time}</span>
+        <button class="read-more" onclick="event.stopPropagation();toggleCard(${n.id})">展开全文 ▾</button>
+      </div>
+    </div>`;
+}
 
 function renderNews() {
   const filtered = getFiltered();
   const visible = filtered.slice(0, visibleCount);
   const grid = document.getElementById('newsGrid');
+
+  // 更新视图模式
+  grid.className = viewMode === 'grid' ? 'news-grid grid-view' : 'news-grid';
 
   if (visible.length === 0) {
     grid.innerHTML = `<div class="empty-state"><div class="icon">🔍</div><p>没有找到相关新闻，请调整筛选条件</p></div>`;
@@ -1012,33 +1368,41 @@ function renderNews() {
     return;
   }
 
-  grid.innerHTML = visible.map(n => {
-    const co = COMPANIES.find(c => c.id === n.company) || COMPANIES[0];
-    const tagCls = TAG_CLASS[n.tag] || 'tag-product';
-    return `
-      <div class="news-card" id="card-${n.id}" style="--card-accent:${co.color}" onclick="toggleCard(${n.id})">
-        <div class="card-top">
-          <div class="company-badge" style="color:${co.color};border-color:${co.color}">
-            <span class="company-logo">${co.emoji}</span>${co.name}
+  // 宫格模式不分组，直接渲染
+  if (viewMode === 'grid') {
+    grid.innerHTML = visible.map(n => renderCardHTML(n)).join('');
+  } else {
+    // 列表模式按日期分组
+    const groups = {};
+    const groupOrder = [];
+    visible.forEach(n => {
+      if (!groups[n.time]) {
+        groups[n.time] = [];
+        groupOrder.push(n.time);
+      }
+      groups[n.time].push(n);
+    });
+
+    grid.innerHTML = groupOrder.map(date => {
+      const { label, isToday } = getDateLabel(date);
+      const items = groups[date];
+      return `
+        <div class="date-group">
+          <div class="date-group-header">
+            <span class="date-group-label${isToday ? ' today' : ''}">${label}</span>
+            <div class="date-group-line"></div>
+            <span class="date-group-count">${items.length} 条</span>
           </div>
-          <span class="tag-badge ${tagCls}">${n.tag}</span>
-          ${n.hot ? '<span class="hot-badge">🔥 热点</span>' : ''}
-          <span class="card-time">${n.relTime}</span>
-        </div>
-        <div class="card-title">${n.title}</div>
-        <div class="card-summary">${n.summary}</div>
-        <div class="card-bottom">
-          <a class="source-link" href="${n.sourceUrl}" target="_blank" onclick="event.stopPropagation()">
-            🔗 ${n.source}
-          </a>
-          <span style="font-size:11px;color:var(--text3)">📅 ${n.time}</span>
-          <button class="read-more" onclick="event.stopPropagation();toggleCard(${n.id})">展开全文 ▾</button>
-        </div>
-      </div>`;
-  }).join('');
+          ${items.map(n => renderCardHTML(n)).join('')}
+        </div>`;
+    }).join('');
+  }
 
   const btn = document.getElementById('loadMoreBtn');
   btn.style.display = filtered.length > visibleCount ? 'block' : 'none';
+
+  // 检测摘要是否真的溢出
+  requestAnimationFrame(checkReadMoreVisibility);
 }
 
 function toggleCard(id) {
@@ -1047,6 +1411,21 @@ function toggleCard(id) {
   card.classList.toggle('expanded');
   const btn = card.querySelector('.read-more');
   if (btn) btn.textContent = card.classList.contains('expanded') ? '收起 ▴' : '展开全文 ▾';
+}
+
+// 渲染后检测每张卡片的摘要是否真的溢出，没溢出就隐藏"展开全文"按钮
+function checkReadMoreVisibility() {
+  document.querySelectorAll('.news-card').forEach(card => {
+    const summary = card.querySelector('.card-summary');
+    const btn = card.querySelector('.read-more');
+    if (!summary || !btn) return;
+    // 未展开状态下，scrollHeight > clientHeight 说明有被截断
+    if (!card.classList.contains('expanded') && summary.scrollHeight <= summary.clientHeight + 2) {
+      btn.style.visibility = 'hidden';
+    } else {
+      btn.style.visibility = 'visible';
+    }
+  });
 }
 
 function loadMore() {
@@ -1109,6 +1488,173 @@ document.getElementById('archiveModal').addEventListener('click', function(e) {
 
 // ─────────────────────────────────────────
 //  TOAST
+// ─────────────────────────────────────────
+//  VIEW TOGGLE
+// ─────────────────────────────────────────
+function setView(mode) {
+  viewMode = mode;
+  document.getElementById('viewList').classList.toggle('active', mode === 'list');
+  document.getElementById('viewGrid').classList.toggle('active', mode === 'grid');
+  renderNews();
+}
+
+// ─────────────────────────────────────────
+//  CHARTS 榜单
+// ─────────────────────────────────────────
+function renderCharts() {
+  const container = document.getElementById('chartsGrid');
+
+  // 1. 🔥 热榜 — 按热点+时间排序
+  const hotList = [...NEWS_DATA]
+    .sort((a,b) => (b.hot?1:0)-(a.hot?1:0) || b.time.localeCompare(a.time))
+    .slice(0, 12);
+
+  // 2. 🏢 公司动态 — 每家公司最新一条，按数量多的公司排前
+  const coMap = {};
+  NEWS_DATA.forEach(n => {
+    if (!coMap[n.company]) coMap[n.company] = [];
+    coMap[n.company].push(n);
+  });
+  const coList = Object.entries(coMap)
+    .sort((a,b) => b[1].length - a[1].length)
+    .map(([coId, items]) => {
+      const co = COMPANIES.find(c => c.id === coId) || COMPANIES[0];
+      const latest = items.sort((a,b) => b.time.localeCompare(a.time))[0];
+      return { co, news: latest, count: items.length };
+    })
+    .slice(0, 12);
+
+  // 3. 📋 事件类型 — 按tag分组，每组取最热的一条
+  const tagGroups = { '产品发布':[], '技术突破':[], '战略合作':[], '人事变动':[], '行业动态':[] };
+  NEWS_DATA.forEach(n => { if (tagGroups[n.tag]) tagGroups[n.tag].push(n); });
+  const typeList = Object.entries(tagGroups)
+    .filter(([,items]) => items.length > 0)
+    .map(([tag, items]) => {
+      const top = items.sort((a,b) => (b.hot?1:0)-(a.hot?1:0) || b.time.localeCompare(a.time))[0];
+      return { tag, count: items.length, news: top };
+    });
+  // 展开成标题列表
+  const typeListFlat = [];
+  Object.entries(tagGroups).forEach(([tag, items]) => {
+    items.sort((a,b) => (b.hot?1:0)-(a.hot?1:0)).forEach(n => typeListFlat.push({...n, tagLabel: tag}));
+  });
+  const typeSorted = typeListFlat.slice(0, 12);
+
+  // 4. ⭐ 影响力 — 分3层：全球级/行业级/公司级（用hot+公司规模判断）
+  const globalCos = new Set(['openai','anthropic','google','meta','microsoft','nvidia','apple','xai']);
+  const impList = [...NEWS_DATA].map(n => {
+    let level, levelColor;
+    if (n.hot && globalCos.has(n.company)) { level = '全球级'; levelColor = '#f87171'; }
+    else if (n.hot) { level = '行业级'; levelColor = '#fbbf24'; }
+    else { level = '公司级'; levelColor = '#94a3b8'; }
+    return { ...n, level, levelColor };
+  }).sort((a,b) => {
+    const order = { '全球级':0, '行业级':1, '公司级':2 };
+    return order[a.level] - order[b.level] || b.time.localeCompare(a.time);
+  }).slice(0, 12);
+
+  function rankClass(i) {
+    if (i === 0) return 'rank-1';
+    if (i === 1) return 'rank-2';
+    if (i === 2) return 'rank-3';
+    return 'rank-other';
+  }
+
+  const panels = [
+    {
+      icon: '🔥', title: '热榜', count: hotList.length,
+      html: hotList.map((n,i) => {
+        const co = COMPANIES.find(c => c.id === n.company) || COMPANIES[0];
+        return `<div class="chart-item" onclick="scrollToCard(${n.id})">
+          <span class="chart-rank ${rankClass(i)}">${i+1}</span>
+          <div class="chart-item-body">
+            <div class="chart-item-title">${n.title}</div>
+            <div class="chart-item-meta">
+              <span style="color:${co.color}">${co.emoji} ${co.name}</span>
+              <span>${n.relTime}</span>
+            </div>
+          </div>
+        </div>`;
+      }).join('')
+    },
+    {
+      icon: '🏢', title: '公司动态', count: coList.length,
+      html: coList.map((item,i) => `
+        <div class="chart-item" onclick="selectCompany('${item.co.id}')">
+          <span class="chart-rank ${rankClass(i)}">${i+1}</span>
+          <div class="chart-item-body">
+            <div class="chart-item-title">${item.news.title}</div>
+            <div class="chart-item-meta">
+              <span style="color:${item.co.color}">${item.co.emoji} ${item.co.name}</span>
+              <span>${item.count}条动态</span>
+            </div>
+          </div>
+        </div>`).join('')
+    },
+    {
+      icon: '📋', title: '事件类型', count: typeSorted.length,
+      html: typeSorted.map((n,i) => {
+        const co = COMPANIES.find(c => c.id === n.company) || COMPANIES[0];
+        const tagCls = TAG_CLASS[n.tagLabel] || 'tag-product';
+        return `<div class="chart-item" onclick="scrollToCard(${n.id})">
+          <span class="chart-rank ${rankClass(i)}">${i+1}</span>
+          <div class="chart-item-body">
+            <div class="chart-item-title">${n.title}</div>
+            <div class="chart-item-meta">
+              <span class="chart-item-tag ${tagCls}">${n.tagLabel}</span>
+              <span style="color:${co.color}">${co.emoji}</span>
+            </div>
+          </div>
+        </div>`;
+      }).join('')
+    },
+    {
+      icon: '⭐', title: '影响力', count: impList.length,
+      html: impList.map((n,i) => {
+        const co = COMPANIES.find(c => c.id === n.company) || COMPANIES[0];
+        return `<div class="chart-item" onclick="scrollToCard(${n.id})">
+          <span class="chart-rank ${rankClass(i)}">${i+1}</span>
+          <div class="chart-item-body">
+            <div class="chart-item-title">${n.title}</div>
+            <div class="chart-item-meta">
+              <span style="color:${n.levelColor};font-weight:600">${n.level}</span>
+              <span style="color:${co.color}">${co.emoji} ${co.name}</span>
+            </div>
+          </div>
+        </div>`;
+      }).join('')
+    }
+  ];
+
+  container.innerHTML = panels.map(p => `
+    <div class="chart-panel">
+      <div class="chart-panel-head">
+        <span class="chart-panel-icon">${p.icon}</span>
+        <span class="chart-panel-title">${p.title}</span>
+        <span class="chart-panel-count">${p.count}条</span>
+      </div>
+      <div class="chart-list">${p.html}</div>
+    </div>`).join('');
+}
+
+function scrollToCard(id) {
+  // 先确保 news grid 显示了这张卡片
+  const card = document.getElementById('card-' + id);
+  if (card) {
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    card.style.outline = '2px solid var(--accent)';
+    setTimeout(() => card.style.outline = '', 1500);
+  } else {
+    // 卡片还没渲染，增加 visibleCount 后重新渲染
+    visibleCount = NEWS_DATA.length;
+    renderNews();
+    setTimeout(() => {
+      const c = document.getElementById('card-' + id);
+      if (c) { c.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    }, 100);
+  }
+}
+
 // ─────────────────────────────────────────
 let toastTimer;
 function showToast(msg) {
