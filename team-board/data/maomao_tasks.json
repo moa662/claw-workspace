@@ -1,0 +1,704 @@
+{
+  "version": "1.0",
+  "last_sync": "2026-05-07T12:01:44.651594",
+  "tasks": [
+    {
+      "id": "T001",
+      "project": "IP项目",
+      "title": "门店资产视频剪辑",
+      "status": "已完成",
+      "progress": 100,
+      "note": "今晚发出"
+    },
+    {
+      "id": "T002",
+      "project": "IP项目",
+      "title": "预售视频剪辑",
+      "status": "已完成",
+      "progress": 100,
+      "note": "4/24已发布"
+    },
+    {
+      "id": "T003",
+      "project": "IP项目",
+      "title": "选题逻辑+选题库梳理",
+      "status": "已完成",
+      "progress": 100,
+      "note": "本周完成"
+    },
+    {
+      "id": "T004",
+      "project": "IP项目",
+      "title": "搭建选题库",
+      "status": "已完成",
+      "progress": 100,
+      "note": "本周完成"
+    },
+    {
+      "id": "T005",
+      "project": "IP项目",
+      "title": "产出两条文案",
+      "status": "已完成",
+      "progress": 100,
+      "note": "周二4月28日完成选题文案"
+    },
+    {
+      "id": "T006",
+      "project": "IP项目",
+      "title": "拍摄新文案视频",
+      "status": "已完成",
+      "progress": 100,
+      "note": "周三4月29日拍摄"
+    },
+    {
+      "id": "T007",
+      "project": "AI项目",
+      "title": "约课MVP方案需求确认",
+      "status": "已完成",
+      "progress": 100,
+      "note": ""
+    },
+    {
+      "id": "T008",
+      "project": "AI项目",
+      "title": "跟进报价单和开发周期",
+      "status": "已完成",
+      "progress": 100,
+      "note": "4/20前已完成"
+    },
+    {
+      "id": "T009",
+      "project": "AI项目",
+      "title": "拟定合作合同",
+      "status": "已完成",
+      "progress": 100,
+      "note": "已发送，等对方寄回"
+    },
+    {
+      "id": "T010",
+      "project": "AI项目",
+      "title": "合作流程框架确认",
+      "status": "已完成",
+      "progress": 100,
+      "note": "报价单确认后已完成"
+    },
+    {
+      "id": "T011",
+      "project": "数据中台",
+      "title": "看板调优",
+      "status": "待处理",
+      "progress": 0,
+      "note": "长期项目"
+    },
+    {
+      "id": "T012",
+      "project": "数据中台",
+      "title": "新增数据标签",
+      "status": "待处理",
+      "progress": 0,
+      "note": "长期项目"
+    },
+    {
+      "id": "T013",
+      "project": "数据中台",
+      "title": "续费率设计",
+      "status": "待处理",
+      "progress": 0,
+      "note": "长期项目"
+    },
+    {
+      "id": "T014",
+      "project": "团队助手",
+      "title": "员工私聊记录功能开发",
+      "status": "待处理",
+      "progress": 0,
+      "note": "长期项目"
+    },
+    {
+      "id": "T015",
+      "project": "团队助手",
+      "title": "寻找更好的优化方向",
+      "status": "待处理",
+      "progress": 0,
+      "note": "长期项目"
+    },
+    {
+      "id": "r5ak9E",
+      "project": "IP项目",
+      "title": "定选题框架",
+      "status": "已完成",
+      "progress": 100,
+      "note": "4/25完成"
+    },
+    {
+      "id": "rVQEst",
+      "project": "IP项目",
+      "title": "选出选题供IP挑选",
+      "status": "已完成",
+      "progress": 100,
+      "note": "4/25完成"
+    },
+    {
+      "id": "rmQZcp",
+      "project": "IP项目",
+      "title": "安排写稿和拍摄计划",
+      "status": "已完成",
+      "progress": 100,
+      "note": "周二4月28日安排写稿，周三4月29日拍摄"
+    },
+    {
+      "id": "rKsZVs",
+      "project": "数据中台",
+      "title": "店长候选人AI评估",
+      "status": "已完成",
+      "progress": 100,
+      "note": "用AI分析店长会议视频，评估谁适合做管理者"
+    },
+    {
+      "id": "M1",
+      "project": "AI项目",
+      "title": "MVP范围冻结+项目搭建",
+      "status": "已完成",
+      "progress": 100,
+      "note": "4/21-4/23 冻结一期范围；小程序主体/开发者/域名/备案准备；搭建项目、数据库迁移、部署和测试骨架"
+    },
+    {
+      "id": "M2",
+      "project": "AI项目",
+      "title": "核心数据模型+基础接口",
+      "status": "进行中",
+      "progress": 50,
+      "note": "M1-M2 数据模型+基础接口 截止4月24日"
+    },
+    {
+      "id": "M3",
+      "project": "AI项目",
+      "title": "会员预约主流程",
+      "status": "已完成",
+      "progress": 100,
+      "note": "M3 会员端预约+教练端确认+状态流转 4月26日完成"
+    },
+    {
+      "id": "M4",
+      "project": "AI项目",
+      "title": "取消/实扣规则+预约回归",
+      "status": "已完成",
+      "progress": 100,
+      "note": "M4 补齐取消和实扣规则，预约主链路回归 截止5月3日"
+    },
+    {
+      "id": "M5",
+      "project": "AI项目",
+      "title": "课时审核+排课+Web后台",
+      "status": "已完成",
+      "progress": 100,
+      "note": "M5 课时审核流，排课日历，Web管理后台 截止5月8日"
+    },
+    {
+      "id": "M6",
+      "project": "AI项目",
+      "title": "数据导入dry-run+试导入",
+      "status": "已完成",
+      "progress": 100,
+      "note": "M6 iWod数据导入试跑，关键风险点 截止5月10日"
+    },
+    {
+      "id": "M7",
+      "project": "AI项目",
+      "title": "看板下钻+标签规则+审计",
+      "status": "进行中",
+      "progress": 50,
+      "note": "M7 看板下钻，标签规则引擎，操作审计 截止5月14日"
+    },
+    {
+      "id": "M8",
+      "project": "AI项目",
+      "title": "企微提醒+小程序体验版+E2E",
+      "status": "进行中",
+      "progress": 20,
+      "note": "M8 企微消息提醒，小程序体验版，E2E测试 截止5月17日"
+    },
+    {
+      "id": "M9",
+      "project": "AI项目",
+      "title": "灰度试运行（单店）",
+      "status": "待处理",
+      "progress": 0,
+      "note": "M9 单店灰度试运行，收集一线反馈 截止5月20日"
+    },
+    {
+      "id": "M10",
+      "project": "AI项目",
+      "title": "上线准备+培训文档",
+      "status": "待处理",
+      "progress": 0,
+      "note": "M10 培训文档，操作手册，上线准备 截止5月24日"
+    },
+    {
+      "id": "M11",
+      "project": "AI项目",
+      "title": "逐店切换+运营支持",
+      "status": "待处理",
+      "progress": 0,
+      "note": "M11 逐店切换，5月31日全部切换截止"
+    },
+    {
+      "id": "T016",
+      "project": "AI项目",
+      "title": "问教练系统接入方式",
+      "status": "待处理",
+      "progress": 0,
+      "note": "今天上午确认教练怎么接入系统"
+    },
+    {
+      "id": "ri0QSu",
+      "project": "团队助手",
+      "title": "帮江山用Gemini生图：办公群文章转多图少字",
+      "status": "已完成",
+      "progress": 100,
+      "note": "帮助江山使用Gemini生图，把办公群纯文字文章变成图片形式，多图少字"
+    },
+    {
+      "id": "rAnHh0",
+      "project": "IP项目",
+      "title": "选题：给教练高提成，能换来高业绩吗？",
+      "status": "已完成",
+      "progress": 100,
+      "note": "视频已发布"
+    },
+    {
+      "id": "rTbxLx",
+      "project": "IP项目",
+      "title": "选题：你的普拉提店做多少业绩才赚钱？",
+      "status": "已完成",
+      "progress": 100,
+      "note": "视频已发布"
+    },
+    {
+      "id": "rW4zix",
+      "project": "IP项目",
+      "title": "选题：看到旁边竞品做低价活动，我终于松了一口气",
+      "status": "已完成",
+      "progress": 100,
+      "note": "明天剪完改完发布"
+    },
+    {
+      "id": "rihSfH",
+      "project": "IP项目",
+      "title": "总结选题的修改逻辑",
+      "status": "已完成",
+      "progress": 100,
+      "note": ""
+    },
+    {
+      "id": "T017",
+      "project": "AI项目",
+      "title": "客户数据字段新增：摘星计划（改变新星/改变之星/改变超星，可逐步升级，可叠加）",
+      "status": "待处理",
+      "progress": 0,
+      "note": "三个等级：改变新星→改变之星→改变超星；可逐步升级；允许同时持有多个星级（如即是新星又是之星）"
+    },
+    {
+      "id": "T018",
+      "project": "AI项目",
+      "title": "教练板块：到期会员保留归属教练信息",
+      "status": "待处理",
+      "progress": 0,
+      "note": "原系统到期后自动归档到到期栏，看不到归属门店和教练。新系统需要：会员到期后仍可查看名下归属哪个教练；教练专属会员到期不能隐藏教练归属信息"
+    },
+    {
+      "id": "T019",
+      "project": "AI项目",
+      "title": "备案认证：老板下载APP扫码完成备案",
+      "status": "待处理",
+      "progress": 0,
+      "note": "需要老板下载指定APP并扫码完成备案认证"
+    },
+    {
+      "id": "T020",
+      "project": "IP项目",
+      "title": "总结选题修改规律（复盘后）",
+      "status": "待处理",
+      "progress": 0,
+      "note": "上一轮修改规律已总结完成；本轮为数据复盘后新的规律总结，与上一轮是独立的两条任务"
+    },
+    {
+      "id": "T021",
+      "project": "数据中台",
+      "title": "CC",
+      "status": "待处理",
+      "progress": 0,
+      "note": "长期任务"
+    },
+    {
+      "id": "T022",
+      "project": "数据中台",
+      "title": "Cloud Code开发与尝试",
+      "status": "待处理",
+      "progress": 0,
+      "note": "长期任务"
+    },
+    {
+      "id": "T023",
+      "project": "团队助手",
+      "title": "润宇AI课内容汇总+制定同事AI工具同步方案",
+      "status": "待处理",
+      "progress": 0,
+      "note": "看润宇AI课内容，汇总后制定方案让同事把AI工具用到各自业务里"
+    }
+  ],
+  "tasks_by_project": {
+    "IP项目": [
+      {
+        "id": "T001",
+        "project": "IP项目",
+        "title": "门店资产视频剪辑",
+        "status": "已完成",
+        "progress": 100,
+        "note": "今晚发出"
+      },
+      {
+        "id": "T002",
+        "project": "IP项目",
+        "title": "预售视频剪辑",
+        "status": "已完成",
+        "progress": 100,
+        "note": "4/24已发布"
+      },
+      {
+        "id": "T003",
+        "project": "IP项目",
+        "title": "选题逻辑+选题库梳理",
+        "status": "已完成",
+        "progress": 100,
+        "note": "本周完成"
+      },
+      {
+        "id": "T004",
+        "project": "IP项目",
+        "title": "搭建选题库",
+        "status": "已完成",
+        "progress": 100,
+        "note": "本周完成"
+      },
+      {
+        "id": "T005",
+        "project": "IP项目",
+        "title": "产出两条文案",
+        "status": "已完成",
+        "progress": 100,
+        "note": "周二4月28日完成选题文案"
+      },
+      {
+        "id": "T006",
+        "project": "IP项目",
+        "title": "拍摄新文案视频",
+        "status": "已完成",
+        "progress": 100,
+        "note": "周三4月29日拍摄"
+      },
+      {
+        "id": "r5ak9E",
+        "project": "IP项目",
+        "title": "定选题框架",
+        "status": "已完成",
+        "progress": 100,
+        "note": "4/25完成"
+      },
+      {
+        "id": "rVQEst",
+        "project": "IP项目",
+        "title": "选出选题供IP挑选",
+        "status": "已完成",
+        "progress": 100,
+        "note": "4/25完成"
+      },
+      {
+        "id": "rmQZcp",
+        "project": "IP项目",
+        "title": "安排写稿和拍摄计划",
+        "status": "已完成",
+        "progress": 100,
+        "note": "周二4月28日安排写稿，周三4月29日拍摄"
+      },
+      {
+        "id": "rAnHh0",
+        "project": "IP项目",
+        "title": "选题：给教练高提成，能换来高业绩吗？",
+        "status": "已完成",
+        "progress": 100,
+        "note": "视频已发布"
+      },
+      {
+        "id": "rTbxLx",
+        "project": "IP项目",
+        "title": "选题：你的普拉提店做多少业绩才赚钱？",
+        "status": "已完成",
+        "progress": 100,
+        "note": "视频已发布"
+      },
+      {
+        "id": "rW4zix",
+        "project": "IP项目",
+        "title": "选题：看到旁边竞品做低价活动，我终于松了一口气",
+        "status": "已完成",
+        "progress": 100,
+        "note": "明天剪完改完发布"
+      },
+      {
+        "id": "rihSfH",
+        "project": "IP项目",
+        "title": "总结选题的修改逻辑",
+        "status": "已完成",
+        "progress": 100,
+        "note": ""
+      },
+      {
+        "id": "T020",
+        "project": "IP项目",
+        "title": "总结选题修改规律（复盘后）",
+        "status": "待处理",
+        "progress": 0,
+        "note": "上一轮修改规律已总结完成；本轮为数据复盘后新的规律总结，与上一轮是独立的两条任务"
+      }
+    ],
+    "AI项目": [
+      {
+        "id": "T007",
+        "project": "AI项目",
+        "title": "约课MVP方案需求确认",
+        "status": "已完成",
+        "progress": 100,
+        "note": ""
+      },
+      {
+        "id": "T008",
+        "project": "AI项目",
+        "title": "跟进报价单和开发周期",
+        "status": "已完成",
+        "progress": 100,
+        "note": "4/20前已完成"
+      },
+      {
+        "id": "T009",
+        "project": "AI项目",
+        "title": "拟定合作合同",
+        "status": "已完成",
+        "progress": 100,
+        "note": "已发送，等对方寄回"
+      },
+      {
+        "id": "T010",
+        "project": "AI项目",
+        "title": "合作流程框架确认",
+        "status": "已完成",
+        "progress": 100,
+        "note": "报价单确认后已完成"
+      },
+      {
+        "id": "M1",
+        "project": "AI项目",
+        "title": "MVP范围冻结+项目搭建",
+        "status": "已完成",
+        "progress": 100,
+        "note": "4/21-4/23 冻结一期范围；小程序主体/开发者/域名/备案准备；搭建项目、数据库迁移、部署和测试骨架"
+      },
+      {
+        "id": "M2",
+        "project": "AI项目",
+        "title": "核心数据模型+基础接口",
+        "status": "进行中",
+        "progress": 50,
+        "note": "M1-M2 数据模型+基础接口 截止4月24日"
+      },
+      {
+        "id": "M3",
+        "project": "AI项目",
+        "title": "会员预约主流程",
+        "status": "已完成",
+        "progress": 100,
+        "note": "M3 会员端预约+教练端确认+状态流转 4月26日完成"
+      },
+      {
+        "id": "M4",
+        "project": "AI项目",
+        "title": "取消/实扣规则+预约回归",
+        "status": "已完成",
+        "progress": 100,
+        "note": "M4 补齐取消和实扣规则，预约主链路回归 截止5月3日"
+      },
+      {
+        "id": "M5",
+        "project": "AI项目",
+        "title": "课时审核+排课+Web后台",
+        "status": "已完成",
+        "progress": 100,
+        "note": "M5 课时审核流，排课日历，Web管理后台 截止5月8日"
+      },
+      {
+        "id": "M6",
+        "project": "AI项目",
+        "title": "数据导入dry-run+试导入",
+        "status": "已完成",
+        "progress": 100,
+        "note": "M6 iWod数据导入试跑，关键风险点 截止5月10日"
+      },
+      {
+        "id": "M7",
+        "project": "AI项目",
+        "title": "看板下钻+标签规则+审计",
+        "status": "进行中",
+        "progress": 50,
+        "note": "M7 看板下钻，标签规则引擎，操作审计 截止5月14日"
+      },
+      {
+        "id": "M8",
+        "project": "AI项目",
+        "title": "企微提醒+小程序体验版+E2E",
+        "status": "进行中",
+        "progress": 20,
+        "note": "M8 企微消息提醒，小程序体验版，E2E测试 截止5月17日"
+      },
+      {
+        "id": "M9",
+        "project": "AI项目",
+        "title": "灰度试运行（单店）",
+        "status": "待处理",
+        "progress": 0,
+        "note": "M9 单店灰度试运行，收集一线反馈 截止5月20日"
+      },
+      {
+        "id": "M10",
+        "project": "AI项目",
+        "title": "上线准备+培训文档",
+        "status": "待处理",
+        "progress": 0,
+        "note": "M10 培训文档，操作手册，上线准备 截止5月24日"
+      },
+      {
+        "id": "M11",
+        "project": "AI项目",
+        "title": "逐店切换+运营支持",
+        "status": "待处理",
+        "progress": 0,
+        "note": "M11 逐店切换，5月31日全部切换截止"
+      },
+      {
+        "id": "T016",
+        "project": "AI项目",
+        "title": "问教练系统接入方式",
+        "status": "待处理",
+        "progress": 0,
+        "note": "今天上午确认教练怎么接入系统"
+      },
+      {
+        "id": "T017",
+        "project": "AI项目",
+        "title": "客户数据字段新增：摘星计划（改变新星/改变之星/改变超星，可逐步升级，可叠加）",
+        "status": "待处理",
+        "progress": 0,
+        "note": "三个等级：改变新星→改变之星→改变超星；可逐步升级；允许同时持有多个星级（如即是新星又是之星）"
+      },
+      {
+        "id": "T018",
+        "project": "AI项目",
+        "title": "教练板块：到期会员保留归属教练信息",
+        "status": "待处理",
+        "progress": 0,
+        "note": "原系统到期后自动归档到到期栏，看不到归属门店和教练。新系统需要：会员到期后仍可查看名下归属哪个教练；教练专属会员到期不能隐藏教练归属信息"
+      },
+      {
+        "id": "T019",
+        "project": "AI项目",
+        "title": "备案认证：老板下载APP扫码完成备案",
+        "status": "待处理",
+        "progress": 0,
+        "note": "需要老板下载指定APP并扫码完成备案认证"
+      }
+    ],
+    "数据中台": [
+      {
+        "id": "T011",
+        "project": "数据中台",
+        "title": "看板调优",
+        "status": "待处理",
+        "progress": 0,
+        "note": "长期项目"
+      },
+      {
+        "id": "T012",
+        "project": "数据中台",
+        "title": "新增数据标签",
+        "status": "待处理",
+        "progress": 0,
+        "note": "长期项目"
+      },
+      {
+        "id": "T013",
+        "project": "数据中台",
+        "title": "续费率设计",
+        "status": "待处理",
+        "progress": 0,
+        "note": "长期项目"
+      },
+      {
+        "id": "rKsZVs",
+        "project": "数据中台",
+        "title": "店长候选人AI评估",
+        "status": "已完成",
+        "progress": 100,
+        "note": "用AI分析店长会议视频，评估谁适合做管理者"
+      },
+      {
+        "id": "T021",
+        "project": "数据中台",
+        "title": "CC",
+        "status": "待处理",
+        "progress": 0,
+        "note": "长期任务"
+      },
+      {
+        "id": "T022",
+        "project": "数据中台",
+        "title": "Cloud Code开发与尝试",
+        "status": "待处理",
+        "progress": 0,
+        "note": "长期任务"
+      }
+    ],
+    "团队助手": [
+      {
+        "id": "T014",
+        "project": "团队助手",
+        "title": "员工私聊记录功能开发",
+        "status": "待处理",
+        "progress": 0,
+        "note": "长期项目"
+      },
+      {
+        "id": "T015",
+        "project": "团队助手",
+        "title": "寻找更好的优化方向",
+        "status": "待处理",
+        "progress": 0,
+        "note": "长期项目"
+      },
+      {
+        "id": "ri0QSu",
+        "project": "团队助手",
+        "title": "帮江山用Gemini生图：办公群文章转多图少字",
+        "status": "已完成",
+        "progress": 100,
+        "note": "帮助江山使用Gemini生图，把办公群纯文字文章变成图片形式，多图少字"
+      },
+      {
+        "id": "T023",
+        "project": "团队助手",
+        "title": "润宇AI课内容汇总+制定同事AI工具同步方案",
+        "status": "待处理",
+        "progress": 0,
+        "note": "看润宇AI课内容，汇总后制定方案让同事把AI工具用到各自业务里"
+      }
+    ]
+  }
+}
