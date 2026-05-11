@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_sync": "2026-05-07T07:12:26.726Z",
+  "last_sync": "2026-05-11T06:33:23.333Z",
   "tasks": [
     {
       "id": "T001",
@@ -206,16 +206,16 @@
       "id": "M7",
       "project": "AI项目",
       "title": "看板下钻+标签规则+审计",
-      "status": "进行中",
-      "progress": 50,
+      "status": "已完成",
+      "progress": 100,
       "note": "M7 看板下钻，标签规则引擎，操作审计 截止5月14日"
     },
     {
       "id": "M8",
       "project": "AI项目",
       "title": "企微提醒+小程序体验版+E2E",
-      "status": "进行中",
-      "progress": 20,
+      "status": "已完成",
+      "progress": 100,
       "note": "M8 企微消息提醒，小程序体验版，E2E测试 截止5月17日"
     },
     {
@@ -547,16 +547,16 @@
         "id": "M7",
         "project": "AI项目",
         "title": "看板下钻+标签规则+审计",
-        "status": "进行中",
-        "progress": 50,
+        "status": "已完成",
+        "progress": 100,
         "note": "M7 看板下钻，标签规则引擎，操作审计 截止5月14日"
       },
       {
         "id": "M8",
         "project": "AI项目",
         "title": "企微提醒+小程序体验版+E2E",
-        "status": "进行中",
-        "progress": 20,
+        "status": "已完成",
+        "progress": 100,
         "note": "M8 企微消息提醒，小程序体验版，E2E测试 截止5月17日"
       },
       {
